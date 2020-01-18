@@ -1,4 +1,4 @@
-NAMEA = libmx.a
+NAME = libmx.a
 
 INC = libmx.h
 
@@ -60,6 +60,12 @@ mx_memcpy.c \
 mx_replace_substr.c \
 mx_memmem.c \
 mx_sort_list.c \
+mx_calc_num.c \
+mx_isspace.c \
+mx_strchr.c \
+mx_strjoin_no_leaks.c \
+mx_strchr_index.c \
+mx_add_buff_to_static.c
 
 SRCS = \
 src/mx_binary_search.c \
@@ -117,6 +123,12 @@ src/mx_memcpy.c \
 src/mx_replace_substr.c \
 src/mx_memmem.c \
 src/mx_sort_list.c \
+src/mx_calc_num.c \
+src/mx_isspace.c \
+src/mx_strchr.c \
+src/mx_strjoin_no_leaks.c \
+src/mx_strchr_index.c \
+src/mx_add_buff_to_static.c
 
 OBJ =\
 mx_binary_search.o \
@@ -174,6 +186,12 @@ mx_memcpy.o \
 mx_replace_substr.o \
 mx_memmem.o \
 mx_sort_list.o \
+mx_calc_num.o \
+mx_isspace.o \
+mx_strchr.o \
+mx_strjoin_no_leaks.o \
+mx_strchr_index.o \
+mx_add_buff_to_static.o
 
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
@@ -183,13 +201,12 @@ install:
 	@cp $(SRCS) .
 	@cp $(INCI) .
 	@clang $(CFLAGS) -c $(SRC) -I $(INC)
-	@ar crs $(NAMEA) $(OBJ)
+	@ar crs $(NAME) $(OBJ)
 	@mkdir -p obj
 	@mv $(OBJ) ./obj
-uninstall:
-	@rm -rf $(NAMEA) $(SRC) $(INC)
-	@rm -rf ./obj
+uninstall: clean
+	@rm -rf $(NAME)
 clean:
 	@rm -rf $(SRC) $(INC)
 	@rm -rf ./obj
-reinstall: uninstall all
+reinstall: uninstall install
