@@ -12,6 +12,11 @@ mx_uls_no_flag.c \
 mx_print_directory.c \
 mx_uls_only.c \
 mx_output.c \
+mx_get_flags.c \
+mx_args_to_struct.c \
+mx_print_not_valid.c \
+mx_arr_size.c \
+mx_del_str_arr.c \
 
 
 SRCS = $(addprefix src/, $(SRC))
