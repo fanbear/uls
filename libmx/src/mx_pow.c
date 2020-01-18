@@ -1,15 +1,15 @@
 #include "libmx.h"
 
 double mx_pow(double n, unsigned int pow) {
-    double sp = n;
+    double sum = 1;
 
+    if (pow == 0)
+        return sum;
     if (pow < 0)
-    	return 1;
-    if ( pow == 0)
-    	return 1;
-    while (pow > 1) {
-         n = n * sp; 
-         pow--;
+        return sum;
+    while (pow > 0) {
+        sum = sum * n;
+        pow--;
     }
-    return n;
+    return sum;
 }

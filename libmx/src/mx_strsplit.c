@@ -1,36 +1,40 @@
 #include "libmx.h"
 
-static char **check(int size_arr, const char *s, char **result);
+static char** split_word(const char *s, char c, char ** arr);
 
 char **mx_strsplit(const char *s, char c) {
-    int size_arr = mx_count_words(s, c);
-    int counter = 0;
-    char **result = malloc(sizeof(char *) * (size_arr + 1));
-    int index = 0;
+    int count = mx_count_words(s, c);
+    char** arr = (char**)malloc(sizeof(char*) * count + 1);
 
-    result = check(size_arr, s, result);
-    for (int i = 0; i < mx_strlen(s); i++) {
-        index = mx_get_char_index(s, c);
-        index = index == -1 ? mx_strlen(s) : index;
-        if (index) {
-            result[counter] = mx_strndup(s, index);
-            s += mx_strlen(result[counter]) - 1;
-            i += mx_strlen(result[counter]) - 1;
-            counter++;
-        }
-        s++;
-    } 
-    result[size_arr] = NULL;
-    return result;
+    if(!s)
+        return NULL;
+    if (count == 1) {
+        arr[0] =  mx_strdup(s);
+        arr[1] = NULL;
+        return arr;
+    }
+    return split_word(s, c, arr);
 }
 
-static char **check(int size_arr, const char *s, char **result) {
-    if (!s)
-        return NULL;
-    if (size_arr == 1) {
-        result[0] = mx_strdup(s);
-        result[1] = NULL;
-        return result;
+static char** split_word(const char *s, char c, char **arr) {
+    int j = 0;
+    int letters = 0;
+    int word = 0;
+
+    for (int i = 0; s[i] != '\0'; i++) {
+        while (s[i] != c && s[i] != '\0') {
+             word = 1;
+             letters++;
+             i++;
+        }
+        if (word) {
+            arr[j] = mx_strnew(letters);
+            arr[j] = mx_strncpy(arr[j], s + i - letters, letters);
+            word = 0;
+            letters = 0;
+            j++;
+        }
     }
-    return result;
+    arr[j] = NULL;
+    return arr;
 }
