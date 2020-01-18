@@ -9,8 +9,8 @@ INCLIB = libmx/libmx.a
 SRC = \
 main.c \
 mx_uls_no_flag.c \
-mx_print_no_flag.c \
-mx_opendir.c \
+mx_print_directory.c \
+mx_uls_only.c \
 mx_output.c \
 
 

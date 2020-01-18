@@ -3,7 +3,7 @@
 static void b_sort(char **arr, int size);
 static int dell_point(char **src, st_general *gnr);
 
-void mx_opendir(st_general *gnr) {
+void mx_uls_only(st_general *gnr) {
     int count = 0;
 	DIR *dptr;
     struct dirent *ds;
@@ -23,7 +23,7 @@ void mx_opendir(st_general *gnr) {
     closedir(dptr);
     count = dell_point(temp, gnr);
     b_sort(gnr->no_point, count);
-    mx_output(gnr, count);
+    mx_output(gnr->no_point, count);
 }
 
 static void b_sort(char **arr, int size) { 

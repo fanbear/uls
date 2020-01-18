@@ -13,7 +13,6 @@
 #include <dirent.h>
 #include "libmx/inc/libmx.h"
 
-#define NO_FLAG "."
 //***************************** Utils pack *******************************
 
 typedef struct general{
@@ -22,9 +21,9 @@ typedef struct general{
 } st_general;
 
 char **mx_uls_no_flag(int argc, char *argv[]);
-void mx_print_no_flag(int argc, char *argv[], st_general *gnr);
-void mx_opendir(st_general *gnr);
-void mx_output(st_general *gnr, int size);
+void mx_print_directory(st_general *gnr);
+void mx_uls_only(st_general *gnr);
+void mx_output(char **src, int size);
 //-----------------------------------------------------------------------                                       
 
 #endif
