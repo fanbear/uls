@@ -38,4 +38,4 @@ clean:
 	@rm -rf $(SRC) $(OBJ) $(INC)
 	@rm -rf ./obj
 
-reinstall: uninstall all
+reinstall: uninstall install
