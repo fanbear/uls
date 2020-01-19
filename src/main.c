@@ -4,8 +4,10 @@ static void mx_sort_args(t_args *args, int argc, char **argv) {
 	int index = 1;
 
 	args->flags = mx_get_flags(&index, argc, argv);
-	mx_args_to_struct(index, argc, argv, args);
-	mx_print_not_valid(mx_arr_size(args->not_valid), args->not_valid);
+	if (argc > 1) {
+		mx_args_to_struct(index, argc, argv, args);
+		mx_print_not_valid(mx_arr_size(args->not_valid), args->not_valid);
+	}
 }
 
 int main(int argc, char **argv) {
