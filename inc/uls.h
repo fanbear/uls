@@ -18,12 +18,18 @@
 
 #define LEGAL "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1"
 
-typedef struct s_flags {
+typedef struct s_args {
 	char *flags;
-} t_flags;
+	char **files;
+	char **dirs;
+	char **not_valid;
+} t_args;
 
-void mx_check_dirs(int index, int argc, char **argv);
 char *mx_get_flags(int *index, int argc, char **argv);
+void mx_args_to_struct(int index, int argc, char **argv, t_args *args);
+void mx_print_not_valid(int amount, char **argv);
+void mx_del_str_arr(char **arr);
+int mx_arr_size(char **arr);
 
 
 typedef struct general{

@@ -35,17 +35,16 @@ static void amount_of_flags(int *amount, char *flag) {
 static char *parse_to_arr(int index, char **argv, int amount) {
 	if (index != 1) {
 		char *flags = mx_strnew(amount);
-		int i = 1;
-		int j = 1;
 		int k = 0;
+		int i;
+		int j;
 
-		for (; i < index; i++) {
-			for (j = 1; argv[i][j + 1]; j++) {
-				flags[k++] = argv[i][j + 1];
+		for (i = 1; i < index; i++) {
+			for (j = 1; argv[i][j]; j++) {
+				flags[k++] = argv[i][j];
 			}
 		}
 		return flags;
 	}
 	return NULL;
 }
-
