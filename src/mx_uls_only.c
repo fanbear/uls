@@ -26,7 +26,7 @@ void mx_uls_only(st_general *gnr) {
     mx_output(gnr->no_point, count);
 }
 
-static void b_sort(char **arr, int size) { 
+static void b_sort(char **arr, int size) {
     char *buf = (char*)malloc(sizeof(char) * 200);
 
     for (int i = 0; i < size - 1; i++) {
