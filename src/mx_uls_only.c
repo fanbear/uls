@@ -14,9 +14,9 @@ void mx_uls_only(st_general *gnr) {
     	count++;
     closedir(dptr);
     dptr = opendir(".");
-    temp = (char**)malloc(sizeof(char) * count);
+    temp = (char**)malloc(sizeof(char) * count + 1);
     for (int i = 0; (ds = readdir(dptr)) != NULL; i++){
-    	temp[i] = malloc(sizeof(char*) * mx_strlen(ds->d_name));
+    	temp[i] = malloc(sizeof(char*) * mx_strlen(ds->d_name) + 1);
         temp[i] = ds->d_name;
         temp[i + 1] = NULL;
     }
@@ -27,12 +27,11 @@ void mx_uls_only(st_general *gnr) {
 }
 
 static void b_sort(char **arr, int size) { 
-    char *buf = (char*)malloc(sizeof(char) * 200);
-
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - i - 1; j++) {
             if (mx_strcmp(arr[j], arr[j + 1]) > 0) {
-                buf = arr[j];
+                char *buf = mx_strdup(arr[j]);
+
                 arr[j] = arr[j + 1];
                 arr[j + 1] = buf;
              }
@@ -52,7 +51,7 @@ static int dell_point(char **src, st_general *gnr) {
 		if (src[i][0] == '.')
 			i++;
 		if (src[i][0] != '.') {
-			gnr->no_point[n] = (char*)malloc(sizeof(char) * mx_strlen(src[i]));
+			gnr->no_point[n] = (char*)malloc(sizeof(char) * mx_strlen(src[i]) + 1);
 			gnr->no_point[n] = src[i];
 			n++;
 			size++;
