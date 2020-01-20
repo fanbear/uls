@@ -27,9 +27,15 @@ typedef struct s_args {
 
 typedef struct s_dirs {
 	char *dir;
-	struct dirent *entry_dir;
+	struct s_dirs_entry *entry_dir;
 	struct s_dirs *next;
 } t_dirs;
+
+typedef struct s_dirs_entry {
+	char *d_name;
+	int d_type;
+	struct s_dirs_entry *next;
+} t_dirs_entry;
 
 char *mx_get_flags(int *index, int argc, char **argv);
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args);

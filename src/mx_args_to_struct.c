@@ -84,8 +84,6 @@ char **dirs, char **n_valid) {
     args->files = malloc(sizeof(char *) * (mx_arr_size(files) + 1));
     args->dirs = malloc(sizeof(char *) * (mx_arr_size(dirs) + 1));
     args->not_valid = malloc(sizeof(char *) * (mx_arr_size(n_valid) + 1));
-    printf("%p\n", (void *)args->dirs);
-    exit(1);
     args->files[0] = NULL;
     args->dirs[0] = NULL;
     args->not_valid[0] = NULL;
