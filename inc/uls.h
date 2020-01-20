@@ -12,6 +12,8 @@
 #include <malloc/malloc.h>
 #include <dirent.h>
 #include "libmx/inc/libmx.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 
 //***************************** Utils pack *******************************
 
@@ -19,6 +21,10 @@ typedef struct general{
 	char **d_str; // данные с точками
 	char **no_point; // данные без точек
 } st_general;
+
+typedef struct file { //структура для файлов
+	char* permiss;
+} t_file
 
 char **mx_uls_no_flag(int argc, char *argv[]);
 void mx_print_directory(st_general *gnr);
