@@ -8,11 +8,12 @@ char **dirs, char **n_valid);
 
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
     char **files = (char **)malloc(sizeof(char *) * (argc - 1));
-    char **dirs = (char **)malloc(sizeof(char *) * (argc - 1));
+    char **dirs = (char **)malloc(sizeof(char *) * (argc + 1));
     char **not_valid = (char **)malloc(sizeof(char *) * (argc - 1));
 
     files[0] = NULL;
-    dirs[0] = NULL;
+    dirs[0] = mx_strdup(".");
+    dirs[1] = NULL;
     not_valid[0] = NULL;
     for (; index < argc; index++) {
         if (get_arg_info(argv, index) == -1)
@@ -75,6 +76,7 @@ static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {
         if (n_valid[k]) {
             push_arg_to_arr(args->not_valid, n_valid[k]);
             k++;
+            exit(1);
         }
     }
 }

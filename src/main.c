@@ -1,8 +1,66 @@
 #include "uls.h"
+
 static t_args *mx_sort_args(int argc, char **argv);
 static t_dirs *mx_get_dir_entry(t_args *args, int amount);
 static void add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry);
 static t_dirs_entry *mx_pushing_data(struct dirent *entry);
+
+int main(int argc, char **argv) {
+	t_args *args = mx_sort_args(argc, argv);
+	t_dirs *dirs_entry = NULL;
+
+	if (args && args->dirs)
+		 dirs_entry = mx_get_dir_entry(args, mx_arr_size(args->dirs));
+
+	// t_dirs **temp = &dirs_entry;
+	// for (int i = 0; temp[i]; i++) {
+	//
+	// 	printf("%s :\n", temp[i]->dir);
+	// 	temp[i]
+		// t_dirs_entry **temp_entry = &temp[i]->entry_dir;
+		// for (int j = 0; temp_entry[j]; j++) {
+		// 	printf("\t%d\t%s\n", temp_entry[j]->d_type, temp_entry[j]->d_name);
+			// printf("\t%d\t%s\n", dirs_entry->entry_dir->d_type, dirs_entry->entry_dir->d_name);
+		// }
+	// }
+
+	// exit(1);
+	// t_dirs *temp = NULL;
+	// while (dirs_entry) {
+	// 	temp = dirs_entry->next
+	// 	mx_strdel(&dirs_entry->dir);
+
+		t_dirs_entry *temp_entry = NULL;
+
+		while (dirs_entry->entry_dir) {
+			temp_entry = dirs_entry->entry_dir->next;
+			mx_strdel(&dirs_entry->entry_dir->d_name);
+			if (dirs_entry->entry_dir->next) {
+				free(dirs_entry->entry_dir->next);
+				dirs_entry->entry_dir->next = NULL;
+			}
+			dirs_entry->entry_dir = temp_entry;
+		}
+	// }
+
+	// system("leaks -q uls");
+	// st_general *gnr = (st_general*)malloc(sizeof(st_general));
+	// if (isatty(1)) {
+	//
+	// }
+	//
+	// if (isatty(1)) {
+	// 	if (argc == 1)
+	// 		mx_uls_only(gnr);
+	// 	if (argc > 1) {
+	// 		gnr->d_str = mx_uls_no_flag(argc, argv);
+	// 		mx_print_directory(gnr);
+	// 	}
+	// }
+	// else {
+	// 	printf("asd\n");
+	// }
+}
 
 static t_args *mx_sort_args(int argc, char **argv) {
 	t_args *args = NULL;
@@ -54,62 +112,4 @@ static t_dirs_entry *mx_pushing_data(struct dirent *entry) {
 	temp->d_type = (int)entry->d_type;
 	temp->next = NULL;
 	return temp;
-}
-
-int main(int argc, char **argv) {
-	t_args *args = mx_sort_args(argc, argv);
-	t_dirs *dirs_entry = NULL;
-
-	if (args && args->dirs)
-		 dirs_entry = mx_get_dir_entry(args, mx_arr_size(args->dirs));
-
-	t_dirs *temp = dirs_entry;
-	while (temp) {
-
-		printf("%s :\n", temp->dir);
-		while (temp->entry_dir) {
-			printf("\t%d\t%s\n", temp->entry_dir->d_type, temp->entry_dir->d_name);
-			printf("\t%d\t%s\n", dirs_entry->entry_dir->d_type, dirs_entry->entry_dir->d_name);
-			temp->entry_dir = temp->entry_dir->next;
-		}
-		temp = temp->next;
-	}
-
-	exit(1);
-	while (dirs_entry) {
-		printf("%s :\n", dirs_entry->dir);
-		printf("\t%d\t%s\n", dirs_entry->entry_dir->d_type, dirs_entry->entry_dir->d_name);
-		t_dirs_entry *temp_entry;
-
-		temp = dirs_entry->next;
-		mx_strdel(&dirs_entry->dir);
-		while (dirs_entry->entry_dir) {
-			temp_entry = dirs_entry->entry_dir->next;
-			mx_strdel(&dirs_entry->entry_dir->d_name);
-			free(dirs_entry->entry_dir->next);
-			dirs_entry->entry_dir->next = NULL;
-			dirs_entry->entry_dir = temp_entry;
-		}
-		free(dirs_entry->next);
-		dirs_entry->next = NULL;
-		dirs_entry = temp;
-	}
-	// free(dirs_entry);
-	system("leaks uls");
-	// st_general *gnr = (st_general*)malloc(sizeof(st_general));
-	// if (isatty(1)) {
-	//
-	// }
-	//
-	// if (isatty(1)) {
-	// 	if (argc == 1)
-	// 		mx_uls_only(gnr);
-	// 	if (argc > 1) {
-	// 		gnr->d_str = mx_uls_no_flag(argc, argv);
-	// 		mx_print_directory(gnr);
-	// 	}
-	// }
-	// else {
-	// 	printf("asd\n");
-	// }
 }
