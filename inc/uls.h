@@ -24,6 +24,19 @@ typedef struct general{
 
 typedef struct file { //структура для файлов
 	char* permiss;
+	struct stat buf;
+	char *file_name;
+    struct stat stat;
+    char *uid_name;
+    char *gid_name;
+    short   nlink;        //number hard links
+    blkcnt_t blocks;
+    off_t file_size;
+    time_t a_time;        /* [XSI] Time of last access */
+    time_t m_time;
+    time_t c_time;
+    char *absolute_name;      //if link
+    char   *name_link;        //  if  file = link for print
 } t_file
 
 char **mx_uls_no_flag(int argc, char *argv[]);

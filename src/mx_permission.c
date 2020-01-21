@@ -8,16 +8,10 @@
 #include <sys/types.h>
 #include <sys/acl.h>
 
-// переделать под статики, весь функционал вывода прав доступа работает
-char* mx_permission(const char* file) {
-	char* str = malloc(sizeof(char)* 11);
-	struct stat buf;
-	lstat(file, &buf);
-	size_t value = 0;
-	char* key = NULL;
-	acl_t acl = NULL;
 
-	if ((buf.st_mode & S_IFMT) == S_IFREG)
+ static void type(char* str, struct stat buf, const char* file) {
+ 	lstat(file, &buf);
+ 	if ((buf.st_mode & S_IFMT) == S_IFREG)
 		str[0] = '-';
 	else if ((buf.st_mode & S_IFMT) == S_IFLNK)
 		str[0] = 'l';
@@ -31,8 +25,10 @@ char* mx_permission(const char* file) {
 		str[0] = 's';
 	else if ((buf.st_mode & S_IFMT) == S_IFBLK)
 		str[0] = 'b';
+ }
 
-	if (buf.st_mode & S_IRUSR)
+ static void perm_for_user(struct stat buf, char* str, const char* file) {
+ 	if (buf.st_mode & S_IRUSR)
 		str[1] = 'r';
 	else
 		str[1] = '-';
@@ -44,7 +40,10 @@ char* mx_permission(const char* file) {
 		str[3] = 'x';
 	else
 		str[3] = '-';
-	if (buf.st_mode & S_IRGRP)
+ }
+
+ static void perm_for_group(struct stat buf, char* str, const char* file) {
+ 	if (buf.st_mode & S_IRGRP)
 		str[4] = 'r';
 	else
 		str[4] = '-';
@@ -56,7 +55,10 @@ char* mx_permission(const char* file) {
 		str[6] = 'x';
 	else
 		str[6] = '-';
-	if (buf.st_mode & S_IROTH)
+ }
+
+ static void perm_for_other(struct stat buf, char* str, const char* file) {
+ 	if (buf.st_mode & S_IROTH)
 		str[7] = 'r';
 	else
 		str[7] = '-';
@@ -68,7 +70,19 @@ char* mx_permission(const char* file) {
 		str[9] = 'x';
 	else
 		str[9] = '-';
-	value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
+ }
+char* mx_permission(const char* file) {
+	char* str = malloc(sizeof(char)* 11);
+	struct stat buf;
+	size_t value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
+	char* key = NULL;
+	acl_t acl = NULL;
+
+	lstat(file, &buf);
+	type(str, buf, file);
+	perm_for_user(buf, str,file);
+	perm_for_group(buf, str, file);
+	perm_for_other(buf, str, file);
 	if (value > 0) {
 		str[10] = '@';
 		return str;
