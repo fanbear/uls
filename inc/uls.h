@@ -23,7 +23,7 @@ typedef struct general{
 } st_general;
 
 void mx_print_uls_and_cat(int argc, char **argv);
-char **mx_uls_no_flag(int argc, char *argv[]);
+char **mx_open_directory(int argc, char *argv[]);
 void mx_print_directory(st_general *gnr);
 void mx_uls_only(st_general *gnr);
 void mx_output(char **src, int size);

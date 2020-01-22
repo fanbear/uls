@@ -10,7 +10,7 @@ void mx_output_cat(st_general *gnr, int argc, char **argv) {
 		open_dot(gnr);
 	}
 	if (argc > 1) {
-		gnr->d_str = mx_uls_no_flag(argc, argv);
+		gnr->d_str = mx_open_directory(argc, argv);
 		print_directory(gnr);
 	}
 }
@@ -26,16 +26,16 @@ static void open_dot(st_general *gnr) {
     	count++;
     closedir(dptr);
     dptr = opendir(".");
-    temp = (char**)malloc(sizeof(char) * count);
+    temp = (char**)malloc(sizeof(char) * count + 1);
     for (int i = 0; (ds = readdir(dptr)) != NULL; i++){
-    	temp[i] = malloc(sizeof(char*) * mx_strlen(ds->d_name));
+    	temp[i] = mx_strdup(ds->d_name);
         temp[i] = ds->d_name;
         temp[i + 1] = NULL;
     }
     closedir(dptr);
     count = dell_point(temp, gnr);
     mx_b_sort(gnr->no_point, count);
-    print_cat(gnr->no_point, count); //  принт через /n
+    print_cat(gnr->no_point, count);
 }
 
 static int dell_point(char **src, st_general *gnr) {
@@ -45,13 +45,13 @@ static int dell_point(char **src, st_general *gnr) {
 
 	for (int i = 0; src[i] != NULL; i++ )
 		cn++;
-	gnr->no_point = (char**)malloc(sizeof(char) * (cn + 1));
+	gnr->no_point = (char**)malloc(sizeof(char*) * (cn + 10));
 	for (int i = 0; i < cn; i++) {
 		if (src[i][0] == '.')
 			i++;
 		if (src[i][0] != '.') {
-			gnr->no_point[n] = (char*)malloc(sizeof(char) * mx_strlen(src[i]));
-			gnr->no_point[n] = src[i];
+			gnr->no_point[n] = mx_strdup(src[i]);
+			gnr->no_point[n + 1] = NULL;
 			n++;
 			size++;
 		}
@@ -74,5 +74,5 @@ static void print_directory(st_general *gnr) {
 		count++;
 	count = dell_point(gnr->d_str, gnr);
 	mx_b_sort(gnr->no_point, count);
-	mx_output(gnr->no_point, count);
+	print_cat(gnr->no_point, count);
 }

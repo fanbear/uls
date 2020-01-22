@@ -7,38 +7,40 @@ void mx_output(char **src, int size) {
 	int max = max_symbol(src);
 	int cirlce = 0;
 	int wsz = window_size();
-	int col = size * max;
+	int col = (max * size) / wsz;
 
-	printf("max = %d\n", (max + 8) * size);
-	printf("wsz = %d\n", wsz);
-	printf("col = %d\n", col);
-	printf("max = %d\n", max);
-	if ((max + 8) * size < wsz) {
+	if ((max * size) % wsz > 60)
+		col++;
+	if (wsz - (max * size % wsz) < max)
+		col++;
+
+	if ((max) * size < wsz) {
 		for (int i = 0; i < size; ++i) {
 			cirlce = (max - mx_strlen(src[i])) / 8;
-			if ((max - mx_strlen(src[i])) % 8 > 0)
+			if ((max - mx_strlen(src[i])) % 8 != 0)
 				cirlce++;
 	    	mx_printstr(src[i]);
-	    	for (int j = 0; j < cirlce; j++)
-	    		mx_printstr("\t");
-	    	if (mx_strlen(src[i]) % 8 == 0)
-	    		mx_printstr("\t");
+	    	if (src[i + 1]){
+		    	for (int j = 0; j < cirlce; j++)
+		    		mx_printstr("\t");
+	    	}
 	    }
 	    mx_printstr("\n");
 	} 
-	// else {
-	// 	for (int i = 0; i < size; i++) {
-	// 		cirlce = (max - mx_strlen(src[i])) / 8;
-	// 		if ((max - mx_strlen(src[i])) % 8 > 0)
-	// 			cirlce++;
-	//     	mx_printstr(src[i]);
-	//     	for (int j = 0; j < cirlce; j++)
-	//     		mx_printstr("\t");
-	//     	if (src[i + 1])
-	// 			mx_printstr("\t");
-	// 	}
-	// 	mx_printstr("\n");
-	// }
+	else {
+		for (int i = 0; i < col; i++) {
+			for (int j = i; j < size; j = j + col) {
+				cirlce = (max - mx_strlen(src[j])) / 8;
+				if ((max - mx_strlen(src[j])) % 8 != 0)
+					cirlce++;
+		    	mx_printstr(src[j]);
+		    	for (int s = 0; s < cirlce; s++)
+		    		mx_printstr("\t");
+			}
+			mx_printstr("\n");
+		}
+		// mx_printstr("\n");
+	}
 	
 }
 
@@ -47,21 +49,15 @@ static int max_symbol(char **src) {
 	int count = 0;
 	for (int i = 0; src[i] != NULL; ++i) {
 		count = 0;
-		for (int j = 0; src[i][j] != '\0'; ++j) {
+		for (int j = 0; src[i][j] != '\0'; ++j)
 			count++;
-		}
-		if (max_s <= count) {
+		if (max_s <= count)
 			max_s = count;	
-		}
 	}
-	for (int i = 0; max_s % 8 != 0; i++) {
-		max_s++;
-	}
+	if (max_s % 8 == 0) 
+		max_s = max_s + 8;
+	else
+		for (int i = 0; max_s % 8 != 0; i++)
+			max_s++;
 	return max_s;
 }
-
-// static int max_corect(int max) {
-// 	for (int i = 0; max % 8 != 0; i++)
-// 		max++;
-// 	return max;
-// }

@@ -8,10 +8,14 @@ INCLIB = libmx/libmx.a
 
 SRC = \
 main.c \
-mx_uls_no_flag.c \
+mx_open_directory.c \
 mx_print_directory.c \
 mx_uls_only.c \
 mx_output.c \
+mx_output_cat.c \
+mx_b_sort.c \
+window_size.c \
+mx_print_uls_and_cat.c \
 
 
 SRCS = $(addprefix src/, $(SRC))
@@ -38,4 +42,4 @@ clean:
 	@rm -rf $(SRC) $(OBJ) $(INC)
 	@rm -rf ./obj
 
-reinstall: uninstall install
+reinstall: uninstall all
