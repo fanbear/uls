@@ -6,14 +6,12 @@ void mx_print_uls_and_cat(int argc, char **argv) {
 	if (isatty(1)) {
 		if (argc == 1)
 			mx_uls_only(gnr);
-
-		if (argc > 1){
-			gnr->d_str = mx_open_directory(argc, argv);
-			mx_print_directory(gnr);
-		}
+		if (argc > 1)
+			mx_print_directory(gnr, argc, argv);
 	}
-	else {
+	else
 		mx_output_cat(gnr, argc,argv);
-	}
+
+	// mx_del_strarr(&gnr->d_str);
 	free(gnr);
 }

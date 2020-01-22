@@ -9,8 +9,9 @@ void mx_output_cat(st_general *gnr, int argc, char **argv) {
 	if (argc == 1) {
 		open_dot(gnr);
 	}
-	if (argc > 1) {
-		gnr->d_str = mx_open_directory(argc, argv);
+	if (argc > 1){
+		
+		gnr->d_str = mx_open_folder(argv[1]);
 		print_directory(gnr);
 	}
 }

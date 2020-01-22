@@ -9,9 +9,7 @@ void mx_output(char **src, int size) {
 	int wsz = window_size();
 	int col = (max * size) / wsz;
 
-	if ((max * size) % wsz > 60)
-		col++;
-	if (wsz - (max * size % wsz) < max)
+	if ((max * size) - wsz > 0)
 		col++;
 
 	if ((max) * size < wsz) {
