@@ -20,23 +20,24 @@
 typedef struct general{
 	char **d_str; // данные с точками
 	char **no_point; // данные без точек
+     t_file  *struct_p; // указатель на структуру
 } st_general;
 
 typedef struct file { //структура для файлов
 	char* permiss;
 	struct stat buf;
-	char *file_name;
+	char *file;
     struct stat stat;
     char *uid_name;
     char *gid_name;
-    short   nlink;        //number hard links
+    short   nlink;        //кл-во линков
     blkcnt_t blocks;
     off_t file_size;
-    time_t a_time;        /* [XSI] Time of last access */
+    time_t a_time;        /*временные данные, для реализации разных флагов*/
     time_t m_time;
     time_t c_time;
-    char *absolute_name;      //if link
-    char   *name_link;        //  if  file = link for print
+    char *absolute_name;      //для линки, пока не пользуюсь
+    char   *name_link;        //  если файл = линк для принта //пока не пользуюсь
 } t_file
 
 char **mx_uls_no_flag(int argc, char *argv[]);
