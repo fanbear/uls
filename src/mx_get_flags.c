@@ -6,7 +6,7 @@ static char *parse_to_arr(int index, char **argv, int amount);
 
 char *mx_get_flags(int *index, int argc, char **argv) {
 	int amount = 0;
-	char *flags;
+	char *flags = NULL;
 
 	while (*index < argc && argv[*index][0] == '-' ) {
 		if (is_flag(argv[*index])) {
@@ -33,12 +33,13 @@ static void amount_of_flags(int *amount, char *flag) {
 }
 
 static char *parse_to_arr(int index, char **argv, int amount) {
+	char *flags = NULL;
 	if (index != 1) {
-		char *flags = mx_strnew(amount);
 		int k = 0;
 		int i;
 		int j;
 
+		flags = mx_strnew(amount);
 		for (i = 1; i < index; i++) {
 			for (j = 1; argv[i][j]; j++) {
 				flags[k++] = argv[i][j];

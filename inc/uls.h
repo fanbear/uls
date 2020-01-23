@@ -12,9 +12,9 @@
 #include <malloc/malloc.h>
 #include <dirent.h>
 #include "libmx/inc/libmx.h"
+#include <sys/ioctl.h>
 
 //***************************** Utils pack *******************************
-
 
 #define LEGAL "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1"
 
@@ -28,11 +28,13 @@ typedef struct s_args {
 typedef struct s_dirs {
 	char *dir;
 	struct s_dirs_entry *entry_dir;
+	int amount_d_data;
 	struct s_dirs *next;
 } t_dirs;
 
 typedef struct s_dirs_entry {
 	char *d_name;
+	int d_namlen;
 	int d_type;
 	struct s_dirs_entry *next;
 } t_dirs_entry;
@@ -42,6 +44,10 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void mx_print_not_valid(int amount, char **argv);
 void mx_del_str_arr(char **arr);
 int mx_arr_size(char **arr);
+void print_ls(t_dirs *dirs);
+void mx_del_struct(t_dirs *dirs);
+char **mx_get_data_from_struct(t_dirs_entry *entry_dir);
+int mx_get_window_size();
 
 
 typedef struct general{

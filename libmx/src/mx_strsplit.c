@@ -10,15 +10,13 @@ char **mx_strsplit(const char *s, char c) {
 
     result = check(size_arr, s, result);
     for (int i = 0; i < mx_strlen(s); i++) {
-        index = mx_get_char_index(s, c);
+        index = mx_get_char_index(s + i, c);
         index = index == -1 ? mx_strlen(s) : index;
         if (index) {
-            result[counter] = mx_strndup(s, index);
-            s += mx_strlen(result[counter]) - 1;
+            result[counter] = mx_strndup(s+i, index);
             i += mx_strlen(result[counter]) - 1;
             counter++;
         }
-        s++;
     } 
     result[size_arr] = NULL;
     return result;

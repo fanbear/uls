@@ -76,7 +76,6 @@ static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {
         if (n_valid[k]) {
             push_arg_to_arr(args->not_valid, n_valid[k]);
             k++;
-            exit(1);
         }
     }
 }

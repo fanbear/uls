@@ -17,6 +17,10 @@ mx_args_to_struct.c \
 mx_print_not_valid.c \
 mx_arr_size.c \
 mx_del_str_arr.c \
+print_ls.c \
+mx_del_struct.c \
+mx_get_data_from_struct.c \
+mx_get_window_size.c \
 
 
 SRCS = $(addprefix src/, $(SRC))
