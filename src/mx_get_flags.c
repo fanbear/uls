@@ -4,7 +4,6 @@ static bool is_flag(char *flag);
 static void amount_of_flags(int *amount, char *flag);
 static char *parse_to_arr(int index, char **argv, int amount);
 static char *del_dub_and_sort_flags(char *flags, int size);
-static void validation(char *flags);
 
 char *mx_get_flags(int *index, int argc, char **argv) {
 	int amount = 0;
@@ -18,10 +17,8 @@ char *mx_get_flags(int *index, int argc, char **argv) {
 			else
 				break;
 		}
-		if (*index > 1) {
+		if (*index > 1)
 			flags = del_dub_and_sort_flags(parse_to_arr(*index, argv, amount), amount);
-			validation(flags);
-		}
 	}
 	return flags;
 }
@@ -39,7 +36,7 @@ static void amount_of_flags(int *amount, char *flag) {
 		if (mx_get_char_index(LEGAL, flag[i]) == -1) {
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
-			write(2, "\nusage: uls [-a] [file ...]\n", 30);
+			write(2, "\nusage: uls [-a] [file ...]\n", 28);
 			exit(1);
 		}
 	}
@@ -89,15 +86,4 @@ static char *del_dub_and_sort_flags(char *flags, int size) {
 			res[j++] = flags[i];
 	}
 	return res;
-}
-
-static void validation(char *flags) {
-	for (int i = 0; flags[i]; i++) {
-		if (mx_get_char_index(LEGAL, flags[i]) == -1) {
-			write(2, "uls: illegal option -- ", 23);
-			write(2, &flags[i], 1);
-			write(2, "\nusage: uls [-a] [file ...]\n", 30);
-			exit(1);
-		}
-	}
 }
