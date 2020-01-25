@@ -44,9 +44,9 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void mx_print_not_valid(int amount, char **argv);
 void mx_del_str_arr(char **arr);
 int mx_arr_size(char **arr);
-void print_ls(t_dirs *dirs);
+void print_ls(t_dirs *dirs, char symbol);
 void mx_del_struct(t_dirs *dirs);
-char **mx_get_data_from_struct(t_dirs_entry *entry_dir);
+char **mx_get_data_from_struct(t_dirs *dirs, char symbol);
 int mx_get_window_size();
 
 

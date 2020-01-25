@@ -8,11 +8,33 @@ static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count);
 int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs_entry = mx_get_dir_entry(args, mx_arr_size(args->dirs));
+	char symbol = '.';
 
+	if (args->flags) {
+		for (int i = 0; args->flags[i]; i++) {
+			if (args->flags[i] == 'a')
+				symbol = '\0';
+		}
+	}
 	// mx_del_struct(dirs_entry);
 	// exit(1);
 
-	print_ls(dirs_entry);
+	if (dirs_entry->next) {
+		dirs_entry = dirs_entry->next;
+		if (dirs_entry->next) {
+			while (dirs_entry) {
+				printf("%s:\n", dirs_entry->dir);
+				print_ls(dirs_entry, symbol);
+				dirs_entry = dirs_entry->next;
+				if (dirs_entry)
+					printf("\n");
+			}
+		}
+		else
+			print_ls(dirs_entry, symbol);
+	}
+	else if (args->not_valid[0] == NULL)
+		print_ls(dirs_entry, symbol);
 
 	// t_dirs **temp = &dirs_entry;
 	// for (int i = 0; temp[i]; i++) {
@@ -71,19 +93,19 @@ static t_args *mx_sort_args(int argc, char **argv) {
 	args->flags = mx_get_flags(&index, argc, argv);
 	mx_args_to_struct(index, argc, argv, args);
 	
-	printf("%s\n", args->flags);
-	for (int i = 0; args->files[i]; i++) {
-		printf("%s  ", args->files[i]);
-	}
-	printf("\n");
-	for (int i = 0; args->dirs[i]; i++) {
-		printf("%s  ", args->dirs[i]);
-	}
-	printf("\n");
-	for (int i = 0; args->not_valid[i]; i++) {
-		printf("%s  ", args->not_valid[i]);
-	}
-	printf("\n");
+	// printf("%s\n", args->flags);
+	// for (int i = 0; args->files[i]; i++) {
+	// 	printf("%s  ", args->files[i]);
+	// }
+	// printf("\n");
+	// for (int i = 0; args->dirs[i]; i++) {
+	// 	printf("%s  ", args->dirs[i]);
+	// }
+	// printf("\n");
+	// for (int i = 0; args->not_valid[i]; i++) {
+	// 	printf("%s  ", args->not_valid[i]);
+	// }
+	// printf("\n");
 	mx_print_not_valid(mx_arr_size(args->not_valid), args->not_valid);
 	return args;
 }
@@ -106,7 +128,7 @@ static t_dirs *mx_get_dir_entry(t_args *args, int amount) {
 				dirs_entry[i].next = &dirs_entry[i + 1];
 			else
 				dirs_entry[i].next = NULL;
-			printf("dir : %s amount of data : %d\n", dirs_entry[i].dir, dirs_entry[i].amount_d_data);
+			// printf("dir : %s amount of data : %d\n", dirs_entry[i].dir, dirs_entry[i].amount_d_data);
 		}
 		return dirs_entry;
 	}

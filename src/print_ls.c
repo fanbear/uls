@@ -1,45 +1,43 @@
 #include "uls.h"
 
-static int max_d_namlen(t_dirs_entry *entry_dir);
-static char **sort_data(t_dirs *dirs);
+static int max_d_namlen(t_dirs_entry *entry_dir, char symbol);
+static char **sort_data(t_dirs *dirs, char symbol);
+static void add_tabs(int max_size, int size);
 
-void print_ls(t_dirs *dirs) {
+void print_ls(t_dirs *dirs, char symbol) {
     int max_size = mx_get_window_size();
-    char **data = sort_data(dirs);
-    int max_d_len = max_d_namlen(dirs->entry_dir);
-    int cols = max_size / (max_d_len + 1);
+    char **data = sort_data(dirs, symbol);
+    int max_d_len = max_d_namlen(dirs->entry_dir, symbol);
+    int cols = max_size / (max_d_len);
+    int rows = (mx_arr_size(data) % cols) ? mx_arr_size(data) / cols + 1 : mx_arr_size(data) / cols;
 
-    printf("cols = %d\n", cols);
-    printf("rows = %d\n", dirs->amount_d_data / cols);
-
-    for (int i = 0; i < dirs->amount_d_data; i++) {
-        for (int j = 0; j < cols && i < dirs->amount_d_data - 1; j++) {
-            printf("%s", data[i]);
-            if (j == cols - 1) {
-                printf("\n");
-                break;
-            }
-            if (mx_strlen(data[i]) % 8)
-                printf("\t");
-            if (max_d_len - mx_strlen(data[i]) >= 8 )
-                printf("\t");
-            i += dirs->amount_d_data / cols + 1;
+    // printf("cols = %d\n", cols);
+    // printf("rows = %d\n", rows);
+    for (int i = 0; i < rows; i++) {
+        for (int k = i; k < mx_arr_size(data); k += rows) {
+                printf("%s", data[k]);
+                if (!(--cols) || k + rows >= mx_arr_size(data)) {
+                    printf("\n");
+                    cols = max_size / (max_d_len);
+                    break;
+                }
+                if (mx_strlen(data[k]) % 8)
+                    printf("\t");
+                add_tabs(max_d_len, mx_strlen(data[k]));
         }
     }
 }
 
-static int max_d_namlen(t_dirs_entry *entry_dir) {
+static int max_d_namlen(t_dirs_entry *entry_dir, char symbol) {
     t_dirs_entry **temp = &entry_dir;
     int max_len = 0;
 
-    // printf("address of entry_dir: %p\taddress of temp: %p\n", (void*)entry_dir, (void*)temp);
-
     while (*temp) {
-        // printf("d_name = \"%s\"d_namlen = %d\n", (*temp)->d_name, (*temp)->d_namlen);
-        max_len = ((*temp)->d_namlen > max_len) ? (*temp)->d_namlen : max_len;
+        if ((*temp)->d_name[0] != symbol) {
+            max_len = ((*temp)->d_namlen > max_len) ? (*temp)->d_namlen : max_len;
+        }
         temp = &(*temp)->next;
     }
-    // printf("address of entry_dir: %p\taddress of temp: %p\n", (void*)entry_dir, (void*)temp);
     if (max_len % 8) 
         max_len += 8 - (max_len % 8);
     else
@@ -48,12 +46,11 @@ static int max_d_namlen(t_dirs_entry *entry_dir) {
     return max_len;
 }
 
-static char **sort_data(t_dirs *dirs) {
-    t_dirs_entry **temp = &dirs->entry_dir;
-    char **data = mx_get_data_from_struct(*temp);
+static char **sort_data(t_dirs *dirs, char symbol) {
+    char **data = mx_get_data_from_struct(dirs, symbol);
 
-    for (int i = 0; i < dirs->amount_d_data; i++) {
-        for (int j = 0; j < dirs->amount_d_data - i - 1; j++) {
+    for (int i = 0; i < mx_arr_size(data); i++) {
+        for (int j = 0; j < mx_arr_size(data) - i - 1; j++) {
             if (mx_strcmp(data[j], data[j + 1]) > 0) {
                 char *temp = mx_strdup(data[j + 1]);
                 
@@ -65,4 +62,13 @@ static char **sort_data(t_dirs *dirs) {
         }
     }
     return data;
+}
+
+static void add_tabs(int max_size, int size) {
+    if ((max_size - size) % 8 == 0)
+        printf("\t");
+    while ((max_size - size) > 8) {
+        printf("\t");
+        size += 8 - (size % 8);
+    }
 }
