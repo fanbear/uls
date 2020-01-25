@@ -44,10 +44,12 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void mx_print_not_valid(int amount, char **argv);
 void mx_del_str_arr(char **arr);
 int mx_arr_size(char **arr);
-void print_ls(t_dirs *dirs, char symbol);
+void mx_print_ls_multy_colomn(char **data);
 void mx_del_struct(t_dirs *dirs);
 char **mx_get_data_from_struct(t_dirs *dirs, char symbol);
 int mx_get_window_size();
+char **mx_sort_data(t_dirs *dirs, char symbol);
+// void mx_print_files(int size, char **files);
 
 
 typedef struct general{

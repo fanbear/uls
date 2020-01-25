@@ -1,6 +1,7 @@
 #include "uls.h"
 
 static t_args *mx_sort_args(int argc, char **argv);
+static char **sort_data(int size, char **data);
 static t_dirs *mx_get_dir_entry(t_args *args, int amount);
 static void add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count);
 static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count);
@@ -9,6 +10,7 @@ int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs_entry = mx_get_dir_entry(args, mx_arr_size(args->dirs));
 	char symbol = '.';
+	char **data;
 
 	if (args->flags) {
 		for (int i = 0; args->flags[i]; i++) {
@@ -16,74 +18,25 @@ int main(int argc, char **argv) {
 				symbol = '\0';
 		}
 	}
-	// mx_del_struct(dirs_entry);
-	// exit(1);
-
+	data = mx_sort_data(dirs_entry, symbol);
 	if (dirs_entry->next) {
 		dirs_entry = dirs_entry->next;
-		if (dirs_entry->next) {
+		if (mx_arr_size(args->not_valid) + mx_arr_size(args->dirs) - 1 > 1) {
 			while (dirs_entry) {
-				printf("%s:\n", dirs_entry->dir);
-				print_ls(dirs_entry, symbol);
+				data = mx_sort_data(dirs_entry, symbol);
+				mx_printstr(dirs_entry->dir);
+				mx_printchar('\n');
+				mx_print_ls_multy_colomn(data);
 				dirs_entry = dirs_entry->next;
 				if (dirs_entry)
-					printf("\n");
-			}
+					mx_printchar('\n');
+				}
 		}
 		else
-			print_ls(dirs_entry, symbol);
+			mx_print_ls_multy_colomn(data);
 	}
 	else if (args->not_valid[0] == NULL)
-		print_ls(dirs_entry, symbol);
-
-	// t_dirs **temp = &dirs_entry;
-	// for (int i = 0; temp[i]; i++) {
-	//
-	// 	printf("%s :\n", temp[i]->dir);
-	// 	temp[i]
-		// t_dirs_entry **temp_entry = &temp[i]->entry_dir;
-		// for (int j = 0; temp_entry[j]; j++) {
-		// 	printf("\t%d\t%s\n", temp_entry[j]->d_type, temp_entry[j]->d_name);
-			// printf("\t%d\t%s\n", dirs_entry->entry_dir->d_type, dirs_entry->entry_dir->d_name);
-		// }
-	// }
-
-	// exit(1);
-	// t_dirs *temp = NULL;
-	// while (dirs_entry) {
-	// 	temp = dirs_entry->next
-	// 	mx_strdel(&dirs_entry->dir);
-
-		// t_dirs_entry *temp_entry = NULL;
-
-		// while (dirs_entry->entry_dir) {
-		// 	temp_entry = dirs_entry->entry_dir->next;
-		// 	mx_strdel(&dirs_entry->entry_dir->d_name);
-		// 	if (dirs_entry->entry_dir->next) {
-		// 		free(dirs_entry->entry_dir->next);
-		// 		dirs_entry->entry_dir->next = NULL;
-		// 	}
-		// 	dirs_entry->entry_dir = temp_entry;
-		// }
-	// }
-
-	// system("leaks -q uls");
-	// st_general *gnr = (st_general*)malloc(sizeof(st_general));
-	// if (isatty(1)) {
-	//
-	// }
-	//
-	// if (isatty(1)) {
-	// 	if (argc == 1)
-	// 		mx_uls_only(gnr);
-	// 	if (argc > 1) {
-	// 		gnr->d_str = mx_uls_no_flag(argc, argv);
-	// 		mx_print_directory(gnr);
-	// 	}
-	// }
-	// else {
-	// 	printf("asd\n");
-	// }
+		mx_print_ls_multy_colomn(data);
 }
 
 static t_args *mx_sort_args(int argc, char **argv) {
@@ -92,21 +45,14 @@ static t_args *mx_sort_args(int argc, char **argv) {
 
 	args->flags = mx_get_flags(&index, argc, argv);
 	mx_args_to_struct(index, argc, argv, args);
-	
-	// printf("%s\n", args->flags);
-	// for (int i = 0; args->files[i]; i++) {
-	// 	printf("%s  ", args->files[i]);
-	// }
-	// printf("\n");
-	// for (int i = 0; args->dirs[i]; i++) {
-	// 	printf("%s  ", args->dirs[i]);
-	// }
-	// printf("\n");
-	// for (int i = 0; args->not_valid[i]; i++) {
-	// 	printf("%s  ", args->not_valid[i]);
-	// }
-	// printf("\n");
+	args->files = sort_data(mx_arr_size(args->files), args->files);
+	args->dirs = sort_data(mx_arr_size(args->dirs), args->dirs);
+	args->not_valid = sort_data(mx_arr_size(args->not_valid), args->not_valid);
 	mx_print_not_valid(mx_arr_size(args->not_valid), args->not_valid);
+	if (args->files[0] != NULL) {
+		mx_print_ls_multy_colomn(args->files);
+		mx_printchar('\n');
+	}
 	return args;
 }
 
@@ -128,7 +74,6 @@ static t_dirs *mx_get_dir_entry(t_args *args, int amount) {
 				dirs_entry[i].next = &dirs_entry[i + 1];
 			else
 				dirs_entry[i].next = NULL;
-			// printf("dir : %s amount of data : %d\n", dirs_entry[i].dir, dirs_entry[i].amount_d_data);
 		}
 		return dirs_entry;
 	}
@@ -154,4 +99,18 @@ static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count) {
 	return temp;
 }
 
+static char **sort_data(int size, char **data) {
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size - i - 1; j++) {
+			if (mx_strcmp(data[j], data[j + 1]) > 0) {
+				char *temp = mx_strdup(data[j + 1]);
 
+				free(data[j + 1]);
+				data[j + 1] = mx_strdup(data[j]);
+				free(data[j]);
+				data[j] = temp;
+			}
+		}
+	}
+	return data;
+}
