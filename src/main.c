@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
 	data = mx_sort_data(dirs_entry, symbol);
 	if (dirs_entry->next) {
 		dirs_entry = dirs_entry->next;
+		data = mx_sort_data(dirs_entry, symbol);
 		if (mx_arr_size(args->not_valid) + mx_arr_size(args->dirs) - 1 > 1) {
 			while (dirs_entry) {
 				data = mx_sort_data(dirs_entry, symbol);

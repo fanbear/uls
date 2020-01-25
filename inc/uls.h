@@ -16,7 +16,7 @@
 
 //***************************** Utils pack *******************************
 
-#define LEGAL "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1"
+#define LEGAL "a"
 
 typedef struct s_args {
 	char *flags;
@@ -49,7 +49,6 @@ void mx_del_struct(t_dirs *dirs);
 char **mx_get_data_from_struct(t_dirs *dirs, char symbol);
 int mx_get_window_size();
 char **mx_sort_data(t_dirs *dirs, char symbol);
-// void mx_print_files(int size, char **files);
 
 
 typedef struct general{
