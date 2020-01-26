@@ -2,6 +2,7 @@
 
 char **mx_sort_data(t_dirs *dirs, char symbol) {
     char **data = mx_get_data_from_struct(dirs, symbol);
+    exit(1);
     int size = mx_arr_size(data);
 
     for (int i = 0; i < size; i++) {
