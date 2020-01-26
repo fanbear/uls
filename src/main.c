@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 	}
 	mx_del_dirs_struct(dirs);
 	mx_del_args_struct(args, NOT_VALID);
-	system("leaks -q uls");
+	// system("leaks -q uls");
 }
 
 static t_args *mx_sort_args(int argc, char **argv) {
