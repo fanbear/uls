@@ -18,14 +18,15 @@ static void multi_clm_print(char **data, int max_size, int max_d_len) {
 
     for (int i = 0; i < rows; i++) {
         for (int k = i; k < arr_size; k += rows) {
-                printf("%s", data[k]);
+                mx_printstr(data[k]);
                 if (!(--cols) || k + rows >= arr_size) {
-                    printf("\n");
+                    mx_printstr("\n");
                     cols = max_size / (max_d_len);
                     break;
                 }
-                if (mx_strlen(data[k]) % 8)
-                    printf("\t");
+                if (mx_strlen(data[k]) % 8) {
+                    mx_printstr("\t\0");
+                }
                 add_tabs(max_d_len, mx_strlen(data[k]));
         }
     }
@@ -48,9 +49,9 @@ static int max_d_namlen(char **data) {
 
 static void add_tabs(int max_size, int size) {
     if ((max_size - size) % 8 == 0)
-        printf("\t");
+        mx_printstr("\t");
     while ((max_size - size) > 8) {
-        printf("\t");
+        mx_printstr("\t");
         size += 8 - (size % 8);
     }
 }

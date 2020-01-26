@@ -49,7 +49,8 @@ void mx_del_struct(t_dirs *dirs);
 char **mx_get_data_from_struct(t_dirs *dirs, char symbol);
 int mx_get_window_size();
 char **mx_sort_data(t_dirs *dirs, char symbol);
-
+void mx_print_ls_monocolomn(char **data);
+void mx_print(t_args *args, t_dirs *dirs_entry, char symbol, void (*print_ls)(char **));
 
 typedef struct general{
 	char **d_str; // данные с точками

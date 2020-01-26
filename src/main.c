@@ -10,7 +10,6 @@ int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs_entry = mx_get_dir_entry(args, mx_arr_size(args->dirs));
 	char symbol = '.';
-	char **data;
 
 	if (args->flags) {
 		for (int i = 0; args->flags[i]; i++) {
@@ -18,26 +17,13 @@ int main(int argc, char **argv) {
 				symbol = '\0';
 		}
 	}
-	data = mx_sort_data(dirs_entry, symbol);
-	if (dirs_entry->next) {
-		dirs_entry = dirs_entry->next;
-		data = mx_sort_data(dirs_entry, symbol);
-		if (mx_arr_size(args->not_valid) + mx_arr_size(args->dirs) - 1 > 1) {
-			while (dirs_entry) {
-				data = mx_sort_data(dirs_entry, symbol);
-				mx_printstr(dirs_entry->dir);
-				mx_printchar('\n');
-				mx_print_ls_multy_colomn(data);
-				dirs_entry = dirs_entry->next;
-				if (dirs_entry)
-					mx_printchar('\n');
-				}
-		}
-		else
-			mx_print_ls_multy_colomn(data);
+	if (isatty(1)) {
+		mx_print(args, dirs_entry, symbol, mx_print_ls_multy_colomn);
+	} else {
+		mx_print(args, dirs_entry, symbol, mx_print_ls_monocolomn);
 	}
-	else if (args->not_valid[0] == NULL)
-		mx_print_ls_multy_colomn(data);
+	// mx_del_struct(dirs_entry);
+	system("leaks -q uls");
 }
 
 static t_args *mx_sort_args(int argc, char **argv) {

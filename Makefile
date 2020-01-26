@@ -18,6 +18,8 @@ mx_del_struct.c \
 mx_get_data_from_struct.c \
 mx_get_window_size.c \
 mx_sort_data.c \
+mx_print_ls_monocolomn.c \
+mx_print.c \
 
 SRCS = $(addprefix src/, $(SRC))
 

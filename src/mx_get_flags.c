@@ -36,7 +36,9 @@ static void amount_of_flags(int *amount, char *flag) {
 		if (mx_get_char_index(LEGAL, flag[i]) == -1) {
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
-			write(2, "\nusage: uls [-a] [file ...]\n", 28);
+			write(2, "\nusage: uls [", 13);
+			write(2, LEGAL, mx_strlen(LEGAL));
+			write(2, "] [file ...]\n", 13);
 			exit(1);
 		}
 	}

@@ -12,7 +12,7 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
     char **not_valid = (char **)malloc(sizeof(char *) * (argc - 1));
 
     files[0] = NULL;
-    dirs[0] = mx_strdup(".");
+    dirs[0] = (argc == 1) ? mx_strdup(".") : NULL;
     dirs[1] = NULL;
     not_valid[0] = NULL;
     for (; index < argc; index++) {
