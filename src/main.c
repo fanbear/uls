@@ -8,7 +8,11 @@ static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count);
 
 int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
-	t_dirs *dirs_entry = mx_get_dir_entry(args, mx_arr_size(args->dirs));
+	t_dirs *dirs = mx_get_dir_entry(args, mx_arr_size(args->dirs));
+	mx_del_args_struct(args, NOT_VALID);
+	mx_del_dirs_struct(dirs);
+	system("leaks -q uls");
+	exit(1);
 	char symbol = '.';
 
 	if (args->flags) {
@@ -18,53 +22,55 @@ int main(int argc, char **argv) {
 		}
 	}
 	if (isatty(1)) {
-		mx_print(args, dirs_entry, symbol, mx_print_ls_multy_colomn);
+		if (args->files[0] != NULL) {
+			mx_print_ls_multy_colomn(args->files);
+			mx_printchar('\n');
+		}
+		mx_print(args, dirs, symbol, mx_print_ls_multy_colomn);
 	} else {
-		mx_print(args, dirs_entry, symbol, mx_print_ls_monocolomn);
+		if (args->files[0] != NULL) {
+			mx_print_ls_monocolomn(args->files);
+			mx_printchar('\n');
+		}
+		mx_print(args, dirs, symbol, mx_print_ls_monocolomn);
 	}
 	// mx_del_struct(dirs_entry);
-	system("leaks -q uls");
+	// system("leaks -q uls");
 }
 
 static t_args *mx_sort_args(int argc, char **argv) {
 	t_args *args = (t_args *)malloc(sizeof(t_args));
 	int index = 1;
 
-	args->flags = mx_get_flags(&index, argc, argv);
+	args->flags = mx_get_flags(args, &index, argc, argv);
 	mx_args_to_struct(index, argc, argv, args);
 	args->files = sort_data(mx_arr_size(args->files), args->files);
 	args->dirs = sort_data(mx_arr_size(args->dirs), args->dirs);
 	args->not_valid = sort_data(mx_arr_size(args->not_valid), args->not_valid);
 	mx_print_not_valid(mx_arr_size(args->not_valid), args->not_valid);
-	if (args->files[0] != NULL) {
-		mx_print_ls_multy_colomn(args->files);
-		mx_printchar('\n');
-	}
+
 	return args;
 }
 
 static t_dirs *mx_get_dir_entry(t_args *args, int amount) {
-	if (args && amount > 0) {
-		t_dirs *dirs_entry = (t_dirs *)malloc(sizeof(t_dirs) * amount);
+	t_dirs *dirs = (t_dirs *)malloc(sizeof(t_dirs));
 
-		for(int i = 0; i < amount; i++) {
-			DIR *dir = opendir(args->dirs[i]);
-			struct dirent *entry = NULL;
-			int count = 0;
+	for(int i = 0; i < amount; i++) {
+		DIR *dir = opendir(args->dirs[i]);
+		struct dirent *entry = NULL;
+		int count = 0;
 
-			dirs_entry[i].dir = args->dirs[i];
-			dirs_entry[i].entry_dir = mx_pushing_data(readdir(dir), &count);
-			while ((entry = readdir(dir)) != NULL)
-				add_dirs_entry(dirs_entry[i].entry_dir, entry, &count);
-			dirs_entry[i].amount_d_data = count;
-			if (i != amount - 1)
-				dirs_entry[i].next = &dirs_entry[i + 1];
-			else
-				dirs_entry[i].next = NULL;
-		}
-		return dirs_entry;
+		dirs[i].dir = mx_strdup(args->dirs[i]);
+		dirs[i].entry_dir = mx_pushing_data(readdir(dir), &count);
+		while ((entry = readdir(dir)) != NULL)
+			add_dirs_entry(dirs[i].entry_dir, entry, &count);
+		dirs[i].amount_d_data = count;
+		if (i != amount - 1)
+			dirs[i].next = &dirs[i + 1];
+		else
+			dirs[i].next = NULL;
 	}
-	return NULL;
+	return dirs;
 }
 
 static void add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count) {
@@ -101,3 +107,13 @@ static char **sort_data(int size, char **data) {
 	}
 	return data;
 }
+
+// static t_dirs *piwpiw(t_dirs *dirs, char **dir, int count) {
+// 	t_dirs *temp = malloc(sizeof(t_dirs));
+//
+// 	temp->dirs = mx_strdup(dir);
+// 	temp->amount_d_data = count;
+// 	temp->d_type = (int)entry->d_type;
+// 	temp->next = NULL;
+// 	return temp;
+// }

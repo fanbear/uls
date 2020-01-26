@@ -1,6 +1,7 @@
 #ifndef ULS_H
 #define ULS_H
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +18,7 @@
 //***************************** Utils pack *******************************
 
 #define LEGAL "a"
+
 
 typedef struct s_args {
 	char *flags;
@@ -39,13 +41,22 @@ typedef struct s_dirs_entry {
 	struct s_dirs_entry *next;
 } t_dirs_entry;
 
-char *mx_get_flags(int *index, int argc, char **argv);
+typedef enum s_del_args_struct {
+	NOTHING,
+	FLAGS,
+	FILES,
+	DIRS,
+	NOT_VALID
+} t_del_args_struct;
+
+char *mx_get_flags(t_args *args, int *index, int argc, char **argv);
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void mx_print_not_valid(int amount, char **argv);
 void mx_del_str_arr(char **arr);
+void mx_del_args_struct(t_args *args, int item);
+void mx_del_dirs_struct(t_dirs *dirs);
 int mx_arr_size(char **arr);
 void mx_print_ls_multy_colomn(char **data);
-void mx_del_struct(t_dirs *dirs);
 char **mx_get_data_from_struct(t_dirs *dirs, char symbol);
 int mx_get_window_size();
 char **mx_sort_data(t_dirs *dirs, char symbol);

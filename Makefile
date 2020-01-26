@@ -13,8 +13,9 @@ mx_args_to_struct.c \
 mx_print_not_valid.c \
 mx_arr_size.c \
 mx_del_str_arr.c \
+mx_del_args_struct.c \
 mx_print_ls_multy_colomn.c \
-mx_del_struct.c \
+mx_del_dirs_struct.c \
 mx_get_data_from_struct.c \
 mx_get_window_size.c \
 mx_sort_data.c \

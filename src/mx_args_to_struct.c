@@ -7,9 +7,9 @@ static void mem_alloc_struct(t_args *args, char **files,
 char **dirs, char **n_valid);
 
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
-    char **files = (char **)malloc(sizeof(char *) * (argc - 1));
+    char **files = (char **)malloc(sizeof(char *) * (argc));
     char **dirs = (char **)malloc(sizeof(char *) * (argc + 1));
-    char **not_valid = (char **)malloc(sizeof(char *) * (argc - 1));
+    char **not_valid = (char **)malloc(sizeof(char *) * (argc));
 
     files[0] = NULL;
     dirs[0] = (argc == 1) ? mx_strdup(".") : NULL;
