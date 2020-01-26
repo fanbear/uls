@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <time.h>
-#include <sys/stat.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/xattr.h>
-#include <sys/types.h>
-#include <sys/acl.h>
+#include "uls.h"
 
 int mx_count_link(const char* file) {
 	struct stat buf;

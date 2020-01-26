@@ -14,22 +14,21 @@
 #include "libmx/inc/libmx.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/acl.h>
+#include <sys/types.h>
+#include <sys/xattr.h>
+#include <pwd.h>
 
 //***************************** Utils pack *******************************
 
-typedef struct general{
-	char **d_str; // данные с точками
-	char **no_point; // данные без точек
-     t_file  *struct_p; // указатель на структуру
-} st_general;
-
 typedef struct file { //структура для файлов
-	char* permiss;
-	struct stat buf;
-	char *file;
+    char* permiss;
+    struct stat buf;
+    char *file_name;
     struct stat stat;
-    char *uid_name;
-    char *gid_name;
+    struct passwd *pw;
+    char *user_name;
+    char *group_name;
     short   nlink;        //кл-во линков
     blkcnt_t blocks;
     off_t file_size;
@@ -38,12 +37,21 @@ typedef struct file { //структура для файлов
     time_t c_time;
     char *absolute_name;      //для линки, пока не пользуюсь
     char   *name_link;        //  если файл = линк для принта //пока не пользуюсь
-} t_file
+} t_file;
 
-char **mx_uls_no_flag(int argc, char *argv[]);
-void mx_print_directory(st_general *gnr);
-void mx_uls_only(st_general *gnr);
-void mx_output(char **src, int size);
+typedef struct general{
+     t_file  *array_p; // указатель на массив структур
+     int max_file; // максимальная длина имени файла (нужно для рассчета расстояния между файлами)
+     int max_group; // максимальная длина имени группы (нужно для рассчета расстояния между файлами)
+     int max_user; // максимальная длина имени юзера (нужно для рассчета расстояния между файлами)
+     int max_size; // максимальная длина байт (нужно для рассчета расстояния между файлами)
+} st_general;
+
+int mx_count_link(const char* file);
+void mx_output_l(const char* file, int length, int max_size);
+void mx_user(const char* str);
+char* mx_permission(const char* file, t_file *file_st);
+void mx_get_inform(char* file);
 //-----------------------------------------------------------------------                                       
 
 #endif
