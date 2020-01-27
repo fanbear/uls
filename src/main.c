@@ -1,62 +1,88 @@
 #include "uls.h"
 
+static int max_links(st_general *gnr, int max, int i);
+static int max_user_name(st_general *gnr, int max, int i);
+static int max_group_name(st_general *gnr, int max, int i);
+static int max_size(st_general *gnr, int max, int i);
+
 int main(int argc, char** argv) {
+    //t_file *array = malloc(argc * sizeof(t_file));
     st_general *gnr = (st_general*)malloc(sizeof(st_general));
-    t_file *array = malloc(argc * sizeof(*array));
-    gnr->array_p = array;
+    gnr->array_p = (t_file*)malloc(argc * sizeof(t_file));
+    gnr->max_link = 0;
+    gnr->max_size = 0;
+    gnr->max_user = 0;
+    gnr->max_group = 0;
+    gnr->sum_blocks = 0;
+
     for(int i = 1; i < argc; i++) {
-        mx_get_inform(argv[i]);
+        mx_get_inform(gnr, argv[i], i);
+        gnr->sum_blocks += gnr->array_p[i].blocks;
+        gnr->max_link = max_links(gnr, gnr->max_link, i);
+        gnr->max_size = max_size(gnr, gnr->max_size, i);
+        gnr->max_user = max_user_name(gnr, gnr->max_user, i);
+        gnr->max_group = max_group_name(gnr, gnr->max_group, i);
     }
-
-    system("leaks -q uls");
-}
+    mx_output_l(gnr, argc);
     
-// Tue Jan 21 19:16:55 2020
+    //system("leaks -q uls");
+}
+
+static int max_links(st_general *gnr, int max, int i) {
+	int j = mx_strlen(gnr->array_p[i].nlink);
+
+	if(max < j)
+		max = j;
+	return max;
+}
+
+static int max_user_name(st_general *gnr, int max, int i) {
+	int j = mx_strlen(gnr->array_p[i].user_name);
+
+	if(max < j)
+		max = j;
+	return max;
+}
+
+static int max_group_name(st_general *gnr, int max, int i) {
+	int j = mx_strlen(gnr->array_p[i].group_name);
+
+	if(max < j)
+		max = j;
+	return max;
+}
+
+static int max_size(st_general *gnr, int max, int i) {
+	int j = mx_strlen(gnr->array_p[i].file_size);
+
+	if(max < j)
+		max = j;
+	return max;
+}
 
 
-
-
-// pw = getpwuid(buf.st_uid);
-//      printf("%s", mx_permission(argv[i]));
-//      printf("%d ", mx_count_link(argv[i]));
-//      printf("%s ", pw->pw_name);
-//      printf("%d ",pw->pw_gid);
-//      printf("%lld ", buf.st_size);
-//      char* str = ctime(&buf.st_atime);
-//      char *time1 = NULL;
-//      time_t current = time(0);
-//      if ( current - buf.st_atime >= 31536000 / 2) {
-//             // str += 4;
-//             // time1 = strndup(str, 6);
-//             // str += 20;
-//      }
-//      else {
-//         str += 4;
-//         time1 = strndup(str, 12);
-//      }
-//      printf("%s ", time1);
-//      printf("%s\n", argv[i]);
+// for(int i = 1; i < argc; i++) {
+//         mx_printstr(gnr->array_p[i].permiss);
+// 		mx_printstr("  ");
+// 		mx_printint(gnr->array_p[i].nlink);
+// 		mx_printstr("  ");
+// 		mx_printstr(gnr->array_p[i].user_name);
+// 		mx_printstr("  ");
+// 		mx_printstr(gnr->array_p[i].group_name);
+// 		mx_printstr("  ");
+// 		mx_printstr(gnr->array_p[i].file_size);
+// 		mx_printstr("  ");
+// 		//mx_printstr(time1);
+// 		mx_printstr("  ");
+// 		mx_printstr(gnr->array_p[i].file_name);
+// 		mx_printchar('\n');
 //     }
 
+//     printf("%d\n", sum_blocks);
+//     printf("%d\n", gnr->max_link);
+//     printf("%d\n", gnr->max_size);
+//     printf("%d\n", gnr->max_group);
+//     printf("%d\n", gnr->max_user);
+//     
 
-// char *date;
-//     int ret;
-//     struct stat buf;
-//     char buff[20];
-//     struct tm * timeinfo;
-//     struct timespec st_atim;
-//     struct timespec st_mtim;
-//     struct timespec st_ctim;
-//     struct passwd *pw;
-//     uid_t uid;
-   
-  
-//     for( int i = 1; i < argc; i++) {
-//         if ((ret = lstat(argv[i], &buf))!=0)
-//     {
-//         fprintf(stderr, "stat failure error .%d", ret);
-//             abort();
-//     }
 
-//     }
-// }

@@ -7,12 +7,10 @@ INCI = inc/uls.h
 INCLIB = libmx/libmx.a
 
 SRC = \
-mx_count_link.c \
 main.c \
 mx_get_inform.c \
 mx_output_l.c \
 mx_permission.c \
-mx_user.c \
 
 
 
