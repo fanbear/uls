@@ -37,7 +37,6 @@ void mx_output(char **src, int size) {
 			}
 			mx_printstr("\n");
 		}
-		// mx_printstr("\n");
 	}
 	
 }
