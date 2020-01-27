@@ -64,7 +64,7 @@
  }
 char* mx_permission(char* file, t_file *file_st) {
 	char* str = mx_strnew(11);
-	size_t value = 0;
+	ssize_t value = 0;
 	value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
 	printf("%lu\n",value );
 	printf("%s\n",file);
