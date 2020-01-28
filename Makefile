@@ -21,7 +21,7 @@ mx_get_window_size.c \
 mx_sort_data.c \
 mx_print_ls_monocolomn.c \
 mx_print.c \
-
+\
 print_ls_l.c \
 mx_get_inform.c \
 mx_output_l.c \

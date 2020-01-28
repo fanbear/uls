@@ -100,7 +100,7 @@ typedef struct general{
 } st_general;
 
 //-----------------------------------------------------------------------
-int print_ls_l(char **data);
+void print_ls_l(char **data);
 void mx_output_l(st_general *gnr, int argc);
 char* mx_permission(char* file, t_file *file_st);
 void mx_get_inform(st_general *gnr, char* file, int i);

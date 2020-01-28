@@ -5,10 +5,11 @@ static int max_user_name(st_general *gnr, int max, int i);
 static int max_group_name(st_general *gnr, int max, int i);
 static int max_size(st_general *gnr, int max, int i);
 
-int print_ls_l(char **data) {
+void print_ls_l(char **data) {
     //t_file *array = malloc(argc * sizeof(t_file));
     st_general *gnr = (st_general*)malloc(sizeof(st_general));
 	int i = 0;
+    int argc = mx_arr_size(data);
 
     gnr->array_p = (t_file*)malloc(argc * sizeof(t_file));
     gnr->max_link = 0;

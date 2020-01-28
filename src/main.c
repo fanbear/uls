@@ -29,8 +29,9 @@ int main(int argc, char **argv) {
 			}
 			if (!symbol_l)
 				mx_print(args, dirs, symbol, mx_print_ls_multy_colomn);
-			else
-				mx_print(args, dirs, symbol, mx_print_ls_l);
+			else {
+				mx_print(args, dirs, symbol, print_ls_l);
+			}
 		} else {
 			if (args->files[0] != NULL) {
 				mx_print_ls_monocolomn(args->files);
@@ -38,8 +39,9 @@ int main(int argc, char **argv) {
 			}
 			if (!symbol_l)
 				mx_print(args, dirs, symbol, mx_print_ls_monocolomn);
-			else
-				mx_print(args, dirs, symbol, mx_print_ls_l);
+			else {
+				mx_print(args, dirs, symbol, print_ls_l);
+			}
 		}
 	}
 
