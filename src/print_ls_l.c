@@ -5,9 +5,11 @@ static int max_user_name(st_general *gnr, int max, int i);
 static int max_group_name(st_general *gnr, int max, int i);
 static int max_size(st_general *gnr, int max, int i);
 
-int main(int argc, char** argv) {
+int print_ls_l(char **data) {
     //t_file *array = malloc(argc * sizeof(t_file));
     st_general *gnr = (st_general*)malloc(sizeof(st_general));
+	int i = 0;
+
     gnr->array_p = (t_file*)malloc(argc * sizeof(t_file));
     gnr->max_link = 0;
     gnr->max_size = 0;
@@ -15,15 +17,15 @@ int main(int argc, char** argv) {
     gnr->max_group = 0;
     gnr->sum_blocks = 0;
 
-    for(int i = 1; i < argc; i++) {
-        mx_get_inform(gnr, argv[i], i);
+    for(; data[i]; i++) {
+        mx_get_inform(gnr, data[i], i);
         gnr->sum_blocks += gnr->array_p[i].blocks;
         gnr->max_link = max_links(gnr, gnr->max_link, i);
         gnr->max_size = max_size(gnr, gnr->max_size, i);
         gnr->max_user = max_user_name(gnr, gnr->max_user, i);
         gnr->max_group = max_group_name(gnr, gnr->max_group, i);
     }
-    mx_output_l(gnr, argc);
+    mx_output_l(gnr, i);
     
     //system("leaks -q uls");
 }

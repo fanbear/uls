@@ -7,9 +7,9 @@
 static char* get_time(t_file *file_st) {
 	char* str = ctime(&file_st->buf.st_mtime);
 	char* tmp_str= NULL;
-     char *time1 = NULL;
-     char* res = NULL;
-     time_t current = time(0);
+   char *time1 = NULL;
+   char* res = NULL;
+   time_t current = time(0);
 
      if (current - file_st->buf.st_atime >= 31536000 / 2) {
             str += 4;

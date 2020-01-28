@@ -7,11 +7,10 @@ INCI = inc/uls.h
 INCLIB = libmx/libmx.a
 
 SRC = \
-main.c \
+print_ls_l.c \
 mx_get_inform.c \
 mx_output_l.c \
 mx_permission.c \
-
 
 
 SRCS = $(addprefix src/, $(SRC))
