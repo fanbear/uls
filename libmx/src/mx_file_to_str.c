@@ -1,33 +1,37 @@
 #include "libmx.h"
-#include <fcntl.h>
 
-static void file_str(int desc, char *temp);
+static char* return_my_line(char **buff, char **res);
 
 char *mx_file_to_str(const char *file) {
-	int desc = 0;
-	char *temp = NULL;
-	
-	desc = open(file, O_RDONLY);
-	if (desc < 0)
-		return 0;
-	file_str(desc, temp);
-	if (close(desc) < 0)
-		return 0;
-	return temp;
+    int size = 0;
+    char* res = NULL;
+    char* buff = mx_strnew(1);
+    int fd = open(file, O_RDONLY);
+
+    if (read(fd, NULL, 0) == -1)
+    {
+        close(fd);
+        mx_strdel(&buff);
+        return NULL;
+    }
+    while ((size = read(fd, buff, 1) > 0)) {
+        char* tmp = mx_strdup(res);
+        mx_strdel(&res);
+        res = mx_strjoin(tmp, buff);
+        mx_strdel(&tmp);
+     }
+     close(fd);
+     return return_my_line(&buff, &res);
 }
 
-static void file_str(int desc, char *temp) {
-	int s_file = 0;
-	char buf[128];
-	char *buf_str = NULL;
-	int s_read = 0;
-
-	while ((s_read = read(desc, buf, sizeof(buf) - 1)) > 0) {
-		buf[s_read] = '\0';
-		s_file += s_read;
-		buf_str = mx_strjoin(temp, buf);
-		mx_strdel(&temp);
-		temp = mx_strdup(buf_str);
-		mx_strdel(&buf_str);
-	}
+static char* return_my_line(char **buff, char **res) {
+    if (*res == NULL) {
+        mx_strdel(buff);
+        return NULL;
+    }
+    else {
+        mx_strdel(buff);
+        return *res;
+    }
+    return *res;
 }

@@ -1,7 +1,5 @@
 #include "libmx.h"
 
-static void condition(const char *s1, const char *s2, int i, int j, char *temp);
-
 char *mx_strjoin(const char *s1, const char *s2) {
 	int i = 0;
 	int j = 0;
@@ -23,9 +21,9 @@ static void condition(const char *s1, const char *s2, int i, int j, char *temp) 
 		temp[i] = s1[i];
 		i++;
 	}
-	while (s2[j] != '\0') {
-		temp[i] = s2[j];
+	for (; s2[j] != '\0'; j++) {
+		str[i] = s2[j];
 		i++;
-		j++;
 	}
+	return str;
 }

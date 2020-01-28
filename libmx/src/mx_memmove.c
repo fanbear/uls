@@ -1,13 +1,16 @@
 #include "libmx.h"
 
 void *mx_memmove(void *dst, const void *src, size_t len) {
-	char *temp = (char *)dst;  
-	char *str = (char *)src;
-	char *buf =mx_strnew(len);
+	char* d = (char*)dst;
+	const char* s = (char*)src;
+	char* tmp = NULL;
 
-	for (unsigned i = 0; i < len; i++)
-		buf[i] = str[i];
-	for (unsigned i = 0; i < len; i++)
-		temp[i] = buf[i];
-	return temp;
+	tmp = mx_strnew(len);
+    for (size_t j = 0; j < len; j++)
+        tmp[j] = s[j];
+	for (size_t i = 0; i < len; i++)
+        d[i] = tmp[i];
+	free(tmp);
+	tmp = NULL;
+	return (void*)dst;
 }

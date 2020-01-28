@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <malloc/malloc.h>
 
+#define BUF_SIZE 8;
 
 
 
@@ -33,6 +34,15 @@ int mx_quicksort(char **arr, int left, int right);
 
 //-----------------------------------------------------------------------
 
+//***************************** Extra *****************************
+int mx_calc_num(int number);
+bool mx_isspace(char c);
+char* mx_strchr(char* str, char c);
+int mx_strncmp(const char *s1, const char *s2, int n);
+char *mx_strjoin_no_leaks(char **s1, char **s2);
+int mx_strchr_index(char* str, char c);
+void mx_add_buff_to_static(char **static_buff, char **buff);
+char *mx_strdup_and_del(char **str);
 
 //***************************** String pack *****************************
 
@@ -41,7 +51,6 @@ void mx_swap_char(char *s1, char *s2);
 void mx_str_reverse(char *s);                                 					
 void mx_strdel(char **str);                                   					   
 void mx_del_strarr(char ***arr);
-int mx_strncmp(const char *s1, const char *s2, int n);
 int mx_get_char_index(const char *str, char c);               					   
 char *mx_strdup(const char *s1);
 char *mx_strndup(const char *s1, size_t n);                   					   
