@@ -12,25 +12,26 @@ int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs = mx_get_dir_entry(args, mx_arr_size(args->dirs));
 	char symbol = '.';
-
 	if (args->flags) {
 		for (int i = 0; args->flags[i]; i++) {
 			if (args->flags[i] == 'a')
 				symbol = '\0';
 		}
 	}
-	if (isatty(1)) {
-		if (args->files[0] != NULL) {
-			mx_print_ls_multy_colomn(args->files);
-			mx_printchar('\n');
+	if (args->dirs[0]) {
+		if (isatty(1)) {
+			if (args->files[0] != NULL) {
+				mx_print_ls_multy_colomn(args->files);
+				mx_printchar('\n');
+			}
+			mx_print(args, dirs, symbol, mx_print_ls_multy_colomn);
+		} else {
+			if (args->files[0] != NULL) {
+				mx_print_ls_monocolomn(args->files);
+				mx_printchar('\n');
+			}
+			mx_print(args, dirs, symbol, mx_print_ls_monocolomn);
 		}
-		mx_print(args, dirs, symbol, mx_print_ls_multy_colomn);
-	} else {
-		if (args->files[0] != NULL) {
-			mx_print_ls_monocolomn(args->files);
-			mx_printchar('\n');
-		}
-		mx_print(args, dirs, symbol, mx_print_ls_monocolomn);
 	}
 	mx_del_dirs_struct(dirs);
 	mx_del_args_struct(args, NOT_VALID);

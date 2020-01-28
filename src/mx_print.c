@@ -2,7 +2,7 @@
 
 void mx_print(t_args *args, t_dirs *dirs_entry, char symbol, void (*print_ls)(char **)) {
     char **data = mx_sort_data(dirs_entry, symbol);
-
+	
     if (dirs_entry->next || args->not_valid[0]) {
         while (dirs_entry) {
             data = mx_sort_data(dirs_entry, symbol);

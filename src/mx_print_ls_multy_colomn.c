@@ -25,7 +25,7 @@ static void multi_clm_print(char **data, int max_size, int max_d_len) {
                     break;
                 }
                 if (mx_strlen(data[k]) % 8) {
-                    mx_printstr("\t\0");
+                    mx_printstr("\t");
                 }
                 add_tabs(max_d_len, mx_strlen(data[k]));
         }
