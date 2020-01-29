@@ -20,6 +20,7 @@ void print_ls_l(char **data) {
 
     for(; data[i]; i++) {
         mx_get_inform(gnr, data[i], i);
+
         gnr->sum_blocks += gnr->array_p[i].blocks;
         gnr->max_link = max_links(gnr, gnr->max_link, i);
         gnr->max_size = max_size(gnr, gnr->max_size, i);
@@ -27,7 +28,7 @@ void print_ls_l(char **data) {
         gnr->max_group = max_group_name(gnr, gnr->max_group, i);
     }
     mx_output_l(gnr, i);
-    
+
     //system("leaks -q uls");
 }
 
@@ -86,6 +87,4 @@ static int max_size(st_general *gnr, int max, int i) {
 //     printf("%d\n", gnr->max_size);
 //     printf("%d\n", gnr->max_group);
 //     printf("%d\n", gnr->max_user);
-//     
-
-
+//

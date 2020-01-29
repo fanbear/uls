@@ -13,7 +13,7 @@ static void print_total(int sum_total) {
 }
 void mx_output_l(st_general *gnr, int argc) {
 	print_total(gnr->sum_blocks);
-	for (int i = 1; i < argc; i++) {
+	for (int i = 0; i < argc; i++) {
 		mx_printstr(gnr->array_p[i].permiss);
 		mx_printstr("  ");
 		print_space(gnr->max_link, gnr->array_p[i].nlink);
