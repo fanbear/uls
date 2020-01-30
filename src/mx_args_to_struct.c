@@ -45,8 +45,11 @@ static int get_arg_info(char **argv, int index) {
     if (!dir) {
         int fd = open(argv[index], O_RDONLY);
 
-        if (fd < 0)
+        if (errno == 13)
+            return 1;
+        if (fd < 0) {
             return -1;
+        }
         else {
             close(fd);
             return 0;

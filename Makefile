@@ -8,6 +8,9 @@ INCLIB = libmx/libmx.a
 
 SRC = \
 main.c \
+mx_sort_args.c \
+mx_get_dir_entry.c \
+mx_get_max_value.c \
 mx_get_flags.c \
 mx_args_to_struct.c \
 mx_print_not_valid.c \
@@ -21,6 +24,10 @@ mx_get_window_size.c \
 mx_sort_data.c \
 mx_print_ls_monocolomn.c \
 mx_print.c \
+mx_check_on_access.c \
+mx_get_stat.c \
+mx_get_data_info.c \
+mx_print_ls_l.c \
 \
 print_ls_l.c \
 mx_get_inform.c \
