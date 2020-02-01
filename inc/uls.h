@@ -42,11 +42,19 @@ typedef struct s_dirs {
 	struct s_dirs *next;
 } t_dirs;
 
+typedef struct s_files_detailes {
+	char **files;
+	struct file *stat;
+    int max_group; // максимальная длина имени группы (нужно для рассчета расстояния между файлами)
+    int max_user; // максимальная длина имени юзера (нужно для рассчета расстояния между файлами)
+    int max_size;// максимальная длина байт (нужно для рассчета расстояния между файлами)
+    int max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
+} t_files_detailes;
+
 typedef struct s_dirs_entry {
 	char *d_name;
 	int d_namlen;
-	int d_type;
-    struct file *stat;
+	struct file *stat;
 	struct s_dirs_entry *next;
 } t_dirs_entry;
 
@@ -62,7 +70,6 @@ typedef struct file { //структура для файлов
     char* permiss;
     struct stat buf;
     char *file_name;
-    struct stat stat;
     struct passwd *pw;
     char *user_name;
     char *group_name;
@@ -93,9 +100,9 @@ char **mx_get_data_from_struct(t_dirs *dirs, char symbol);
 int mx_get_window_size();
 char **mx_sort_data(t_dirs *dirs, char symbol);
 void mx_print_ls_monocolomn(char **data);
-void mx_print(t_args *args, t_dirs *dirs_entry, char symbol, void (*print_ls)(char **));
-t_file *mx_get_stat(char *data, int *total);
-void mx_get_data_info(t_file *stat, char* file, int *total);
+void mx_print(t_args *args, t_dirs *dirs, char symbol, void (*print_ls)(char **));
+t_file *mx_get_stat(char *data);
+void mx_get_data_info(t_file *stat, char* file);
 void mx_print_ls_l(t_args *args, t_dirs *dirs);
 
 //***************************** Utils pack *******************************
@@ -112,10 +119,10 @@ typedef struct general{
 } st_general;
 
 //-----------------------------------------------------------------------
-void print_ls_l(char **data);
-void mx_output_l(st_general *gnr, int argc);
+// void print_ls_l(char **data);
+// void mx_output_l(st_general *gnr, int argc);
 char* mx_permission(char* file, t_file *file_st);
-void mx_get_inform(st_general *gnr, char* file, int i);
-//-----------------------------------------------------------------------                                       
+// void mx_get_inform(st_general *gnr, char* file, int i);
+//-----------------------------------------------------------------------
 
 #endif

@@ -26,12 +26,8 @@ mx_print_ls_monocolomn.c \
 mx_print.c \
 mx_check_on_access.c \
 mx_get_stat.c \
-mx_get_data_info.c \
 mx_print_ls_l.c \
 \
-print_ls_l.c \
-mx_get_inform.c \
-mx_output_l.c \
 mx_permission.c \
 
 

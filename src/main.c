@@ -11,9 +11,10 @@ int main(int argc, char **argv) {
 			if (args->flags[i] == 'a')
 				symbol = '\0';
 			if (args->flags[i] == 'l')
-				symbol_l = true;	
+				symbol_l = true;
 		}
 	}
+
 	if (isatty(1)) {
 		if (!symbol_l)
 			mx_print(args, dirs, symbol, mx_print_ls_multy_colomn);
@@ -24,7 +25,8 @@ int main(int argc, char **argv) {
 		if (!symbol_l)
 			mx_print(args, dirs, symbol, mx_print_ls_monocolomn);
 		else {
-			mx_print(args, dirs, symbol, print_ls_l);
+			return 0;
+			// mx_print(args, dirs, symbol, print_ls_l);
 		}
 	}
 
@@ -32,4 +34,3 @@ int main(int argc, char **argv) {
 	mx_del_args_struct(args, NOT_VALID);
 	// system("leaks -q uls");
 }
-

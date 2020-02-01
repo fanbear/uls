@@ -2,13 +2,13 @@
 
 static t_dirs *parse(t_dirs *dirs, char *dir_name);
 static t_dirs *data_to_dirs_struct(char *dir_name);
-static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count, char *dir, int *total);
-static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir, int *total);
+static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count, char *dirå);
+static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir);
 
 t_dirs *mx_get_dir_entry(t_args *args) {
 	t_dirs *dirs = NULL;
 	int size = mx_arr_size(args->dirs);
-	
+
 	for (int i = 0; i < size; i++)
 		dirs = parse(dirs, args->dirs[i]);
 	return dirs;
@@ -35,7 +35,7 @@ static t_dirs *data_to_dirs_struct(char *dir_name) {
 	temp->total = 0;
 	temp->entry_dir = NULL;
 	while (dir && ((entry = readdir(dir)) != NULL)) {
-		temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name, &temp->total);
+		temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name);
 	}
 	if (dir)
 		closedir(dir);
@@ -46,27 +46,26 @@ static t_dirs *data_to_dirs_struct(char *dir_name) {
 	return temp;
 }
 
-static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count, char *dir, int *total) {
+static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count, char *dir) {
 	t_dirs_entry *current = dirs_entry;
 
 	if (!dirs_entry)
-		return mx_pushing_data(entry, count, dir, total);
+		return mx_pushing_data(entry, count, dir);
 	while (current->next != NULL)
 		current = current->next;
-	current->next = mx_pushing_data(entry, count, dir, total);
+	current->next = mx_pushing_data(entry, count, dir);
 	return dirs_entry;
 }
 
-static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir, int *total) {
+static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir) {
 	t_dirs_entry *temp = malloc(sizeof(t_dirs_entry));
 	char *res = mx_strjoin(dir, "/");
 
 	*count = *count + 1;
 	temp->d_name = mx_strdup(entry->d_name);
 	temp->d_namlen = (int)entry->d_namlen;
-	temp->d_type = (int)entry->d_type;
 	dir = mx_strjoin(res, temp->d_name);
-	temp->stat = mx_get_stat(dir, total);
+	temp->stat = mx_get_stat(dir);
 	mx_strdel(&dir);
 	mx_strdel(&res);
 	temp->next = NULL;

@@ -41,24 +41,26 @@ static void push_arg_to_arr(char **arr, char *arg) {
 
 static int get_arg_info(char **argv, int index) {
     DIR *dir = opendir(argv[index]);
+    int i;
 
     if (!dir) {
         int fd = open(argv[index], O_RDONLY);
 
         if (errno == 13)
-            return 1;
-        if (fd < 0) {
-            return -1;
-        }
+            i = 1;
+        else if (fd < 0)
+            i = -1;
         else {
             close(fd);
-            return 0;
+            i = 0;
         }
     }
     else {
         closedir(dir);
-        return 1;
+        i = 1;
     }
+    errno = 0;
+    return i;
 }
 
 static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {

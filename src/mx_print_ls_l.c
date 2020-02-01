@@ -1,6 +1,6 @@
 #include "uls.h"
 
-static void print(t_dirs *dirs);
+static void print_dirs(t_dirs *dirs);
 
 static void print_space(int max_elem, char* str) {
 	for(int j = 0; j < max_elem - mx_strlen(str); j++) {
@@ -16,26 +16,26 @@ static void print_total(int sum_total) {
 
 void mx_print_ls_l(t_args *args, t_dirs *dirs) {
     // if (args->files[0]) {
-    //     (args->files);
-    //     if (dirs) 
+    //     mx_print(args->files);
+    //     if (dirs)
     //         mx_printchar('\n');
     // }
     if (dirs) {
-        if (dirs->next || args->not_valid[0]) 
+        if (dirs->next || args->not_valid[0] || args->files[0])
             while (dirs) {
                 mx_printstr(dirs->dir);
                 mx_printstr(":\n");
-                print(dirs);
+                print_dirs(dirs);
                 dirs = dirs->next;
                 if (dirs)
                     mx_printchar('\n');
             }
         else
-            print(dirs);
+            print_dirs(dirs);
     }
 }
 
-static void print(t_dirs *dirs) {
+static void print_dirs(t_dirs *dirs) {
     t_dirs_entry *temp = dirs->entry_dir;
 
 	print_total(dirs->total);
@@ -64,3 +64,33 @@ static void print(t_dirs *dirs) {
         temp = temp->next;
     }
 }
+//
+// static void print_files() {
+//     t_dirs_entry *temp = dirs->entry_dir;
+//
+// 	print_total(dirs->total);
+//     while (temp) {
+//         mx_printstr(temp->stat->permiss);
+//         mx_printchar(' ');
+//         mx_printchar(' ');
+//         print_space(dirs->max_link, temp->stat->nlink);
+//         mx_printstr(temp->stat->nlink);
+//         mx_printchar(' ');
+//         mx_printstr(temp->stat->user_name);
+//         print_space(dirs->max_user, temp->stat->user_name);
+//         mx_printchar(' ');
+//         mx_printchar(' ');
+//         mx_printstr(temp->stat->group_name);
+//         print_space(dirs->max_group, temp->stat->group_name);
+//         mx_printchar(' ');
+//         mx_printchar(' ');
+//         print_space(dirs->max_size, temp->stat->file_size);
+//         mx_printstr(temp->stat->file_size);
+//         mx_printchar(' ');
+//         mx_printstr(temp->stat->time1);
+//         mx_printchar(' ');
+//         mx_printstr(temp->d_name);
+//         mx_printchar('\n');
+//         temp = temp->next;
+//     }
+// }

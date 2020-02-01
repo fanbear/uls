@@ -1,7 +1,7 @@
 #include "uls.h"
 
-static void max_value(int *value, struct file *stat) {
-    int j = mx_strlen(stat->nlink);
+static void max_value(int *value, char *data) {
+    int j = mx_strlen(data);
 
 	if(*value < j)
         *value = j;
@@ -18,11 +18,11 @@ void mx_get_max_value(t_dirs *dir) {
     dir->max_link = 0;
 
     while (temp) {
-        max_value(&dir->max_group, temp->stat);
-        max_value(&dir->max_user, temp->stat);
-        max_value(&dir->max_size, temp->stat);
-        max_value(&dir->max_link, temp->stat);
+        max_value(&dir->max_group, temp->stat->group_name);
+        max_value(&dir->max_user, temp->stat->user_name);
+        max_value(&dir->max_size, temp->stat->file_size);
+        max_value(&dir->max_link, temp->stat->nlink);
+        dir->total += temp->stat->buf.st_blocks;
         temp = temp->next;
     }
 }
-
