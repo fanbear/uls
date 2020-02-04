@@ -2,7 +2,8 @@
 
 static t_dirs *parse(t_dirs *dirs, char *dir_name);
 static t_dirs *data_to_dirs_struct(char *dir_name);
-static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count, char *dirå);
+static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry,
+	struct dirent *entry, int *count, char *dir);
 static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir);
 
 t_dirs *mx_get_dir_entry(t_args *args) {
@@ -28,14 +29,16 @@ static t_dirs *parse(t_dirs *dirs, char *dir_name) {
 
 static t_dirs *data_to_dirs_struct(char *dir_name) {
 	t_dirs *temp = malloc(sizeof(t_dirs));
-	DIR *dir = mx_check_on_access(dir_name);
+	DIR *dir = opendir(dir_name); 
+	// mx_check_on_access(dir_name);
 	struct dirent *entry = NULL;
 	int count = 0;
 
 	temp->total = 0;
 	temp->entry_dir = NULL;
 	while (dir && ((entry = readdir(dir)) != NULL)) {
-		temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name);
+		if (entry->d_name[0] != '.')
+			temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name);
 	}
 	if (dir)
 		closedir(dir);
@@ -46,7 +49,8 @@ static t_dirs *data_to_dirs_struct(char *dir_name) {
 	return temp;
 }
 
-static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *entry, int *count, char *dir) {
+static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry,
+	struct dirent *entry, int *count, char *dir) {
 	t_dirs_entry *current = dirs_entry;
 
 	if (!dirs_entry)
@@ -59,7 +63,7 @@ static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry, struct dirent *ent
 
 static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir) {
 	t_dirs_entry *temp = malloc(sizeof(t_dirs_entry));
-	char *res = mx_strjoin(dir, "/");
+	char *res = (mx_strcmp(dir, "/")) ? mx_strjoin(dir, "/") : mx_strdup(dir);
 
 	*count = *count + 1;
 	temp->d_name = mx_strdup(entry->d_name);

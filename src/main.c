@@ -25,8 +25,7 @@ int main(int argc, char **argv) {
 		if (!symbol_l)
 			mx_print(args, dirs, symbol, mx_print_ls_monocolomn);
 		else {
-			return 0;
-			// mx_print(args, dirs, symbol, print_ls_l);
+			mx_print_ls_l(args, dirs);
 		}
 	}
 

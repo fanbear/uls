@@ -27,6 +27,7 @@ mx_print.c \
 mx_check_on_access.c \
 mx_get_stat.c \
 mx_print_ls_l.c \
+mx_sort_content.c \
 \
 mx_permission.c \
 

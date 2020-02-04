@@ -14,6 +14,8 @@ static void print_total(int sum_total) {
 	mx_printchar('\n');
 }
 
+
+
 void mx_print_ls_l(t_args *args, t_dirs *dirs) {
     // if (args->files[0]) {
     //     mx_print(args->files);
@@ -23,15 +25,22 @@ void mx_print_ls_l(t_args *args, t_dirs *dirs) {
     if (dirs) {
         if (dirs->next || args->not_valid[0] || args->files[0])
             while (dirs) {
-                mx_printstr(dirs->dir);
-                mx_printstr(":\n");
+				while (mx_check_on_access(1, dirs->dir) && dirs) {
+					dirs = dirs->next;
+				}
+				mx_printstr(dirs->dir);
+				mx_printstr(":\n");
+				mx_sort_content(dirs->entry_dir);
                 print_dirs(dirs);
-                dirs = dirs->next;
+				dirs = dirs->next;
                 if (dirs)
                     mx_printchar('\n');
             }
-        else
-            print_dirs(dirs);
+        else {
+			mx_check_on_access(0, dirs->dir);
+			mx_sort_content(dirs->entry_dir);
+			print_dirs(dirs);
+		}
     }
 }
 
@@ -41,7 +50,6 @@ static void print_dirs(t_dirs *dirs) {
 	print_total(dirs->total);
     while (temp) {
         mx_printstr(temp->stat->permiss);
-        mx_printchar(' ');
         mx_printchar(' ');
         print_space(dirs->max_link, temp->stat->nlink);
         mx_printstr(temp->stat->nlink);
@@ -64,7 +72,8 @@ static void print_dirs(t_dirs *dirs) {
         temp = temp->next;
     }
 }
-//
+
+
 // static void print_files() {
 //     t_dirs_entry *temp = dirs->entry_dir;
 //

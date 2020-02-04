@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include <sys/xattr.h>
 #include <pwd.h>
+#include <grp.h>
 
 #define LEGAL "al"
 
@@ -92,7 +93,7 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void mx_print_not_valid(char *data);
 void mx_del_str_arr(char **arr);
 void mx_del_args_struct(t_args *args, int item);
-DIR *mx_check_on_access(char *data);
+int mx_check_on_access(int mult, char *data);
 void mx_del_dirs_struct(t_dirs *dirs);
 int mx_arr_size(char **arr);
 void mx_print_ls_multy_colomn(char **data);
@@ -104,25 +105,8 @@ void mx_print(t_args *args, t_dirs *dirs, char symbol, void (*print_ls)(char **)
 t_file *mx_get_stat(char *data);
 void mx_get_data_info(t_file *stat, char* file);
 void mx_print_ls_l(t_args *args, t_dirs *dirs);
-
-//***************************** Utils pack *******************************
-
-
-typedef struct general{
-    t_file  *array_p; // указатель на массив структур
-    //int max_file; // максимальная длина имени файла (нужно для рассчета расстояния между файлами)
-    int max_group; // максимальная длина имени группы (нужно для рассчета расстояния между файлами)
-    int max_user; // максимальная длина имени юзера (нужно для рассчета расстояния между файлами)
-    int max_size;// максимальная длина байт (нужно для рассчета расстояния между файлами)
-    int max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
-    int sum_blocks; // количество выделнных блоков, принтуется в самом начале флага -л
-} st_general;
-
-//-----------------------------------------------------------------------
-// void print_ls_l(char **data);
-// void mx_output_l(st_general *gnr, int argc);
+t_dirs_entry *mx_sort_content(t_dirs_entry *entry_dir);
 char* mx_permission(char* file, t_file *file_st);
-// void mx_get_inform(st_general *gnr, char* file, int i);
-//-----------------------------------------------------------------------
+
 
 #endif

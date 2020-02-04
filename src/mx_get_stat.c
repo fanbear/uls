@@ -4,6 +4,7 @@ static char* get_time(t_file *file_st);
 
 t_file *mx_get_stat(char *data) {
     t_file *stat = malloc(sizeof(t_file));
+    struct group *group;
 
     // mx_check_on_access(data);
     lstat(data, &stat->buf);
@@ -11,7 +12,11 @@ t_file *mx_get_stat(char *data) {
 	stat->nlink = mx_itoa(stat->buf.st_nlink);
 	stat->pw = getpwuid(stat->buf.st_uid);
 	stat->user_name = mx_strdup(stat->pw->pw_name);
-	stat->group_name = mx_itoa(stat->pw->pw_gid);
+    group = getgrgid(stat->buf.st_gid);
+    if (group != NULL)
+        stat->group_name = mx_strdup(group->gr_name);
+    else
+        stat->group_name = mx_itoa(stat->buf.st_gid);
 	stat->file_size = mx_itoa(stat->buf.st_size);
 	stat->time1 = get_time(stat);
 	stat->file_name = mx_strdup(data);
