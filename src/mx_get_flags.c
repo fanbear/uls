@@ -16,6 +16,17 @@ char *mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 	}
 	if (*index > 1)
 		flags = del_dub(parse_to_arr(*index, argv, amount), amount);
+	if (flags)
+		for (int j = 0; j < 2; j++) {
+			for (int i = 0; flags[i]; i++) {
+				if (LEGAL[j] == flags[i]) {
+					args->fl[j] = 1;
+					break;
+				}
+				else
+				args->fl[j] = 0;
+			}
+		}
 	return flags;
 }
 

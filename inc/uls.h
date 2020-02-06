@@ -26,6 +26,7 @@
 
 typedef struct s_args {
 	char *flags;
+	int fl[2];
 	char **files;
 	char **dirs;
 	char **not_valid;
@@ -38,6 +39,7 @@ typedef struct s_dirs {
     int max_user; // максимальная длина имени юзера (нужно для рассчета расстояния между файлами)
     int max_size;// максимальная длина байт (нужно для рассчета расстояния между файлами)
     int max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
+	int max_time;
 	int total;
     int amount_d_data;
 	struct s_dirs *next;
@@ -49,7 +51,8 @@ typedef struct s_files_detailes {
     int max_group; // максимальная длина имени группы (нужно для рассчета расстояния между файлами)
     int max_user; // максимальная длина имени юзера (нужно для рассчета расстояния между файлами)
     int max_size;// максимальная длина байт (нужно для рассчета расстояния между файлами)
-    int max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
+    int max_link;
+	 // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
 } t_files_detailes;
 
 typedef struct s_dirs_entry {
@@ -81,6 +84,7 @@ typedef struct file { //структура для файлов
     time_t a_time;        /*временные данные, для реализации разных флагов*/
     time_t m_time;
     time_t c_time;
+	char *time2;
     char *absolute_name;      //для линки, пока не пользуюсь
     char   *name_link;        //  если файл = линк для принта //пока не пользуюсь
 } t_file;

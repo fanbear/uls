@@ -46,8 +46,17 @@ static int get_arg_info(char **argv, int index) {
     if (!dir) {
         int fd = open(argv[index], O_RDONLY);
 
-        if (errno == 13)
-            i = 1;
+        if (errno == 13) {
+            struct stat *buf = malloc(sizeof(struct stat));
+            int lstat_h = lstat(argv[index], buf);
+
+            free(buf);
+        	buf = NULL;
+            if (lstat_h)
+                i = -1;
+            else
+                i = 1;
+        }
         else if (fd < 0)
             i = -1;
         else {

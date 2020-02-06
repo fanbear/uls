@@ -22,24 +22,29 @@ void mx_print_ls_l(t_args *args, t_dirs *dirs) {
     //     if (dirs)
     //         mx_printchar('\n');
     // }
+	// printf("dirs = %d\n", mx_arr_size(args->dirs));
+	// exit(1);
     if (dirs) {
         if (dirs->next || args->not_valid[0] || args->files[0])
             while (dirs) {
-				while (mx_check_on_access(1, dirs->dir) && dirs) {
+				if (mx_check_on_access(1, dirs->dir)) {
 					dirs = dirs->next;
 				}
-				mx_printstr(dirs->dir);
-				mx_printstr(":\n");
-				mx_sort_content(dirs->entry_dir);
-                print_dirs(dirs);
-				dirs = dirs->next;
-                if (dirs)
-                    mx_printchar('\n');
+				else {
+					mx_printstr(dirs->dir);
+					mx_printstr(":\n");
+					mx_sort_content(dirs->entry_dir);
+		            print_dirs(dirs);
+					dirs = dirs->next;
+				}
+				if (dirs)
+					mx_printchar('\n');
             }
         else {
-			mx_check_on_access(0, dirs->dir);
-			mx_sort_content(dirs->entry_dir);
-			print_dirs(dirs);
+			if (!mx_check_on_access(0, dirs->dir)) {
+				mx_sort_content(dirs->entry_dir);
+				print_dirs(dirs);
+			}
 		}
     }
 }
@@ -47,8 +52,10 @@ void mx_print_ls_l(t_args *args, t_dirs *dirs) {
 static void print_dirs(t_dirs *dirs) {
     t_dirs_entry *temp = dirs->entry_dir;
 
+
 	print_total(dirs->total);
     while (temp) {
+		// printf("dirs->max_time = %d, temp->stat->time = %d\n", dirs->max_time, mx_strlen(temp->stat->time));
         mx_printstr(temp->stat->permiss);
         mx_printchar(' ');
         print_space(dirs->max_link, temp->stat->nlink);
@@ -62,44 +69,19 @@ static void print_dirs(t_dirs *dirs) {
         print_space(dirs->max_group, temp->stat->group_name);
         mx_printchar(' ');
         mx_printchar(' ');
-        print_space(dirs->max_size, temp->stat->file_size);
+		print_space(dirs->max_size, temp->stat->file_size);
         mx_printstr(temp->stat->file_size);
         mx_printchar(' ');
         mx_printstr(temp->stat->time1);
+		print_space(dirs->max_time, temp->stat->time2);
+		mx_printstr(temp->stat->time2);
         mx_printchar(' ');
         mx_printstr(temp->d_name);
-        mx_printchar('\n');
+		if (temp->stat->name_link[0]) {
+			mx_printstr(" -> ");
+			mx_printstr(temp->stat->name_link);
+		}
+		mx_printchar('\n');
         temp = temp->next;
     }
 }
-
-
-// static void print_files() {
-//     t_dirs_entry *temp = dirs->entry_dir;
-//
-// 	print_total(dirs->total);
-//     while (temp) {
-//         mx_printstr(temp->stat->permiss);
-//         mx_printchar(' ');
-//         mx_printchar(' ');
-//         print_space(dirs->max_link, temp->stat->nlink);
-//         mx_printstr(temp->stat->nlink);
-//         mx_printchar(' ');
-//         mx_printstr(temp->stat->user_name);
-//         print_space(dirs->max_user, temp->stat->user_name);
-//         mx_printchar(' ');
-//         mx_printchar(' ');
-//         mx_printstr(temp->stat->group_name);
-//         print_space(dirs->max_group, temp->stat->group_name);
-//         mx_printchar(' ');
-//         mx_printchar(' ');
-//         print_space(dirs->max_size, temp->stat->file_size);
-//         mx_printstr(temp->stat->file_size);
-//         mx_printchar(' ');
-//         mx_printstr(temp->stat->time1);
-//         mx_printchar(' ');
-//         mx_printstr(temp->d_name);
-//         mx_printchar('\n');
-//         temp = temp->next;
-//     }
-// }

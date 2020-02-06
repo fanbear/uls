@@ -1,5 +1,5 @@
 #include "uls.h"
-// void lll(t_dirs *dirs);
+
 static void del_entry_dir(t_dirs_entry *entry_dir);
 
 void mx_del_dirs_struct(t_dirs *dirs) {

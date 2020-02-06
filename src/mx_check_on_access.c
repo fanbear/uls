@@ -45,6 +45,5 @@ static void stat_checking(int mult, char *data, struct stat *buf) {
 		write(2, "uls: ", 5);
 		perror(parse[mx_arr_size(parse) - 1]);
 		errno = 0;
-		mx_printchar('\n');
 	}
 }

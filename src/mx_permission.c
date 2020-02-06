@@ -74,8 +74,6 @@ char* mx_permission(char* file, t_file *file_st) {
     fill_spaces(str);
 	ssize_t value = 0;
 	value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
-	// printf("%lu\n",value );
-	// printf("%s\n",file);
 	acl_t acl = NULL;
 
 	type(str, file_st);

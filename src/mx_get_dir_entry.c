@@ -1,7 +1,7 @@
 #include "uls.h"
 
-static t_dirs *parse(t_dirs *dirs, char *dir_name);
-static t_dirs *data_to_dirs_struct(char *dir_name);
+static t_dirs *parse(t_args *args, t_dirs *dirs, char *dir_name);
+static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name);
 static t_dirs_entry *add_dirs_entry(t_dirs_entry *dirs_entry,
 	struct dirent *entry, int *count, char *dir);
 static t_dirs_entry *mx_pushing_data(struct dirent *entry, int *count, char *dir);
@@ -11,34 +11,35 @@ t_dirs *mx_get_dir_entry(t_args *args) {
 	int size = mx_arr_size(args->dirs);
 
 	for (int i = 0; i < size; i++)
-		dirs = parse(dirs, args->dirs[i]);
+		dirs = parse(args, dirs, args->dirs[i]);
 	return dirs;
 }
 
-static t_dirs *parse(t_dirs *dirs, char *dir_name) {
+static t_dirs *parse(t_args *args, t_dirs *dirs, char *dir_name) {
 	t_dirs *temp = dirs;
 
 	if (!dirs)
-		return data_to_dirs_struct(dir_name);
+		return data_to_dirs_struct(args, dir_name);
 	while (temp->next != NULL) {
 		temp = temp->next;
 	}
-	temp->next = data_to_dirs_struct(dir_name);
+	temp->next = data_to_dirs_struct(args, dir_name);
 	return dirs;
 }
 
-static t_dirs *data_to_dirs_struct(char *dir_name) {
+static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name) {
 	t_dirs *temp = malloc(sizeof(t_dirs));
-	DIR *dir = opendir(dir_name); 
-	// mx_check_on_access(dir_name);
+	DIR *dir = opendir(dir_name);
 	struct dirent *entry = NULL;
 	int count = 0;
 
+	errno = 0;
 	temp->total = 0;
 	temp->entry_dir = NULL;
 	while (dir && ((entry = readdir(dir)) != NULL)) {
-		if (entry->d_name[0] != '.')
-			temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name);
+		if (!args->fl[0] && entry->d_name[0] == '.')
+			continue;
+		temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name);
 	}
 	if (dir)
 		closedir(dir);
