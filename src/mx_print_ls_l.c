@@ -15,14 +15,17 @@ static void print_total(int sum_total) {
 	mx_printchar('\n');
 }
 
-
+static t_files *mx_get_files(char **files);
+static t_file_entry *get_files_entry(t_file_entry *entry_file, char *file);
+static t_file_entry *pushing_data(char *file);
 
 void mx_print_ls_l(t_args *args, t_dirs *dirs) {
-	if (args->files) {
+	if (args->files[0]) {
 		print_files(args);
 		if (dirs)
 			mx_printchar('\n');
 	}
+
     if (dirs) {
         if (dirs->next || args->not_valid[0] || args->files[0])
             while (dirs) {
@@ -84,38 +87,68 @@ static void print_dirs(t_dirs *dirs) {
 }
 
 static void print_files(t_args *args) {
-	int i = 0;
+	t_files *files = mx_get_files(args->files);
 
-	while (args->files[i]) {
-		t_file *stat = mx_get_stat(args->files[i]);
-
-		mx_printstr(stat->permiss);
+	mx_get_max_value_in_files(files);
+	while (files->entry_file) {
+		mx_printstr(files->entry_file->stat->permiss);
         mx_printchar(' ');
-        // print_space(max_link, stat->nlink);
-        mx_printstr(stat->nlink);
+        print_space(files->max_link, files->entry_file->stat->nlink);
+        mx_printstr(files->entry_file->stat->nlink);
         mx_printchar(' ');
-        mx_printstr(stat->user_name);
-        // print_space(max_user, stat->user_name);
-        mx_printchar(' ');
-        mx_printchar(' ');
-        mx_printstr(stat->group_name);
-        // print_space(max_group, stat->group_name);
+        mx_printstr(files->entry_file->stat->user_name);
+        print_space(files->max_user, files->entry_file->stat->user_name);
         mx_printchar(' ');
         mx_printchar(' ');
-		// print_space(max_size, stat->file_size);
-        mx_printstr(stat->file_size);
+        mx_printstr(files->entry_file->stat->group_name);
+        print_space(files->max_group, files->entry_file->stat->group_name);
         mx_printchar(' ');
-        mx_printstr(stat->time1);
-		// print_space(max_time, stat->time2);
-		mx_printstr(stat->time2);
         mx_printchar(' ');
-        mx_printstr(args->files[i]);
-		if (stat->name_link[0]) {
+		print_space(files->max_size, files->entry_file->stat->file_size);
+        mx_printstr(files->entry_file->stat->file_size);
+        mx_printchar(' ');
+        mx_printstr(files->entry_file->stat->time1);
+		print_space(files->max_time, files->entry_file->stat->time2);
+		mx_printstr(files->entry_file->stat->time2);
+        mx_printchar(' ');
+        mx_printstr(files->entry_file->files);
+		if (files->entry_file->stat->name_link[0]) {
 			mx_printstr(" -> ");
-			mx_printstr(stat->name_link);
+			mx_printstr(files->entry_file->stat->name_link);
 		}
 		mx_printchar('\n');
+		files->entry_file = files->entry_file->next;
+	}
+}
+
+static t_files *mx_get_files(char **files) {
+	int i = 0;
+	t_files *files_st = malloc(sizeof (t_files));
+
+	files_st->entry_file = NULL;
+	while (files[i]) {
+		files_st->entry_file = get_files_entry(files_st->entry_file, files[i]);
 		i++;
-		
-    }
+	}
+	return files_st;
+}
+
+static t_file_entry *get_files_entry(t_file_entry *entry_file, char *file) {
+	t_file_entry *current  = entry_file;
+
+	if (!entry_file)
+		return pushing_data(file);
+	while (current->next != NULL)
+		current = current->next;
+	current->next = pushing_data(file);
+	return entry_file;
+}
+
+static t_file_entry *pushing_data(char *file) {
+	t_file_entry *entry_file = malloc(sizeof (t_file_entry));
+
+	entry_file->stat = mx_get_stat(file);
+	entry_file->files = mx_strdup(file);
+	entry_file->next = NULL;
+	return entry_file;
 }

@@ -7,7 +7,7 @@ static void max_value(int *value, char *data) {
         *value = j;
 }
 
-void mx_get_max_value(t_dirs *dir) {
+void mx_get_max_value_in_dirs(t_dirs *dir) {
     t_dirs_entry *temp = dir->entry_dir;
 
     dir->max_group = 0;

@@ -10,7 +10,8 @@ SRC = \
 main.c \
 mx_sort_args.c \
 mx_get_dir_entry.c \
-mx_get_max_value.c \
+mx_get_max_value_in_dirs.c \
+mx_get_max_value_in_files.c \
 mx_get_flags.c \
 mx_args_to_struct.c \
 mx_print_not_valid.c \
@@ -29,7 +30,9 @@ mx_get_stat.c \
 mx_print_ls_l.c \
 mx_sort_content.c \
 \
+\
 mx_permission.c \
+# libmx/src/mx_strjoin_no_leaks.c 
 
 
 SRCS = $(addprefix src/, $(SRC))

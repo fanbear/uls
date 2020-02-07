@@ -1,8 +1,9 @@
 #include "uls.h"
 
-char **mx_sort_data(t_dirs *dirs, char symbol) {
-    char **data = mx_get_data_from_struct(dirs, symbol);
+char **mx_sort_data(t_dirs *dirs) {
+    char **data = mx_get_data_from_struct(dirs);
     int size = mx_arr_size(data);
+
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size - i - 1; j++) {

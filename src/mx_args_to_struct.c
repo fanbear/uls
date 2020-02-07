@@ -41,33 +41,24 @@ static void push_arg_to_arr(char **arr, char *arg) {
 
 static int get_arg_info(char **argv, int index) {
     DIR *dir = opendir(argv[index]);
-    int i;
+    int i = 1;
 
-    if (!dir) {
-        int fd = open(argv[index], O_RDONLY);
+    if (errno == 2) {
+        i = -1;
+    }
+    else if (errno == 20) {
+        struct stat *buf = malloc(sizeof(struct stat));
+        int lstat_h = lstat(argv[index], buf);
 
-        if (errno == 13) {
-            struct stat *buf = malloc(sizeof(struct stat));
-            int lstat_h = lstat(argv[index], buf);
-
-            free(buf);
-        	buf = NULL;
-            if (lstat_h)
-                i = -1;
-            else
-                i = 1;
-        }
-        else if (fd < 0)
+        free(buf);
+    	buf = NULL;
+        if (lstat_h)
             i = -1;
-        else {
-            close(fd);
+        else
             i = 0;
-        }
     }
-    else {
+    if (dir)
         closedir(dir);
-        i = 1;
-    }
     errno = 0;
     return i;
 }
