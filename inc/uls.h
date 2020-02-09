@@ -23,6 +23,8 @@
 #include <grp.h>
 
 #define LEGAL "al"
+#define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+#define MINOR(x)        ((int32_t)((x) & 0xffffff))
 
 typedef struct s_args {
 	char  *flags;
@@ -40,6 +42,7 @@ typedef struct s_dirs {
     int                  max_size;// максимальная длина байт (нужно для рассчета расстояния между файлами)
     int                  max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
 	int                  max_time;
+	int 				 max_rdev;
 	int                  total;
     int                  amount_d_data;
 	struct s_dirs       *next;
@@ -60,6 +63,7 @@ typedef struct s_files {
     int                  max_size; // максимальная длина байт (нужно для рассчета расстояния между файлами)
     int                  max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
 	int                  max_time;
+	int 				 max_rdev;
 } t_files;
 
 typedef struct s_file_entry {
@@ -91,6 +95,8 @@ typedef struct file { //структура для файлов
     time_t         m_time;
     time_t         c_time;
 	blkcnt_t       blocks;
+	char		   *rdev;
+	int 		   count_rdev;
 	struct stat    buf;
 	struct passwd *pw;
 } t_file;

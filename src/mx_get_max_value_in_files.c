@@ -19,7 +19,11 @@ void mx_get_max_value_in_files(t_files *files) {
     while (temp) {
         max_value(&files->max_group, temp->stat->group_name);
         max_value(&files->max_user, temp->stat->user_name);
-        max_value(&files->max_size, temp->stat->file_size);
+        if (temp->stat->permiss[0] == 'b' ||  temp->stat->permiss[0] == 'c') {
+            files->max_size = 8;
+        }
+        else 
+            max_value(&files->max_size, temp->stat->file_size);
         max_value(&files->max_link, temp->stat->nlink);
         max_value(&files->max_time, temp->stat->time2);
         temp = temp->next;

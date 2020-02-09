@@ -1,5 +1,7 @@
 #include "uls.h"
 
+
+
 static void print_files(t_args *args);
 static void print_dirs(t_dirs *dirs);
 
@@ -69,8 +71,13 @@ static void print_dirs(t_dirs *dirs) {
         print_space(dirs->max_group, temp->stat->group_name);
         mx_printchar(' ');
         mx_printchar(' ');
-		print_space(dirs->max_size, temp->stat->file_size);
-        mx_printstr(temp->stat->file_size);
+         if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c') {
+        	mx_printstr(temp->stat->rdev);
+        }
+        else {
+			print_space(dirs->max_size, temp->stat->file_size);
+			mx_printstr(temp->stat->file_size);
+        }
         mx_printchar(' ');
         mx_printstr(temp->stat->time1);
 		print_space(dirs->max_time, temp->stat->time2);
@@ -104,8 +111,13 @@ static void print_files(t_args *args) {
         print_space(files->max_group, files->entry_file->stat->group_name);
         mx_printchar(' ');
         mx_printchar(' ');
-		print_space(files->max_size, files->entry_file->stat->file_size);
-        mx_printstr(files->entry_file->stat->file_size);
+        if (files->entry_file->stat->permiss[0] == 'b' || files->entry_file->stat->permiss[0] == 'c') {
+        	mx_printstr(files->entry_file->stat->rdev);
+        }
+        else {
+			print_space(files->max_size, files->entry_file->stat->file_size);
+        	mx_printstr(files->entry_file->stat->file_size);
+        }
         mx_printchar(' ');
         mx_printstr(files->entry_file->stat->time1);
 		print_space(files->max_time, files->entry_file->stat->time2);
