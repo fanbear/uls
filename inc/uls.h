@@ -22,7 +22,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define LEGAL "al"
+#define LEGAL "alm"
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MINOR(x)        ((int32_t)((x) & 0xffffff))
 
@@ -105,7 +105,7 @@ t_args        *mx_sort_args(int argc, char **argv);
 t_dirs        *mx_get_dir_entry(t_args *args);
 void           mx_get_max_value_in_dirs(t_dirs *dir);
 void           mx_get_max_value_in_files(t_files *files);
-char          *mx_get_flags(t_args *args, int *index, int argc, char **argv);
+char          *mx_get_flags(t_args *args, int *index, int argc, char **argv); // проверка флагов и получения текущих
 void           mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void           mx_print_not_valid(char *data);
 void           mx_del_str_arr(char **arr);
@@ -124,5 +124,6 @@ void           mx_get_data_info(t_file *stat, char* file);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 t_dirs_entry  *mx_sort_content(t_dirs_entry *entry_dir);
 char          *mx_permission(char* file, t_file *file_st);
+void 			mx_print_flag_m(t_args *args, t_dirs *dirs); //печать флага -m
 
 #endif

@@ -32,6 +32,7 @@ mx_sort_content.c \
 \
 \
 mx_permission.c \
+mx_print_flag_m.c \
 # libmx/src/mx_strjoin_no_leaks.c 
 
 
