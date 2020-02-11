@@ -22,7 +22,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define LEGAL "algGm1Rr"
+#define LEGAL "algGmR1"
 
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MINOR(x)        ((int32_t)((x) & 0xffffff))
@@ -132,6 +132,7 @@ t_dirs_entry  *mx_sort_content(t_dirs_entry *entry_dir);
 char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_m(t_args *args, t_dirs *dirs);
+void           mx_recursive_open_dirs(t_args *args);
 
 
 #endif

@@ -2,7 +2,8 @@
 
 int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
-	t_dirs *dirs = mx_get_dir_entry(args);
+
+	bool symbol_R = false;
 	bool symbol_l = false;
 	bool symbol_m = false;
 	bool symbol_g = false;
@@ -14,9 +15,16 @@ int main(int argc, char **argv) {
 			if (args->flags[i] == 'm')
 				symbol_m = true;
 			if (args->flags[i] == 'g')
-   				symbol_g = true;
+				symbol_g = true;
+			if (args->flags[i] == 'R')
+				symbol_R = true;
 		}
 	}
+	if (symbol_R)
+		mx_recursive_open_dirs(args);
+
+	t_dirs *dirs = mx_get_dir_entry(args);
+
 
 	if (isatty(1)) {
 		if (symbol_g)
