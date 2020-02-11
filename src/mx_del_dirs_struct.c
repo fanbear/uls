@@ -32,7 +32,6 @@ static void del_entry_dir(t_dirs_entry *entry_dir) {
 
         free(entry_dir->stat);
         entry_dir->stat = NULL;
-
         free(entry_dir);
         entry_dir = temp_entry;
     }
