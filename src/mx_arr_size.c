@@ -2,7 +2,10 @@
 
 int mx_arr_size(char **arr) {
     int i = 0;
-    while (arr[i])
-        i++;
+
+    if (arr) {
+        while (arr[i])
+            i++;
+    }
     return i;
 }

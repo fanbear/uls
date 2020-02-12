@@ -1,33 +1,55 @@
 #include "uls.h"
 
-static void mx_sort_args(t_args *args, int argc, char **argv) {
-	int index = 1;
-
-	args->flags = mx_get_flags(&index, argc, argv);
-	if (argc > 1) {
-		mx_args_to_struct(index, argc, argv, args);
-		mx_print_not_valid(mx_arr_size(args->not_valid), args->not_valid);
-	}
-}
-
 int main(int argc, char **argv) {
-	t_args *args = (t_args *)malloc(sizeof(t_args));
+	t_args *args = mx_sort_args(argc, argv);
 
-	mx_sort_args(args, argc, argv);
+	bool symbol_R = false;
+	bool symbol_l = false;
+	bool symbol_m = false;
+	bool symbol_g = false;
 
-	// st_general *gnr = (st_general*)malloc(sizeof(st_general));
+	if (args->flags) {
+		for (int i = 0; args->flags[i]; i++) {
+			if (args->flags[i] == 'l')
+				symbol_l = true;
+			if (args->flags[i] == 'm')
+				symbol_m = true;
+			if (args->flags[i] == 'g')
+				symbol_g = true;
+			if (args->flags[i] == 'R')
+				symbol_R = true;
+		}
+	}
+	if (symbol_R)
+		mx_recursive_open_dirs(args);
 
-	// if (isatty(1)) {
-	//
-	// }
-	// else {
-	// 	printf("asd\n");
-	// }
-	// if (argc == 1)
-	// 		mx_uls_only(gnr);
-	// 	if (argc > 1) {
-	// 		gnr->d_str = mx_uls_no_flag(argc, argv);
-	// 		mx_print_directory(gnr);
-	// 	}
-	system("leaks -q uls");
+	t_dirs *dirs = mx_get_dir_entry(args);
+
+
+	if (isatty(1)) {
+		if (symbol_g)
+			mx_print_ls_g(args, dirs);
+		else if (!symbol_l)
+			if (symbol_m)
+				mx_print_flag_m(args, dirs);
+			else
+				mx_print(args, dirs, mx_print_ls_multy_colomn);
+		else {
+			mx_print_ls_l(args, dirs);
+		}
+	} else {
+		if (!symbol_l)
+			if (symbol_m)
+				mx_print_flag_m(args, dirs);
+			else
+			mx_print(args, dirs, mx_print_ls_monocolomn);
+		else {
+			mx_print_ls_l(args, dirs);
+		}
+	}
+
+	mx_del_dirs_struct(dirs);
+	mx_del_args_struct(args, NOT_VALID);
+	//system("leaks -q uls");
+	//exit(1);
 }

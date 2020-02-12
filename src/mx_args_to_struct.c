@@ -7,12 +7,13 @@ static void mem_alloc_struct(t_args *args, char **files,
 char **dirs, char **n_valid);
 
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
-    char **files = (char **)malloc(sizeof(char *) * (argc - 1));
-    char **dirs = (char **)malloc(sizeof(char *) * (argc - 1));
-    char **not_valid = (char **)malloc(sizeof(char *) * (argc - 1));
+    char **files = (char **)malloc(sizeof(char *) * (argc));
+    char **dirs = (char **)malloc(sizeof(char *) * (argc + 1));
+    char **not_valid = (char **)malloc(sizeof(char *) * (argc));
 
     files[0] = NULL;
-    dirs[0] = NULL;
+    dirs[0] = (argc == index) ? mx_strdup(".") : NULL;
+    dirs[1] = NULL;
     not_valid[0] = NULL;
     for (; index < argc; index++) {
         if (get_arg_info(argv, index) == -1)
@@ -40,21 +41,26 @@ static void push_arg_to_arr(char **arr, char *arg) {
 
 static int get_arg_info(char **argv, int index) {
     DIR *dir = opendir(argv[index]);
+    int i = 1;
 
-    if (!dir) {
-        int fd = open(argv[index], O_RDONLY);
-
-        if (fd < 0)
-            return -1;
-        else {
-            close(fd);
-            return 0;
-        }
+    if (errno == 2) {
+        i = -1;
     }
-    else {
+    else if (errno == 20) {
+        struct stat *buf = malloc(sizeof(struct stat));
+        int lstat_h = lstat(argv[index], buf);
+
+        free(buf);
+    	buf = NULL;
+        if (lstat_h)
+            i = -1;
+        else
+            i = 0;
+    }
+    if (dir)
         closedir(dir);
-        return 1;
-    }
+    errno = 0;
+    return i;
 }
 
 static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {
@@ -81,9 +87,9 @@ static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {
 
 static void mem_alloc_struct(t_args *args, char **files,
 char **dirs, char **n_valid) {
-    args->files = malloc(sizeof(char *) * mx_arr_size(files) + 1);
-    args->dirs = malloc(sizeof(char *) * mx_arr_size(dirs) + 1);
-    args->not_valid = malloc(sizeof(char *) * mx_arr_size(n_valid) + 1);
+    args->files = malloc(sizeof(char *) * (mx_arr_size(files) + 1));
+    args->dirs = malloc(sizeof(char *) * (mx_arr_size(dirs) + 1));
+    args->not_valid = malloc(sizeof(char *) * (mx_arr_size(n_valid) + 1));
     args->files[0] = NULL;
     args->dirs[0] = NULL;
     args->not_valid[0] = NULL;
