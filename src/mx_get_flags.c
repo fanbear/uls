@@ -24,7 +24,7 @@ char *mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 					break;
 				}
 				else
-				args->fl[j] = 0;
+					args->fl[j] = 0;
 			}
 		}
 	return flags;

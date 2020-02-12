@@ -22,7 +22,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define LEGAL "algGmR1"
+#define LEGAL "aRglm1C"
 
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MINOR(x)        ((int32_t)((x) & 0xffffff))
@@ -36,7 +36,7 @@
 
 typedef struct s_args {
 	char  *flags;
-	int    fl[2];
+	int    fl[5];
 	char **files;
 	char **dirs;
 	char **not_valid;
@@ -133,6 +133,7 @@ char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_m(t_args *args, t_dirs *dirs);
 void           mx_recursive_open_dirs(t_args *args);
+void mx_quicksrt(char **arr, int left, int right);
 
 
 #endif

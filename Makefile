@@ -35,6 +35,7 @@ mx_permission.c \
 mx_print_flag_m.c \
 mx_print_ls_g.c \
 mx_recursive_open_dirs.c \
+mx_quicksrt.c \
 # libmx/src/mx_strjoin_no_leaks.c
 
 

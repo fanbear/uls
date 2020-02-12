@@ -36,13 +36,3 @@ static void del_entry_dir(t_dirs_entry *entry_dir) {
         entry_dir = temp_entry;
     }
 }
-
-// void lll(t_dirs *dirs) {
-//     while (true) {
-//         printf("%s\n", dirs->dir);
-//         fflush(stdout);
-//         if (!dirs->next)
-//             break;
-//         dirs = dirs->next;
-//     }
-// }
