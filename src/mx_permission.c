@@ -1,7 +1,7 @@
 #include "uls.h"
 
 
- static void type(char* str, t_file *file_st) {
+static void type(char* str, t_file *file_st) {
  	if ((file_st->buf.st_mode & S_IFMT) == S_IFREG)
 		str[0] = '-';
 	else if ((file_st->buf.st_mode & S_IFMT) == S_IFLNK)
@@ -18,7 +18,7 @@
 		str[0] = 'b';
  }
 
- static void perm_for_user(t_file *file_st, char* str) {
+static void perm_for_user(t_file *file_st, char* str) {
  	if (file_st->buf.st_mode & S_IRUSR)
 		str[1] = 'r';
 	else
@@ -33,7 +33,7 @@
 		str[3] = '-';
  }
 
- static void perm_for_group(t_file *file_st, char* str) {
+static void perm_for_group(t_file *file_st, char* str) {
  	if (file_st->buf.st_mode & S_IRGRP)
 		str[4] = 'r';
 	else
@@ -48,7 +48,7 @@
 		str[6] = '-';
  }
 
- static void perm_for_other(t_file *file_st, char* str) {
+static void perm_for_other(t_file *file_st, char* str) {
  	if (file_st->buf.st_mode & S_IROTH)
 		str[7] = 'r';
 	else
@@ -62,12 +62,18 @@
 	else
 		str[9] = '-';
  }
+
+static void fill_spaces(char *str) {
+    for (int i = 0; i < 11; i++) {
+        str[i] = ' ';
+    }
+}
+
 char* mx_permission(char* file, t_file *file_st) {
 	char* str = mx_strnew(11);
+    fill_spaces(str);
 	ssize_t value = 0;
 	value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
-	printf("%lu\n",value );
-	printf("%s\n",file);
 	acl_t acl = NULL;
 
 	type(str, file_st);
@@ -83,7 +89,5 @@ char* mx_permission(char* file, t_file *file_st) {
 		str[10] = '+';
 		acl_free(acl);
 	}
-	else 
-		str[10] = '\0';
 	return str;
 }
