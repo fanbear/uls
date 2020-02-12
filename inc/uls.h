@@ -125,6 +125,9 @@ t_dirs_entry  *mx_sort_content(t_dirs_entry *entry_dir);
 char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_m(t_args *args, t_dirs *dirs);
+void 		   mx_print_file_ls(t_args *args);
+void		   mx_print_info(t_files *files);
+void		   mx_print_dirs_ls(t_dirs *dirs);
 
 
 #endif
