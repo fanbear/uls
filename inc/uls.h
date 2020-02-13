@@ -40,6 +40,22 @@ typedef struct s_args {
 	char **files;
 	char **dirs;
 	char **not_valid;
+
+	int sort;   // если 0 - сортировка по возростанию (Обычная)
+				// если 1 - сортировка по убыванию;
+				// если 2 - другой флаг и тд.
+
+	int print;  // если 0 - обычный принт с обычной сортировкой
+				// если 1 - принт на -R
+				// если 2 - принт на -l
+				// если 3 - принт на -С 
+				// если 4 - принт на -m
+				// если 5 - принт на -g
+				// если 6 - принт на -1
+
+	int data;   // если 0 - получаем масив вида -а
+				// если 1 - получаем масив бе указания . ../ .dir-or-file-name
+
 } t_args;
 
 typedef struct s_dirs {
@@ -133,7 +149,7 @@ char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_m(t_args *args, t_dirs *dirs);
 void           mx_recursive_open_dirs(t_args *args);
-void mx_quicksrt(char **arr, int left, int right);
-
+void           mx_quicksrt(char **arr, int left, int right);
+int            mx_struct_flag(int argc, char **argv, t_args *args);
 
 #endif
