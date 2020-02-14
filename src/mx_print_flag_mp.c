@@ -1,10 +1,9 @@
 #include "uls.h"
 
-void mx_print_flag_m(t_args *args, t_dirs *dirs) {
+void mx_print_flag_mp(t_args *args, t_dirs *dirs) {
 
 	if (dirs) {
         char **data = NULL;
-
         int count = 0;
 
         if (dirs->next || args->not_valid[0] || args->files[0])
@@ -53,3 +52,4 @@ void mx_print_flag_m(t_args *args, t_dirs *dirs) {
 	        }
     }
 }
+

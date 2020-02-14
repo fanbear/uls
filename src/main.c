@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 	else if (args->fl[5]) // печать одного флага
 		mx_print_ls_l(args, dirs);
 	else if (args->fl[6]) // печать одного флага
-		mx_print_flag_m(args, dirs);
+		mx_print_flag_mp(args, dirs);
 	else
 		uls_print(args, dirs);
 
