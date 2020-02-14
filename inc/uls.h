@@ -124,7 +124,7 @@ int            mx_arr_size(char **arr);
 void           mx_print_ls_multy_colomn(char **data, t_args *args);
 char         **mx_get_data_from_struct(t_dirs *dirs);
 int            mx_get_window_size(t_args *args);
-char         **mx_sort_data(t_dirs *dirs);
+char         **mx_sort_data(t_dirs *dirs, t_args *args);
 void           mx_print_ls_monocolomn(char **data, t_args *args);
 void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *));
 t_file        *mx_get_stat(char *data);

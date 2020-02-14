@@ -43,7 +43,6 @@ static int max_d_namlen(char **data) {
         max_len += 8 - (max_len % 8);
     else
         max_len += 8;
-
     return max_len;
 }
 

@@ -28,8 +28,9 @@ int main(int argc, char **argv) {
 
 
 static void uls_print(t_args *args, t_dirs *dirs) {
-	if ((isatty(1) || args->fl[0]) && !args->fl[8])
+	if ((isatty(1) || args->fl[0]) && !args->fl[8]) {
 		mx_print(args, dirs, mx_print_ls_multy_colomn); // обычный принт
+	}
 	else
 		mx_print(args, dirs, mx_print_ls_monocolomn); // обычный принт | cat -e
 }
