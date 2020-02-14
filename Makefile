@@ -32,7 +32,7 @@ mx_sort_content.c \
 \
 \
 mx_permission.c \
-mx_print_flag_m.c \
+mx_print_flag_mp.c \
 mx_print_ls_g.c \
 mx_recursive_open_dirs.c \
 mx_quicksort_r.c \
