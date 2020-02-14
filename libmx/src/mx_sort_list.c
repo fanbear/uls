@@ -16,7 +16,7 @@ t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *a, void *b)) {
 }
 static void swap(t_list *a, t_list *b) {
     void *temp = a->data;
-
+    
     a->data = b->data;
     b->data = temp;
 }

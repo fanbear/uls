@@ -22,7 +22,8 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define LEGAL "algGmR1"
+
+#define LEGAL "CGRaglmr1"
 
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MINOR(x)        ((int32_t)((x) & 0xffffff))
@@ -36,10 +37,11 @@
 
 typedef struct s_args {
 	char  *flags;
-	int    fl[2];
+	int    fl[9];
 	char **files;
 	char **dirs;
 	char **not_valid;
+
 } t_args;
 
 typedef struct s_dirs {
@@ -111,7 +113,7 @@ t_args        *mx_sort_args(int argc, char **argv);
 t_dirs        *mx_get_dir_entry(t_args *args);
 void           mx_get_max_value_in_dirs(t_dirs *dir);
 void           mx_get_max_value_in_files(t_files *files);
-char          *mx_get_flags(t_args *args, int *index, int argc, char **argv);
+void           mx_get_flags(t_args *args, int *index, int argc, char **argv);
 void           mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void           mx_print_not_valid(char *data);
 void           mx_del_str_arr(char **arr);
@@ -122,7 +124,7 @@ int            mx_arr_size(char **arr);
 void           mx_print_ls_multy_colomn(char **data);
 char         **mx_get_data_from_struct(t_dirs *dirs);
 int            mx_get_window_size();
-char         **mx_sort_data(t_dirs *dirs);
+char         **mx_sort_data(t_dirs *dirs, t_args *args);
 void           mx_print_ls_monocolomn(char **data);
 void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **));
 t_file        *mx_get_stat(char *data);
@@ -133,6 +135,6 @@ char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_m(t_args *args, t_dirs *dirs);
 void           mx_recursive_open_dirs(t_args *args);
-
+void           mx_quicksort_r(char **arr, int left, int right);
 
 #endif

@@ -19,7 +19,8 @@ int mx_check_on_access(int mult, char *data) {
 	}
 	free(buf);
 	buf = NULL;
-	closedir(dir);
+	if (dir)
+		closedir(dir);
 	return 0;
 }
 
