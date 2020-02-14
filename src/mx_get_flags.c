@@ -1,10 +1,10 @@
 #include "uls.h"
 
 static int amount_of_flags(t_args *args, int *amount, char *flag);
-static void parse_to_arr(int index, char **argv, int amount, char *flags);
+static char *parse_to_arr(int index, char **argv, int amount);
 static void sort_flags(t_args *args, char *flags);
 
-char *mx_get_flags(t_args *args, int *index, int argc, char **argv) {
+void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 	int amount = 0;
 	char *flags = NULL;
 
@@ -13,13 +13,14 @@ char *mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 			break;
 		(*index)++;
 	}
+	for (int i = 0; i < 9; i++) {
+		args->fl[i] = 0;
+	}
 	if (*index > 1) {
-		parse_to_arr(*index, argv, amount, flags);
+		flags = parse_to_arr(*index, argv, amount);
+		args->flags = mx_strdup(flags);
 		sort_flags(args, flags);
 	}
-
-
-	return flags;
 }
 
 
@@ -41,12 +42,12 @@ static int amount_of_flags(t_args *args, int *amount, char *flag) {
 	return 0;
 }
 
-static void parse_to_arr(int index, char **argv, int amount, char *flags) {
+static char *parse_to_arr(int index, char **argv, int amount) {
+	char *flags = mx_strnew(amount + 1);
 	int k = 0;
 	int i;
 	int j;
 
-	flags = mx_strnew(amount + 1);
 	for (i = 1; i < index; i++) {
 		for (j = 1; argv[i][j]; j++) {
 			flags[k++] = argv[i][j];
@@ -56,22 +57,23 @@ static void parse_to_arr(int index, char **argv, int amount, char *flags) {
 }
 
 static void sort_flags(t_args *args, char *flags) {
-	// -1, -C, -x и -l
-	// [0] = a [1] = R [2] = G
 	int index_s = -1;
 
-	for (int i = 0; i < 9; i++) {
-		args->fl[i] = 0;
-	}
-
 	for (int i = 0; flags[i]; i++) {
-		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'G' || flags[i] == 'l')
+		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm' || flags[i] == 'l' || flags[i] == 'g')
 			index_s = i;
-		if (flags[i] == 'a')
-			index = i;
-
+		else if (flags[i] == 'G')
+			args->fl[1] = 1;
+		else if (flags[i] == 'R')
+			args->fl[2] = 1;
+		else if (flags[i] == 'a')
+			args->fl[3] = 1;
+		else if (flags[i] == 'r')
+			args->fl[7] = 1;
 	}
 	if (index_s != -1)
-		args->fl[mx_get_char_index(LEGAL, flags[index])] = 1;
-
+		args->fl[mx_get_char_index(LEGAL, flags[index_s])] = 1;
+	// for (int i = 0; i < 9; i++) {
+	// 	printf ("fl[%d] = %d\n", i, args->fl[i]);
+	// }
 }

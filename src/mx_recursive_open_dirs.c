@@ -1,6 +1,6 @@
 #include "uls.h"
 
-static void get_entry_dirs(t_args *args, char *dir_name, char **res, int *index);
+static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index);
 
 void mx_recursive_open_dirs(t_args *args) {
     int index = 0;
@@ -20,17 +20,19 @@ void mx_recursive_open_dirs(t_args *args) {
     mx_del_str_arr(res);
 }
 
-static void get_entry_dirs(t_args *args, char *dir_name, char **res, int *index) {
+static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index) {
     DIR *dir;
     struct dirent *entry;
 
-    if (!(dir = opendir(dir_name)))
+    if (!(dir = opendir(dir_n)))
         return;
     while ((entry = readdir(dir)) != NULL) {
         if (entry->d_type == DT_DIR) {
-            if ((!args->fl[0] && entry->d_name[0] == '.') || !mx_strcmp(entry->d_name, ".") || !mx_strcmp(entry->d_name, ".."))
+            if ((!args->fl[3] && entry->d_name[0] == '.')
+                || !mx_strcmp(entry->d_name, ".")
+                || !mx_strcmp(entry->d_name, ".."))
                 continue;
-            res[*index] = mx_strjoin(mx_strjoin(dir_name, "/"), entry->d_name);
+            res[*index] = mx_strjoin(mx_strjoin(dir_n, "/"), entry->d_name);
             *index = *index + 1;
             if (res[*index - 1])
                 get_entry_dirs(args, res[*index - 1], res, index);

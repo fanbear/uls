@@ -37,7 +37,7 @@ static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name) {
 	temp->total = 0;
 	temp->entry_dir = NULL;
 	while (dir && ((entry = readdir(dir)) != NULL)) {
-		if (!args->fl[0] && entry->d_name[0] == '.')
+		if (!args->fl[3] && entry->d_name[0] == '.')
 			continue;
 		temp->entry_dir = add_dirs_entry(temp->entry_dir, entry, &count, dir_name);
 	}

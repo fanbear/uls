@@ -22,6 +22,7 @@
 #include <pwd.h>
 #include <grp.h>
 
+
 #define LEGAL "CGRaglmr1"
 
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
@@ -112,7 +113,7 @@ t_args        *mx_sort_args(int argc, char **argv);
 t_dirs        *mx_get_dir_entry(t_args *args);
 void           mx_get_max_value_in_dirs(t_dirs *dir);
 void           mx_get_max_value_in_files(t_files *files);
-char          *mx_get_flags(t_args *args, int *index, int argc, char **argv);
+void           mx_get_flags(t_args *args, int *index, int argc, char **argv);
 void           mx_args_to_struct(int index, int argc, char **argv, t_args *args);
 void           mx_print_not_valid(char *data);
 void           mx_del_str_arr(char **arr);
