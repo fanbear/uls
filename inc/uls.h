@@ -135,5 +135,6 @@ char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_m(t_args *args, t_dirs *dirs);
 void           mx_recursive_open_dirs(t_args *args);
+void           mx_quicksort_r(char **arr, int left, int right);
 
 #endif

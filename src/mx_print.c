@@ -17,7 +17,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
                     dirs = dirs->next;
                 }
                 else {
-                    data = mx_sort_data(dirs);
+                    data = mx_sort_data(dirs, args);
                     if (args->fl[2] && !toggle)
                         toggle = 1;
                     else {
@@ -36,7 +36,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
         }
         else
             if (!mx_check_on_access(0, dirs->dir)) {
-                data = mx_sort_data(dirs);
+                data = mx_sort_data(dirs, args);
                 (*print_ls)(data, args);
                 mx_del_str_arr(data);
             }

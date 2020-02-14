@@ -13,7 +13,7 @@ void mx_print_flag_m(t_args *args, t_dirs *dirs) {
                     dirs = dirs->next;
                 }
                 else {
-                    data = mx_sort_data(dirs);
+                    data = mx_sort_data(dirs, args);
                     mx_printstr(dirs->dir);
                     mx_printstr(":\n");
 	                for(int i = 0; data[i] != NULL; i++) {
@@ -36,7 +36,7 @@ void mx_print_flag_m(t_args *args, t_dirs *dirs) {
             }
         else
 	        if (!mx_check_on_access(0, dirs->dir)) { // принтуем даныые ./ && директирию
-	        	data = mx_sort_data(dirs);
+	        	data = mx_sort_data(dirs, args);
 	        	for(int i = 0; data[i] != NULL; i++) {
 					mx_printstr(data[i]);
 					if (data[i + 1])
