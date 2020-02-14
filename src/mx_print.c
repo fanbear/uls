@@ -1,9 +1,9 @@
 #include "uls.h"
 
-void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **)) {
+void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
 
     if (args->files[0]) {
-        (*print_ls)(args->files);
+        (*print_ls)(args->files, args);
         if (dirs)
             mx_printchar('\n');
     }
@@ -25,7 +25,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **)) {
                         mx_printstr(":\n");
                     }
                     if (data) {
-                        (*print_ls)(data);
+                        (*print_ls)(data, args);
                         mx_del_str_arr(data);
                     }
                     dirs = dirs->next;
@@ -37,7 +37,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **)) {
         else
             if (!mx_check_on_access(0, dirs->dir)) {
                 data = mx_sort_data(dirs);
-                (*print_ls)(data);
+                (*print_ls)(data, args);
                 mx_del_str_arr(data);
             }
         }

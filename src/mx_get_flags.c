@@ -8,6 +8,7 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 	int amount = 0;
 	char *flags = NULL;
 
+	args->flags = mx_strnew(0);
 	while (*index < argc && argv[*index][0] == '-' ) {
 		if (amount_of_flags(args, &amount, argv[*index]))
 			break;

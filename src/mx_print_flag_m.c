@@ -23,7 +23,7 @@ void mx_print_flag_m(t_args *args, t_dirs *dirs) {
 						else
 							mx_printstr("\n");
 						count += (mx_strlen(data[i]) + 4);
-						if (mx_get_window_size() <= count) {
+						if (mx_get_window_size(args) <= count) {
 							mx_printstr("\n");
 							count = 0;
 						}
@@ -44,7 +44,7 @@ void mx_print_flag_m(t_args *args, t_dirs *dirs) {
 					else
 						mx_printstr("\n");
 					count += (mx_strlen(data[i]) + 3);
-					if (data[i + 1] && mx_get_window_size() <= count + mx_strlen(data[i + 1])) {
+					if (data[i + 1] && mx_get_window_size(args) <= count + mx_strlen(data[i + 1])) {
 						mx_printstr("\n");
 						count = 0;
 					}
