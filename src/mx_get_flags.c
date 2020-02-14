@@ -1,9 +1,8 @@
 #include "uls.h"
 
 static int amount_of_flags(t_args *args, int *amount, char *flag);
-static char *parse_to_arr(int index, char **argv, int amount);
-static char *del_dub(char *flags, int size);
-static int sort_flags(int size, char *flags);
+static void parse_to_arr(int index, char **argv, int amount, char *flags);
+static void sort_flags(t_args *args, char *flags);
 
 char *mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 	int amount = 0;
@@ -14,19 +13,12 @@ char *mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 			break;
 		(*index)++;
 	}
-	if (*index > 1)
-		flags = del_dub(parse_to_arr(*index, argv, amount), amount);
-	if (flags)
-		for (int j = 0; j < 2; j++) {
-			for (int i = 0; flags[i]; i++) {
-				if (LEGAL[j] == flags[i]) {
-					args->fl[j] = 1;
-					break;
-				}
-				else
-					args->fl[j] = 0;
-			}
-		}
+	if (*index > 1) {
+		parse_to_arr(*index, argv, amount, flags);
+		sort_flags(args, flags);
+	}
+
+
 	return flags;
 }
 
@@ -40,7 +32,7 @@ static int amount_of_flags(t_args *args, int *amount, char *flag) {
 			write(2, LEGAL, mx_strlen(LEGAL));
 			write(2, "] [file ...]\n", 13);
 			mx_del_args_struct(args, NOTHING);
-			exit(-1);
+			exit(1);
 		}
 	}
 	*amount += mx_strlen(flag) - 1;
@@ -49,8 +41,7 @@ static int amount_of_flags(t_args *args, int *amount, char *flag) {
 	return 0;
 }
 
-static char *parse_to_arr(int index, char **argv, int amount) {
-	char *flags = NULL;
+static void parse_to_arr(int index, char **argv, int amount, char *flags) {
 	int k = 0;
 	int i;
 	int j;
@@ -64,33 +55,23 @@ static char *parse_to_arr(int index, char **argv, int amount) {
 	return flags;
 }
 
-static char *del_dub(char *flags, int size) {
-	int count = sort_flags(size, flags);
-	char *res = mx_strnew(size - count + 1);
-	int j = 0;
+static void sort_flags(t_args *args, char *flags) {
+	// -1, -C, -x и -l
+	// [0] = a [1] = R [2] = G
+	int index_s = -1;
 
-	for (int i = 0; i < mx_strlen(flags); i++) {
-		if (flags[i] != flags[i + 1])
-			res[j++] = flags[i];
+	for (int i = 0; i < 9; i++) {
+		args->fl[i] = 0;
 	}
-	mx_strdel(&flags);
-	return res;
-}
 
-static int sort_flags(int size, char *flags) {
-	int count = 0;
+	for (int i = 0; flags[i]; i++) {
+		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'G' || flags[i] == 'l')
+			index_s = i;
+		if (flags[i] == 'a')
+			index = i;
 
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size - 1; j++) {
-			if (i == size - 1 && flags[j] == flags[j + 1])
-				count++;
-			if (flags[j] > flags[j + 1]) {
-				char temp = flags[j];
-
-				flags[j] = flags[j + 1];
-				flags[j + 1] = temp;
-			}
-		}
 	}
-	return count;
+	if (index_s != -1)
+		args->fl[mx_get_char_index(LEGAL, flags[index])] = 1;
+
 }

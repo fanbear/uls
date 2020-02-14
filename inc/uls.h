@@ -22,7 +22,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define LEGAL "aRglm1C"
+#define LEGAL "CGRaglmr1"
 
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MINOR(x)        ((int32_t)((x) & 0xffffff))
@@ -36,25 +36,10 @@
 
 typedef struct s_args {
 	char  *flags;
-	int    fl[5];
+	int    fl[9];
 	char **files;
 	char **dirs;
 	char **not_valid;
-
-	int sort;   // если 0 - сортировка по возростанию (Обычная)
-				// если 1 - сортировка по убыванию;
-				// если 2 - другой флаг и тд.
-
-	int print;  // если 0 - обычный принт с обычной сортировкой
-				// если 1 - принт на -R
-				// если 2 - принт на -l
-				// если 3 - принт на -С 
-				// если 4 - принт на -m
-				// если 5 - принт на -g
-				// если 6 - принт на -1
-
-	int data;   // если 0 - получаем масив вида -а
-				// если 1 - получаем масив бе указания . ../ .dir-or-file-name
 
 } t_args;
 

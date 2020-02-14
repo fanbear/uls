@@ -17,19 +17,16 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **)) {
             }
             else {
                 data = mx_sort_data(dirs);
-                // printf("\t\tPRINT!\n");
                 if (args->fl[1] && !toggle)
-                toggle = 1;
+                    toggle = 1;
                 else {
                     mx_printstr(dirs->dir);
                     mx_printstr(":\n");
                 }
-                // printf("\t\tPRINT_else!\n");
                 if (data) {
                     (*print_ls)(data);
                     mx_del_str_arr(data);
                 }
-                    // printf("\t\tPRINT_after!\n");
                 dirs = dirs->next;
             }
             if (dirs)
