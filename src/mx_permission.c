@@ -26,7 +26,11 @@ static void perm_for_user(t_file *file_st, char* str) {
 		str[2] = 'w';
 	else
 		str[2] = '-';
-	if (file_st->buf.st_mode & S_IXUSR)
+	if ((file_st->buf.st_mode & S_ISUID) && (file_st->buf.st_mode & S_IXUSR))
+		str[3] = 's';
+	else if (file_st->buf.st_mode & S_ISUID)
+		str[3] = 'S';
+	else if (file_st->buf.st_mode & S_IXUSR)
 		str[3] = 'x';
 	else
 		str[3] = '-';
@@ -41,7 +45,11 @@ static void perm_for_group(t_file *file_st, char* str) {
 		str[5] = 'w';
 	else
 		str[5] = '-';
-	if (file_st->buf.st_mode & S_IXGRP)
+	if ((file_st->buf.st_mode & S_ISGID) && (file_st->buf.st_mode & S_IXGRP))
+		str[6] = 's';
+	else if (file_st->buf.st_mode & S_ISGID)
+		str[6] = 'S';
+	else if (file_st->buf.st_mode & S_IXGRP)
 		str[6] = 'x';
 	else
 		str[6] = '-';
@@ -56,10 +64,12 @@ static void perm_for_other(t_file *file_st, char* str) {
 		str[8] = 'w';
 	else
 		str[8] = '-';
-	if (file_st->buf.st_mode & S_ISVTX)
+	if ((file_st->buf.st_mode & S_ISTXT) && (file_st->buf.st_mode & S_IXOTH))
 		str[9] = 't';
 	else if (file_st->buf.st_mode & S_IXOTH)
 		str[9] = 'x';
+	else if (file_st->buf.st_mode & S_ISTXT)
+		str[9] = 'T';
 	else
 		str[9] = '-';
  }
