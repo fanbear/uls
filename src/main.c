@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 	// mx_del_args_struct(args, NOT_VALID);
 	// mx_del_dirs_struct(dirs);
 
-	system("leaks -q uls");
+	// system("leaks -q uls");
 	exit(1);
 }
 

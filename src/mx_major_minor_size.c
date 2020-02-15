@@ -10,8 +10,6 @@ char* mx_major_minor_size(t_file *file_st) {
     char* major = major_lol(file_st);
 
     minor_major = mx_strjoin_no_leaks(major, minor);
-    system("leaks -q uls");
-    exit(1);
 	return minor_major;
 }
 

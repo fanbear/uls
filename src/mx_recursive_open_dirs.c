@@ -4,12 +4,13 @@ static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index);
 
 void mx_recursive_open_dirs(t_args *args) {
     int index = 0;
-    char **res = (char **)malloc(sizeof(char *) * 100000);
+    char **res = (char **)malloc(sizeof(char *) * 30000000);
 
     for (int i = 0; args->dirs[i]; i++) {
         res[index++] = mx_strdup(args->dirs[i]);
         get_entry_dirs(args, args->dirs[i], res, &index);
     }
+    res[index] = NULL;
     mx_del_str_arr(args->dirs);
     args->dirs = (char **)malloc(sizeof(char *) * (index + 1));
     for (int i = 0; res[i]; i++) {
@@ -32,15 +33,12 @@ static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index) {
                 || !mx_strcmp(entry->d_name, ".."))
                 continue;
             char *d_name = mx_strjoin(dir_n, "/");
-            int num = *index;
 
             res[*index] = mx_strjoin(d_name, entry->d_name);
             mx_strdel(&d_name);
             *index = *index + 1;
             if (res[*index - 1])
                 get_entry_dirs(args, res[*index - 1], res, index);
-            res[*index] = NULL;
-            mx_sort_data(args, &res[num]);
         }
     }
     closedir(dir);
