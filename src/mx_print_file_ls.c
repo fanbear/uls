@@ -62,22 +62,22 @@ static void print_info(t_files *files) {
 }
 
 void mx_print_file_ls(t_args *args) {
-t_files *files = mx_get_files(args->files);
+    t_files *files = mx_get_files(args->files);
 
-mx_get_max_value_in_files(files);
-while (files->entry_file) {
-    print_info(files);
-    mx_printchar(' ');
-    mx_printstr(files->entry_file->stat->time1);
-	print_space(files->max_time, files->entry_file->stat->time2);
-	mx_printstr(files->entry_file->stat->time2);
-    mx_printchar(' ');
-    mx_printstr(files->entry_file->files);
-	if (files->entry_file->stat->name_link[0]) {
-		mx_printstr(" -> ");
-		mx_printstr(files->entry_file->stat->name_link);
-	}
-	mx_printchar('\n');
-	files->entry_file = files->entry_file->next;
-	}
+    mx_get_max_value_in_files(files);
+    while (files->entry_file) {
+        print_info(files);
+        mx_printchar(' ');
+        mx_printstr(files->entry_file->stat->time1);
+    	print_space(files->max_time, files->entry_file->stat->time2);
+    	mx_printstr(files->entry_file->stat->time2);
+        mx_printchar(' ');
+        mx_printstr(files->entry_file->files);
+    	if (files->entry_file->stat->name_link[0]) {
+    		mx_printstr(" -> ");
+    		mx_printstr(files->entry_file->stat->name_link);
+    	}
+    	mx_printchar('\n');
+    	files->entry_file = files->entry_file->next;
+    	}
 }

@@ -12,7 +12,6 @@ void mx_print_flag_mp(t_args *args, t_dirs *dirs) {
                     dirs = dirs->next;
                 }
                 else {
-                    // data = mx_sort_data(dirs, args);
                     mx_printstr(dirs->dir);
                     mx_printstr(":\n");
 	                for(int i = 0; data[i] != NULL; i++) {
