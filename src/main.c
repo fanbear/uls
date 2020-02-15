@@ -6,7 +6,6 @@ int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs = mx_get_dir_entry(args);
 
-
 	if (args->fl[4]) // печать одного флага
 		mx_print_ls_g(args, dirs);
 	else if (args->fl[5]) // печать одного флага
@@ -16,10 +15,8 @@ int main(int argc, char **argv) {
 	else
 		uls_print(args, dirs);
 
-
-	mx_del_args_struct(args, NOT_VALID);
-	mx_del_dirs_struct(dirs);
-
+	// mx_del_args_struct(args, NOT_VALID);
+	// mx_del_dirs_struct(dirs);
 
 	// system("leaks -q uls");
 	exit(1);

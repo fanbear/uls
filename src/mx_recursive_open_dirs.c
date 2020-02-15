@@ -32,7 +32,6 @@ static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index) {
                 || !mx_strcmp(entry->d_name, ".")
                 || !mx_strcmp(entry->d_name, ".."))
                 continue;
-            // char *slash = mx_strdup("/")
             char *d_name = mx_strjoin(dir_n, "/");
 
             res[*index] = mx_strjoin(d_name, entry->d_name);

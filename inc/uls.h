@@ -138,5 +138,6 @@ void           mx_quicksort_r(char **arr, int left, int right);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 void           mx_print_dirs_ls(t_dirs *dirs);
 void           mx_print_file_ls(t_args *args);
+void           mx_color_output(t_file *file_st);
 
 #endif
