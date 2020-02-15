@@ -8,6 +8,7 @@ t_args *mx_sort_args(int argc, char **argv) {
 	mx_args_to_struct(index, argc, argv, args);
 	args->files = mx_sort_data(args, args->files);
 	args->dirs = mx_sort_data(args, args->dirs);
+	args->dirs_num = mx_arr_size(args->dirs);
 	if (args->fl[2])
 		mx_recursive_open_dirs(args);
 	args->not_valid = mx_sort_data(args, args->not_valid);

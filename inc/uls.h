@@ -41,6 +41,7 @@ typedef struct s_args {
 	char **files;
 	char **dirs;
 	char **not_valid;
+	int    dirs_num; // amount of first excisting dirs
 
 } t_args;
 

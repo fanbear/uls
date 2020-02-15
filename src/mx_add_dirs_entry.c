@@ -24,8 +24,6 @@ static t_dirs_entry *mx_pushing_data(t_args *args, char *data, char *dir) {
 		temp->d_name = mx_strjoin(temp->stat->color, temp->d_name);
 		temp->d_name = mx_strjoin(temp->d_name, COLOR_RESET);
 	}
-	mx_strdel(&dir);
-	mx_strdel(&res);
 	temp->next = NULL;
 	return temp;
 }

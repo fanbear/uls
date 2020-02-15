@@ -7,15 +7,14 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
             mx_printchar('\n');
     }
     if (dirs) {
-        int toggle = 0;
         char **data = NULL;
 
         if (dirs->next || args->not_valid[0] || args->files[0]) {
             while (dirs) {
                 if (!mx_check_on_access(1, dirs->dir)) {
                     data = mx_get_data_from_struct(dirs);
-                    if (args->fl[2] && !toggle)
-                        toggle = 1;
+                    if (args->fl[2] && args->dirs_num == 1)
+                        args->dirs_num = 0;
                     else {
                         mx_printstr(dirs->dir);
                         mx_printstr(":\n");
