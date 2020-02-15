@@ -61,10 +61,6 @@ static void print_dirs(t_dirs *dirs) {
         print_space(dirs->max_link, temp->stat->nlink);
         mx_printstr(temp->stat->nlink);
         mx_printchar(' ');
-        // mx_printstr(temp->stat->user_name);
-        // print_space(dirs->max_user, temp->stat->user_name);
-        // mx_printchar(' ');
-        // mx_printchar(' ');
         mx_printstr(temp->stat->group_name);
         print_space(dirs->max_group, temp->stat->group_name);
         mx_printchar(' ');
