@@ -39,6 +39,7 @@ mx_print_ls_g.c \
 mx_print_file_ls.c \
 mx_print_info.c \
 mx_print_dirs_ls.c \
+mx_major_minor_size.c \
 # libmx/src/mx_strjoin_no_leaks.c
 
 
