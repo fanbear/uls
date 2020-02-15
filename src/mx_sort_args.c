@@ -1,35 +1,17 @@
 #include "uls.h"
 
-static char **sort_data(int size, char **data, int index);
-
 t_args *mx_sort_args(int argc, char **argv) {
 	t_args *args = (t_args *)malloc(sizeof(t_args));
 	int index = 1;
 
 	mx_get_flags(args, &index, argc, argv);
 	mx_args_to_struct(index, argc, argv, args);
-	args->files = sort_data(mx_arr_size(args->files), args->files, 0);
-	args->dirs = sort_data(mx_arr_size(args->dirs), args->dirs, 1);
+	args->files = mx_sort_data(args, args->files);
+	args->dirs = mx_sort_data(args, args->dirs);
 	if (args->fl[2])
 		mx_recursive_open_dirs(args);
-	args->not_valid = sort_data(mx_arr_size(args->not_valid), args->not_valid, 2);
+	args->not_valid = mx_sort_data(args, args->not_valid);
+	for (int i = 0; args->not_valid[i]; i++)
+		mx_print_not_valid(args->not_valid[i]);
 	return args;
-}
-
-static char **sort_data(int size, char **data, int index) {
-	return data;
-	for (int i = 0; i < size; i++) {
-		for (int j = i + 1; j < size; j++) {
-			if (mx_strcmp(data[i], data[j]) > 0) {
-				char *temp = mx_strdup(data[i]);
-
-				free(data[i]);
-				data[i] = mx_strdup(data[j]);
-				free(data[j]);
-				data[j] = temp;
-			}
-		}
-		if (index == 2)
-			mx_print_not_valid(data[i]);
-	}
 }

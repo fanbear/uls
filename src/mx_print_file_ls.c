@@ -79,5 +79,5 @@ void mx_print_file_ls(t_args *args) {
     	}
     	mx_printchar('\n');
     	files->entry_file = files->entry_file->next;
-    	}
+	}
 }

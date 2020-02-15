@@ -40,8 +40,9 @@ static void stat_checking(int mult, char *data, struct stat *buf) {
 			mx_printstr(data);
 			mx_printstr(":\n");
 		}
-		write(2, "uls: ", 5);
+		parse = mx_strjoin("uls: ", parse);
 		perror(parse);
+		mx_strdel(&parse);
 		errno = 0;
 	}
 }

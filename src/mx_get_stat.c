@@ -29,10 +29,10 @@ t_file *mx_get_stat(char *data) {
 
 static void get_time(t_file *file_st) {
 	char* str = ctime(&file_st->buf.st_mtime);
-	time_t current = time(0);
+	time_t current = time(NULL);
 
     str += 4;
-	if (current - file_st->buf.st_atime >= 31536000 / 2) {
+	if (current - file_st->buf.st_mtime >= 31536000 / 2) {
         file_st->time1 = mx_strndup(str, 6);
 		file_st->time2 = mx_strndup(str + 15, 5);
 	}

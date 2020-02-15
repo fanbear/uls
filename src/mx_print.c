@@ -12,10 +12,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
 
         if (dirs->next || args->not_valid[0] || args->files[0]) {
             while (dirs) {
-                if (mx_check_on_access(1, dirs->dir)) {
-                    dirs = dirs->next;
-                }
-                else {
+                if (!mx_check_on_access(1, dirs->dir)) {
                     data = mx_get_data_from_struct(dirs);
                     if (args->fl[2] && !toggle)
                         toggle = 1;
@@ -27,8 +24,8 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
                         (*print_ls)(data, args);
                         mx_del_str_arr(data);
                     }
-                    dirs = dirs->next;
                 }
+                dirs = dirs->next;
                 if (dirs)
                     mx_printchar('\n');
             }
@@ -36,7 +33,6 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
         else
             if (!mx_check_on_access(0, dirs->dir)) {
                 data = mx_get_data_from_struct(dirs);
-
                 (*print_ls)(data, args);
                 mx_del_str_arr(data);
             }

@@ -97,11 +97,12 @@ typedef struct file { //структура для файлов
 	char          *file_size;
 	char          *time2;
 	char          *name_link; //  если файл = линк для принта //пока не пользуюсь
+	char		   *rdev;
+	char 		   *color;
     time_t         a_time; //*временные данные, для реализации разных флагов*/
     time_t         m_time;
     time_t         c_time;
 	blkcnt_t       blocks;
-	char		   *rdev;
 	int 		   count_rdev;
 	struct stat    buf;
 	struct passwd *pw;
@@ -129,7 +130,6 @@ void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_
 t_file        *mx_get_stat(char *data);
 void           mx_get_data_info(t_file *stat, char* file);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
-t_dirs_entry  *mx_sort_content(t_dirs_entry *entry_dir);
 char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
 void           mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim);
