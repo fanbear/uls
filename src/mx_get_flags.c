@@ -8,7 +8,6 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 	int amount = 0;
 	char *flags = NULL;
 
-	args->flags = mx_strnew(0);
 	while (*index < argc && argv[*index][0] == '-' ) {
 		if (amount_of_flags(args, &amount, argv[*index]))
 			break;
@@ -22,6 +21,9 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 		args->flags = mx_strdup(flags);
 		sort_flags(args, flags);
 	}
+	if (!flags)
+		args->flags = mx_strnew(0);
+	mx_strdel(&flags);
 }
 
 
@@ -58,11 +60,12 @@ static char *parse_to_arr(int index, char **argv, int amount) {
 }
 
 static void sort_flags(t_args *args, char *flags) {
-	int index_s = -1;
+	int index = -1;
 
 	for (int i = 0; flags[i]; i++) {
-		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm' || flags[i] == 'l' || flags[i] == 'g')
-			index_s = i;
+		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm' ||
+			flags[i] == 'l' || flags[i] == 'g')
+			index = i;
 		else if (flags[i] == 'G')
 			args->fl[1] = 1;
 		else if (flags[i] == 'R')
@@ -72,9 +75,6 @@ static void sort_flags(t_args *args, char *flags) {
 		else if (flags[i] == 'r')
 			args->fl[7] = 1;
 	}
-	if (index_s != -1)
-		args->fl[mx_get_char_index(LEGAL, flags[index_s])] = 1;
-	// for (int i = 0; i < 9; i++) {
-	// 	printf ("fl[%d] = %d\n", i, args->fl[i]);
-	// }
+	if (index != -1)
+		args->fl[mx_get_char_index(LEGAL, flags[index])] = 1;
 }

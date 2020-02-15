@@ -1,7 +1,6 @@
 #include "uls.h"
 
-char **mx_sort_data(t_dirs *dirs, t_args *args) {
-    char **data = mx_get_data_from_struct(dirs);
+char **mx_sort_data(t_args *args, char **data) {
     int size = mx_arr_size(data);
 
     if (args->fl[7] == 0)

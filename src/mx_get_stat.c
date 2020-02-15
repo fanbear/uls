@@ -53,7 +53,10 @@ static char* major_minor_size(t_file *file_st) {
 	maj = chislo(MAJOR(file_st->buf.st_rdev));
 	for (int y = 0; y < 3 - maj; y++)
 		minor_major[y] = ' ';
+    // char *sss = mx_itoa(MAJOR(file_st->buf.st_rdev));
 	minor_major = mx_strcat(minor_major, mx_itoa(MAJOR(file_st->buf.st_rdev)));
+    // mx_strdel(&sss);
+
 	minor_major = mx_strcat(minor_major, lol);
 
 	if (MINOR(file_st->buf.st_rdev) < 255) {

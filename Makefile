@@ -14,6 +14,7 @@ mx_get_max_value_in_dirs.c \
 mx_get_max_value_in_files.c \
 mx_get_flags.c \
 mx_args_to_struct.c \
+mx_add_dirs_entry.c \
 mx_print_not_valid.c \
 mx_arr_size.c \
 mx_del_str_arr.c \

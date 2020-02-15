@@ -32,7 +32,11 @@ static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index) {
                 || !mx_strcmp(entry->d_name, ".")
                 || !mx_strcmp(entry->d_name, ".."))
                 continue;
-            res[*index] = mx_strjoin(mx_strjoin(dir_n, "/"), entry->d_name);
+            // char *slash = mx_strdup("/")
+            char *d_name = mx_strjoin(dir_n, "/");
+
+            res[*index] = mx_strjoin(d_name, entry->d_name);
+            mx_strdel(&d_name);
             *index = *index + 1;
             if (res[*index - 1])
                 get_entry_dirs(args, res[*index - 1], res, index);
@@ -40,3 +44,10 @@ static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index) {
     }
     closedir(dir);
 }
+
+// char *space = mx_strdup(" ");
+// char *d_name = mx_strdup(temp->d_name);
+//
+// data = mx_strjoin_no_leaks(data, space);
+// data = mx_strjoin_no_leaks(data, d_name);
+// temp = temp->next;

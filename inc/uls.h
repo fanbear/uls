@@ -53,13 +53,11 @@ typedef struct s_dirs {
     int                  max_link; // максимальное количетсво линки(нужно для рассчета расстояния между файлами)
 	int                  max_time;
 	int                  total;
-    int                  amount_d_data;
 	struct s_dirs       *next;
 } t_dirs;
 
 typedef struct s_dirs_entry {
 	char                *d_name;
-	int                  d_namlen;
 	struct file         *stat;
 	struct s_dirs_entry *next;
 } t_dirs_entry;
@@ -115,6 +113,7 @@ void           mx_get_max_value_in_dirs(t_dirs *dir);
 void           mx_get_max_value_in_files(t_files *files);
 void           mx_get_flags(t_args *args, int *index, int argc, char **argv);
 void           mx_args_to_struct(int index, int argc, char **argv, t_args *args);
+t_dirs_entry  *mx_add_dirs_entry(t_args *args, t_dirs_entry *dirs_entry, char *data, char *dir);
 void           mx_print_not_valid(char *data);
 void           mx_del_str_arr(char **arr);
 void           mx_del_args_struct(t_args *args, int item);
@@ -124,7 +123,7 @@ int            mx_arr_size(char **arr);
 void           mx_print_ls_multy_colomn(char **data, t_args *args);
 char         **mx_get_data_from_struct(t_dirs *dirs);
 int            mx_get_window_size(t_args *args);
-char         **mx_sort_data(t_dirs *dirs, t_args *args);
+char         **mx_sort_data(t_args *args, char **data);
 void           mx_print_ls_monocolomn(char **data, t_args *args);
 void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *));
 t_file        *mx_get_stat(char *data);

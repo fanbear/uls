@@ -12,7 +12,7 @@ void mx_print_flag_mp(t_args *args, t_dirs *dirs) {
                     dirs = dirs->next;
                 }
                 else {
-                    data = mx_sort_data(dirs, args);
+                    // data = mx_sort_data(dirs, args);
                     mx_printstr(dirs->dir);
                     mx_printstr(":\n");
 	                for(int i = 0; data[i] != NULL; i++) {
@@ -35,15 +35,14 @@ void mx_print_flag_mp(t_args *args, t_dirs *dirs) {
             }
         else
 	        if (!mx_check_on_access(0, dirs->dir)) { // принтуем даныые ./ && директирию
-	        	data = mx_sort_data(dirs, args);
 	        	for(int i = 0; data[i] != NULL; i++) {
 					mx_printstr(data[i]);
 					if (data[i + 1])
 						mx_printstr(", ");
 					else
 						mx_printstr("\n");
-					count += (mx_strlen(data[i]) + 3);
-					if (data[i + 1] && mx_get_window_size(args) <= count + mx_strlen(data[i + 1])) {
+					count += (mx_strlen(data[i]) + 2);
+					if (data[i + 1] && mx_get_window_size(args) <= count + mx_strlen(data[i + 1]) + 1) {
 						mx_printstr("\n");
 						count = 0;
 					}
@@ -52,4 +51,3 @@ void mx_print_flag_mp(t_args *args, t_dirs *dirs) {
 	        }
     }
 }
-
