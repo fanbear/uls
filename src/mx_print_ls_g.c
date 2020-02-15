@@ -35,7 +35,6 @@ void mx_print_ls_g(t_args *args, t_dirs *dirs) {
 				else {
 					mx_printstr(dirs->dir);
 					mx_printstr(":\n");
-					// mx_sort_content(dirs->entry_dir);
 		            print_dirs(dirs);
 					dirs = dirs->next;
 				}
@@ -44,7 +43,6 @@ void mx_print_ls_g(t_args *args, t_dirs *dirs) {
             }
         else {
 			if (!mx_check_on_access(0, dirs->dir)) {
-				// mx_sort_content(dirs->entry_dir);
 				print_dirs(dirs);
 			}
 		}

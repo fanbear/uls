@@ -1,7 +1,6 @@
 #include "uls.h"
 
 void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
-
     if (args->files[0]) {
         (*print_ls)(args->files, args);
         if (dirs)

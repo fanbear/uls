@@ -34,9 +34,12 @@ mx_sort_content.c \
 \
 mx_permission.c \
 mx_print_flag_mp.c \
-mx_print_ls_g.c \
 mx_recursive_open_dirs.c \
 mx_quicksort_r.c \
+mx_print_ls_g.c \
+mx_print_file_ls.c \
+mx_print_info.c \
+mx_print_dirs_ls.c \
 # libmx/src/mx_strjoin_no_leaks.c
 
 
