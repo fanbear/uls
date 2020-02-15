@@ -132,7 +132,7 @@ void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 t_dirs_entry  *mx_sort_content(t_dirs_entry *entry_dir);
 char          *mx_permission(char* file, t_file *file_st);
 void		   mx_print_ls_g(t_args *args, t_dirs *dirs);
-void           mx_print_flag_mp(t_args *args, t_dirs *dirs);
+void           mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim);
 void           mx_recursive_open_dirs(t_args *args);
 void           mx_quicksort_r(char **arr, int left, int right);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);

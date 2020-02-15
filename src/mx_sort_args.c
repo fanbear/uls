@@ -17,6 +17,7 @@ t_args *mx_sort_args(int argc, char **argv) {
 }
 
 static char **sort_data(int size, char **data, int index) {
+	return data;
 	for (int i = 0; i < size; i++) {
 		for (int j = i + 1; j < size; j++) {
 			if (mx_strcmp(data[i], data[j]) > 0) {
@@ -31,5 +32,4 @@ static char **sort_data(int size, char **data, int index) {
 		if (index == 2)
 			mx_print_not_valid(data[i]);
 	}
-	return data;
 }
