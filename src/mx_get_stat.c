@@ -6,28 +6,25 @@ static char* major_minor_size(t_file *file_st);
 
 t_file *mx_get_stat(char *data) {
     t_file *stat = malloc(sizeof(t_file));
-    int lstat_h = lstat(data, &stat->buf);
     struct group *group;
 
-    if (lstat_h == 0) {
-        stat->permiss = mx_permission(data, stat);
-        stat->nlink = mx_itoa(stat->buf.st_nlink);
-        stat->pw = getpwuid(stat->buf.st_uid);
-        stat->user_name = mx_strdup(stat->pw->pw_name);
-        group = getgrgid(stat->buf.st_gid);
-        if (group != NULL)
+    lstat(data, &stat->buf);
+	stat->permiss = mx_permission(data, stat);
+	stat->nlink = mx_itoa(stat->buf.st_nlink);
+	stat->pw = getpwuid(stat->buf.st_uid);
+	stat->user_name = mx_strdup(stat->pw->pw_name);
+    group = getgrgid(stat->buf.st_gid);
+    if (group != NULL)
         stat->group_name = mx_strdup(group->gr_name);
-        else
+    else
         stat->group_name = mx_itoa(stat->buf.st_gid);
-        stat->rdev = major_minor_size(stat);
-        stat->file_size = mx_itoa(stat->buf.st_size);
-        get_time(stat);
-        stat->file_name = mx_strdup(data);
-        stat->name_link = mx_strnew(stat->buf.st_size);
-        readlink(data, stat->name_link, 1024);
-        return stat;
-    }
-    return NULL;
+   	stat->rdev = major_minor_size(stat);
+	stat->file_size = mx_itoa(stat->buf.st_size);
+	get_time(stat);
+	stat->file_name = mx_strdup(data);
+    stat->name_link = mx_strnew(stat->buf.st_size);
+    readlink(data, stat->name_link, 1024);
+    return stat;
 }
 
 static void get_time(t_file *file_st) {

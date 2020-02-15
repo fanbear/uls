@@ -44,3 +44,10 @@ static void get_entry_dirs(t_args *args, char *dir_n, char **res, int *index) {
     }
     closedir(dir);
 }
+
+// char *space = mx_strdup(" ");
+// char *d_name = mx_strdup(temp->d_name);
+//
+// data = mx_strjoin_no_leaks(data, space);
+// data = mx_strjoin_no_leaks(data, d_name);
+// temp = temp->next;
