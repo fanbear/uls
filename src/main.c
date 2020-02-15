@@ -5,14 +5,15 @@ static void uls_print(t_args *args, t_dirs *dirs);
 int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs = mx_get_dir_entry(args);
-
+	// exit(1);
 
 	if (args->fl[4]) // печать одного флага
 		mx_print_ls_g(args, dirs);
 	else if (args->fl[5]) // печать одного флага
 		mx_print_ls_l(args, dirs);
-	else if (args->fl[6]) // печать одного флага
+	else if (args->fl[6])  {// печать одного флага
 		mx_print_flag_mp(args, dirs);
+	}
 	else
 		uls_print(args, dirs);
 

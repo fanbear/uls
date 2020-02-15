@@ -8,5 +8,6 @@ char **mx_sort_data(t_args *args, char **data) {
     else {
         mx_quicksort_r(data, 0, size - 1);
     }
+    data[size] = NULL;
     return data;
 }
