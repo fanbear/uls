@@ -25,15 +25,15 @@
 
 #define LEGAL "CGRaglmr1"
 
-#define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
-#define MINOR(x)        ((int32_t)((x) & 0xffffff))
-#define COLOR_RESET   "\x1b[0m"
-#define COLOR_RED     "\x1b[31m"
-#define COLOR_GREEN   "\x1b[32m"
-#define COLOR_YELLOW  "\x1b[33m"
-#define COLOR_BLUE    "\x1b[34m"
-#define COLOR_MAGENTA "\x1b[35m"
-#define COLOR_CYAN    "\x1b[36m"
+#define MX_MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+#define MX_MINOR(x)        ((int32_t)((x) & 0xffffff))
+#define MX_COLOR_RESET   "\x1b[0m"
+// #define COLOR_RED     "\x1b[31m"
+// #define COLOR_GREEN   "\x1b[32m"
+// #define COLOR_YELLOW  "\x1b[33m"
+// #define COLOR_BLUE    "\x1b[34m"
+// #define COLOR_MAGENTA "\x1b[35m"
+// #define COLOR_CYAN    "\x1b[36m"
 
 typedef struct s_args {
 	char  *flags;
@@ -137,9 +137,10 @@ void           mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim);
 void           mx_recursive_open_dirs(t_args *args);
 void           mx_quicksort_r(char **arr, int left, int right);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
-void           mx_print_dirs_ls(t_dirs *dirs);
+void 		mx_print_dirs_ls(t_dirs *dirs, t_args *args);
 void           mx_print_file_ls(t_args *args);
-void           mx_color_output(t_file *file_st);
+void           mx_color_output(char* permiss);
 char*		   mx_major_minor_size(t_file *file_st);
+void		   mx_print_name(char* str);
 
 #endif

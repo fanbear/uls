@@ -15,6 +15,9 @@ static void type(char* str, t_file *file_st) {
 		str[0] = 's';
 	else if ((file_st->buf.st_mode & S_IFMT) == S_IFBLK)
 		str[0] = 'b';
+	else if ((file_st->buf.st_mode & S_IFMT) == S_IFWHT)
+		str[0] = 'w';
+	
  }
 
 static void perm_for_user(t_file *file_st, char* str) {

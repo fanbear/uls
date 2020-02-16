@@ -3,6 +3,7 @@
 static void uls_print(t_args *args, t_dirs *dirs);
 
 int main(int argc, char **argv) {
+	
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs = mx_get_dir_entry(args);
 

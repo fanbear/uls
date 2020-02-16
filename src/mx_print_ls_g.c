@@ -1,7 +1,7 @@
 #include "uls.h"
 
 static void print_files(t_args *args);
-static void print_dirs(t_dirs *dirs);
+static void print_dirs(t_dirs *dirs, t_args *args);
 
 static void print_space(int max_elem, char* str) {
 	for(int j = 0; j < max_elem - mx_strlen(str); j++) {
@@ -35,7 +35,7 @@ void mx_print_ls_g(t_args *args, t_dirs *dirs) {
 				else {
 					mx_printstr(dirs->dir);
 					mx_printstr(":\n");
-		            print_dirs(dirs);
+		            print_dirs(dirs, args);
 					dirs = dirs->next;
 				}
 				if (dirs)
@@ -43,13 +43,13 @@ void mx_print_ls_g(t_args *args, t_dirs *dirs) {
             }
         else {
 			if (!mx_check_on_access(0, dirs->dir)) {
-				print_dirs(dirs);
+				print_dirs(dirs, args);
 			}
 		}
     }
 }
 
-static void print_dirs(t_dirs *dirs) {
+static void print_dirs(t_dirs *dirs, t_args *args) {
     t_dirs_entry *temp = dirs->entry_dir;
 
 	print_total(dirs->total);
@@ -79,7 +79,13 @@ static void print_dirs(t_dirs *dirs) {
 		print_space(dirs->max_time, temp->stat->time2);
 		mx_printstr(temp->stat->time2);
         mx_printchar(' ');
-        mx_printstr(temp->d_name);
+        if (args->fl[1] == 1 && isatty(1)) {
+            mx_color_output(temp->stat->permiss);
+            mx_print_name(temp->d_name);
+            mx_printstr(MX_COLOR_RESET);
+        }                                                
+        else 
+            mx_printstr(temp->d_name);
 		if (temp->stat->name_link[0]) {
 			mx_printstr(" -> ");
 			mx_printstr(temp->stat->name_link);
@@ -115,7 +121,13 @@ static void print_files(t_args *args) {
 		print_space(files->max_time, files->entry_file->stat->time2);
 		mx_printstr(files->entry_file->stat->time2);
         mx_printchar(' ');
-        mx_printstr(files->entry_file->files);
+        if (args->fl[1] == 1 && isatty(1)) {
+            mx_color_output(files->entry_file->stat->permiss);
+            mx_print_name(files->entry_file->files);
+            mx_printstr(MX_COLOR_RESET);
+        }                                                
+        else 
+            mx_printstr(files->entry_file->files);
 		if (files->entry_file->stat->name_link[0]) {
 			mx_printstr(" -> ");
 			mx_printstr(files->entry_file->stat->name_link);
