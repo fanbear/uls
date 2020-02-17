@@ -32,8 +32,10 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
         else
             if (!mx_check_on_access(0, dirs->dir)) {
                 data = mx_get_data_from_struct(dirs);
-                (*print_ls)(data, args);
-                mx_del_str_arr(data);
+                if (data) {
+                    (*print_ls)(data, args);
+                    mx_del_str_arr(data);
+                }
             }
         }
 }

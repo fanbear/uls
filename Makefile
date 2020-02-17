@@ -20,6 +20,7 @@ mx_arr_size.c \
 mx_del_str_arr.c \
 mx_del_args_struct.c \
 mx_print_ls_multy_colomn.c \
+mx_print_multy_colomn_g.c \
 mx_del_dirs_struct.c \
 mx_get_data_from_struct.c \
 mx_get_window_size.c \
@@ -35,12 +36,13 @@ mx_permission.c \
 mx_print_flag_mp.c \
 mx_recursive_open_dirs.c \
 mx_quicksort_r.c \
-mx_print_ls_g.c \
 mx_print_file_ls.c \
 mx_print_info.c \
 mx_print_dirs_ls.c \
 mx_color_output.c \
 mx_major_minor_size.c \
+mx_colored_name.c \
+mx_print_G.c \
 # libmx/src/mx_strjoin_no_leaks.c
 
 
