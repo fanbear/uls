@@ -27,14 +27,13 @@ void mx_print_ls_l(t_args *args, t_dirs *dirs) {
 						mx_printstr(dirs->dir);
 						mx_printstr(":\n");
 					}
-
-					mx_print_dirs_ls(dirs, args);
+					mx_print_dirs_ls(dirs);
 				}
 				dirs = dirs->next;
 				if (dirs)
 					mx_printchar('\n');
         	}
     	else if (!mx_check_on_access(0, dirs->dir))
-				mx_print_dirs_ls(dirs, args);
+				mx_print_dirs_ls(dirs);
 	}
 }

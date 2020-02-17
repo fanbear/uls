@@ -72,7 +72,7 @@ void mx_print_file_ls(t_args *args) {
     	print_space(files->max_time, files->entry_file->stat->time2);
     	mx_printstr(files->entry_file->stat->time2);
         mx_printchar(' ');
-        mx_print_name(files->entry_file->files);
+        mx_printstr(files->entry_file->files);
     	if (files->entry_file->stat->name_link[0]) {
     		mx_printstr(" -> ");
     		mx_printstr(files->entry_file->stat->name_link);
