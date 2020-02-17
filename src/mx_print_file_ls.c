@@ -5,33 +5,38 @@ static void print_space(int max_elem, char* str) {
         mx_printchar(' ');
     }
 }
-static t_file_entry *pushing_data(char *file) {
+static t_file_entry *pushing_data(t_args *args, char *file) {
     t_file_entry *entry_file = malloc(sizeof (t_file_entry));
 
     entry_file->stat = mx_get_stat(file);
-    entry_file->files = mx_strdup(file);
+    if (args->fl[1]) {
+        entry_file->files = mx_strjoin(entry_file->stat->color, file);
+        entry_file->files = mx_strjoin(entry_file->files, COLOR_RESET);
+    }
+    else
+        entry_file->files = mx_strdup(file);
     entry_file->next = NULL;
     return entry_file;
 }
 
-static t_file_entry *get_files_entry(t_file_entry *entry_file, char *file) {
+static t_file_entry *get_files_entry(t_args *args, t_file_entry *entry_file, char *file) {
     t_file_entry *current  = entry_file;
 
     if (!entry_file)
-        return pushing_data(file);
+        return pushing_data(args, file);
     while (current->next != NULL)
         current = current->next;
-    current->next = pushing_data(file);
+    current->next = pushing_data(args, file);
     return entry_file;
 }
 
-static t_files *mx_get_files(char **files) {
+static t_files *mx_get_files(t_args *args, char **files) {
  int i = 0;
  t_files *files_st = malloc(sizeof (t_files));
 
  files_st->entry_file = NULL;
  while (files[i]) {
-     files_st->entry_file = get_files_entry(files_st->entry_file, files[i]);
+     files_st->entry_file = get_files_entry(args, files_st->entry_file, files[i]);
      i++;
  }
  return files_st;
@@ -62,7 +67,7 @@ static void print_info(t_files *files) {
 }
 
 void mx_print_file_ls(t_args *args) {
-    t_files *files = mx_get_files(args->files);
+    t_files *files = mx_get_files(args, args->files);
 
     mx_get_max_value_in_files(files);
     while (files->entry_file) {

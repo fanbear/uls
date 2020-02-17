@@ -1,6 +1,7 @@
 #include "uls.h"
 
 void mx_color_output(t_file *file_st) {
+    file_st->color = mx_strdup(COLOR_RESET);
     if (file_st->permiss[3] == 's' || file_st->permiss[3] == 'S')
         file_st->color = mx_strdup("\033[30;41m");
     else if (file_st->permiss[6] == 's' || file_st->permiss[6] == 'S')

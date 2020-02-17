@@ -1,13 +1,5 @@
 #include "uls.h"
 
-// static void print_dir(t_dirs *dirs, int *toggle) {
-// 	if (!mx_check_on_access(1, dirs->dir)) {
-// 		mx_printstr(dirs->dir);
-// 		mx_printstr(":\n");
-// 		mx_print_dirs_ls(dirs);
-// 	}
-// }
-
 void mx_print_ls_l(t_args *args, t_dirs *dirs) {
 	int toggle = 0;
 
@@ -27,13 +19,13 @@ void mx_print_ls_l(t_args *args, t_dirs *dirs) {
 						mx_printstr(dirs->dir);
 						mx_printstr(":\n");
 					}
-					mx_print_dirs_ls(dirs);
+					mx_print_dirs_ls(dirs, args);
 				}
 				dirs = dirs->next;
 				if (dirs)
 					mx_printchar('\n');
         	}
     	else if (!mx_check_on_access(0, dirs->dir))
-				mx_print_dirs_ls(dirs);
+				mx_print_dirs_ls(dirs, args);
 	}
 }

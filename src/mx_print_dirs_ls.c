@@ -1,9 +1,17 @@
 #include "uls.h"
 
 static void print_space(int max_elem, char* str) {
-	for(int j = 0; j < max_elem - mx_strlen(str); j++) {
-		mx_printchar(' ');
-	}
+    for(int j = 0; j < max_elem - mx_strlen(str); j++)
+        mx_printchar(' ');
+}
+
+static void g_or_l(t_args * args, t_dirs *dirs, t_dirs_entry *temp) {
+    if (args->fl[4] != 1) {
+        mx_printstr(temp->stat->user_name);
+        print_space(dirs->max_user, temp->stat->user_name);
+        mx_printchar(' ');
+        mx_printchar(' ');
+    }
 }
 
 static void print_total(int sum_total) {
@@ -12,16 +20,13 @@ static void print_total(int sum_total) {
 	mx_printchar('\n');
 }
 
-static void print_info(t_dirs_entry *temp, t_dirs *dirs) {
+static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
 	mx_printstr(temp->stat->permiss);
     mx_printchar(' ');
     print_space(dirs->max_link, temp->stat->nlink);
     mx_printstr(temp->stat->nlink);
     mx_printchar(' ');
-    mx_printstr(temp->stat->user_name);
-    print_space(dirs->max_user, temp->stat->user_name);
-    mx_printchar(' ');
-    mx_printchar(' ');
+    g_or_l(args, dirs, temp);
     mx_printstr(temp->stat->group_name);
     print_space(dirs->max_group, temp->stat->group_name);
     mx_printchar(' ');
@@ -34,13 +39,14 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs) {
 		mx_printstr(temp->stat->file_size);
     }
 }
-void mx_print_dirs_ls(t_dirs *dirs) {
+
+void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
     t_dirs_entry *temp = dirs->entry_dir;
 
 	if (temp)
 		print_total(dirs->total);
     while (temp) {
-        print_info(temp, dirs);
+        print_info(temp, dirs, args);
         mx_printchar(' ');
         mx_printstr(temp->stat->time1);
 		print_space(dirs->max_time, temp->stat->time2);
