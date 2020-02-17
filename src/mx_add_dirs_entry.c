@@ -22,7 +22,7 @@ static t_dirs_entry *mx_pushing_data(t_args *args, char *data, char *dir) {
 	temp->stat = (args->fl[1] || args->fl[4] || args->fl[5]) ? mx_get_stat(dir) : NULL;
 	if (args->fl[1]) {
 		temp->d_name = mx_strjoin(temp->stat->color, temp->d_name);
-		temp->d_name = mx_strjoin(temp->d_name, COLOR_RESET);
+		temp->d_name = mx_strjoin(temp->d_name, mx_strdup(COLOR_RESET));
 	}
 	temp->next = NULL;
 	return temp;
