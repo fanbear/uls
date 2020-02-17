@@ -8,8 +8,9 @@ t_dirs *mx_get_dir_entry(t_args *args) {
 	t_dirs *dirs = NULL;
 	int size = mx_arr_size(args->dirs);
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) {
 		dirs = parse(args, dirs, args->dirs[i]);
+	}
 	return dirs;
 }
 

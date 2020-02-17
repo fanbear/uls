@@ -72,7 +72,13 @@ void mx_print_file_ls(t_args *args) {
     	print_space(files->max_time, files->entry_file->stat->time2);
     	mx_printstr(files->entry_file->stat->time2);
         mx_printchar(' ');
-        mx_printstr(files->entry_file->files);
+        if (args->fl[1] == 1 && isatty(1)) {
+            mx_color_output(files->entry_file->stat->permiss);
+            mx_print_name(files->entry_file->files);
+            mx_printstr(MX_COLOR_RESET);
+        }                                                
+        else 
+            mx_print_name(files->entry_file->files);
     	if (files->entry_file->stat->name_link[0]) {
     		mx_printstr(" -> ");
     		mx_printstr(files->entry_file->stat->name_link);

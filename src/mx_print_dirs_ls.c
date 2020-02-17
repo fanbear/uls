@@ -34,7 +34,7 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs) {
 		mx_printstr(temp->stat->file_size);
     }
 }
-void mx_print_dirs_ls(t_dirs *dirs) {
+void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
     t_dirs_entry *temp = dirs->entry_dir;
 
 	if (temp)
@@ -46,7 +46,13 @@ void mx_print_dirs_ls(t_dirs *dirs) {
 		print_space(dirs->max_time, temp->stat->time2);
 		mx_printstr(temp->stat->time2);
         mx_printchar(' ');
-        mx_printstr(temp->d_name);
+        if (args->fl[1] == 1 && isatty(1)) {
+            mx_color_output(temp->stat->permiss);
+            mx_print_name(temp->d_name);
+            mx_printstr(MX_COLOR_RESET);
+        }                                                
+        else 
+            mx_printstr(temp->d_name);
 		if (temp->stat->name_link[0]) {
 			mx_printstr(" -> ");
 			mx_printstr(temp->stat->name_link);
