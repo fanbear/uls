@@ -4,7 +4,7 @@ static void push_arg_to_arr(char **arr, char *arg);
 static int get_arg_info(char **argv, int index);
 static void parsing(char **files, char **dirs, char **n_valid, t_args *args);
 static void mem_alloc_struct(t_args *args, char **files,
-char **dirs, char **n_valid);
+    char **dirs, char **n_valid);
 
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
     char **files = (char **)malloc(sizeof(char *) * (argc));
@@ -86,7 +86,7 @@ static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {
 }
 
 static void mem_alloc_struct(t_args *args, char **files,
-char **dirs, char **n_valid) {
+    char **dirs, char **n_valid) {
     args->files = malloc(sizeof(char *) * (mx_arr_size(files) + 1));
     args->dirs = malloc(sizeof(char *) * (mx_arr_size(dirs) + 1));
     args->not_valid = malloc(sizeof(char *) * (mx_arr_size(n_valid) + 1));
