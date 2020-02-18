@@ -14,12 +14,15 @@ t_dirs_entry *mx_add_dirs_entry(t_args *args, t_dirs_entry *dirs_entry, char *da
 }
 
 static t_dirs_entry *mx_pushing_data(t_args *args, char *data, char *dir) {
-	t_dirs_entry *temp = malloc(sizeof(t_dirs_entry));
+	t_dirs_entry *temp = malloc(sizeof (t_dirs_entry));
 	char *res = (mx_strcmp(dir, "/")) ? mx_strjoin(dir, "/") : mx_strdup(dir);
+	char *tmp = NULL;
 
 	temp->d_name = mx_strdup(data);
-	dir = mx_strjoin(res, temp->d_name);
-	temp->stat = (args->fl[1] || args->fl[4] || args->fl[5] || args->fl[11]) ? mx_get_stat(args, dir) : NULL;
+	tmp = mx_strjoin(res, temp->d_name);
+	temp->stat = (args->fl[1] || args->fl[4] || args->fl[5] || args->fl[11]) ? mx_get_stat(args, tmp) : NULL;
+	mx_strdel(&res);
+	mx_strdel(&tmp);
 	temp->next = NULL;
 	return temp;
 }

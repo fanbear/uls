@@ -42,7 +42,7 @@ mx_print_dirs_ls.c \
 mx_color_output.c \
 mx_major_minor_size.c \
 mx_colored_name.c \
-
+mx_del_stat_struct.c \
 
 SRCS = $(addprefix src/, $(SRC))
 
