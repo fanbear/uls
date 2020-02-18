@@ -43,7 +43,7 @@ static void many_dir(t_args *args, t_dirs *dirs, char *delim) {
 			mx_printstr("\n");
 			count = 0;
 		}
-		mx_colored_name(args->fl[1], data[i], dirs->dir);
+		mx_colored_name(args, data[i], dirs->dir);
 		if (data[i + 1])
 			mx_printstr(delim);
 		else
@@ -63,7 +63,7 @@ static void file_a_dir(t_args *args, t_dirs *dirs, char *delim) {
 				mx_printstr("\n");
 				count = 0;
 			}
-			mx_colored_name(args->fl[1], data[i], dirs->dir);
+			mx_colored_name(args, data[i], dirs->dir);
 			if (data[i + 1])
 				mx_printstr(delim);
 			else
@@ -82,7 +82,7 @@ static void print_files(t_args *args, char **data, char *delim) {
 			mx_printstr("\n");
 			count = 0;
 		}
-		mx_colored_name(args->fl[1], data[i], NULL);
+		mx_colored_name(args, data[i], NULL);
 		if (data[i + 1])
 			mx_printstr(delim);
 		else
