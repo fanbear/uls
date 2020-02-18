@@ -82,12 +82,12 @@ void mx_print_file_ls(t_args *args) {
         print_info(args, files);
         mx_printchar(' ');
         if (args->fl[10] == 1) {
-            mx_printstr(temp->stat->time1);
-        } 
+            mx_printstr(files->entry_file->stat->time1);
+        }
         else {
-            mx_printstr(temp->stat->time1);
-            print_space(files->max_time, temp->stat->time2);
-            mx_printstr(temp->stat->time2);
+            mx_printstr(files->entry_file->stat->time1);
+            print_space(files->max_time, files->entry_file->stat->time2);
+            mx_printstr(files->entry_file->stat->time2);
         }
         mx_printchar(' ');
         mx_colored_name(args, files->entry_file->files, NULL);
