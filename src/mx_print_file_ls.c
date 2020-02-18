@@ -74,7 +74,7 @@ void mx_print_file_ls(t_args *args) {
     	print_space(files->max_time, temp->stat->time2);
     	mx_printstr(temp->stat->time2);
         mx_printchar(' ');
-        mx_colored_name(args->fl[1], temp->files, NULL);
+        mx_colored_name(args->fl[1], temp->stat->color, temp->files);
     	if (temp->stat->name_link[0]) {
     		mx_printstr(" -> ");
     		mx_printstr(temp->stat->name_link);
