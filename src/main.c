@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
 	t_dirs *dirs = mx_get_dir_entry(args);
 
-	if (args->fl[4] || args->fl[5]) // печать одного флага
+	if (args->fl[4] || args->fl[5] || args->fl[11]) // печать одного флага
 		mx_print_ls_l(args, dirs);
 	else if (args->fl[6]) // печать одного флага
 		mx_print_flag_mp(args, dirs, ", ");

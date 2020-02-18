@@ -6,6 +6,26 @@ static void print_space(int max_elem, char* str) {
     }
 }
 
+static void g_or_l(t_files *files, t_args *args) {
+    if (args->fl[4] != 1) {
+        mx_printstr(files->entry_file->stat->user_name);
+        print_space(files->max_user, files->entry_file->stat->user_name);
+        mx_printchar(' ');
+        mx_printchar(' ');
+    }
+    if (args->fl[11] != 1) {
+        mx_printstr(files->entry_file->stat->group_name);
+        print_space(files->max_group, files->entry_file->stat->group_name);
+        mx_printchar(' ');
+        mx_printchar(' ');
+    }
+    if (args->fl[4] && args->fl[11]) {
+        mx_printchar(' ');
+        mx_printchar(' ');
+    }
+}
+
+
 static t_file_entry *pushing_data(t_args *args, char *file) {
     t_file_entry *entry_file = malloc(sizeof (t_file_entry));
 
@@ -39,23 +59,15 @@ static t_files *mx_get_files(t_args *args, char **files) {
 }
 
 
-static void print_info(t_files *files) {
+static void print_info(t_args *args, t_files *files) {
     mx_printstr(files->entry_file->stat->permiss);
     mx_printchar(' ');
     print_space(files->max_link, files->entry_file->stat->nlink);
     mx_printstr(files->entry_file->stat->nlink);
     mx_printchar(' ');
-    mx_printstr(files->entry_file->stat->user_name);
-    print_space(files->max_user, files->entry_file->stat->user_name);
-    mx_printchar(' ');
-    mx_printchar(' ');
-    mx_printstr(files->entry_file->stat->group_name);
-    print_space(files->max_group, files->entry_file->stat->group_name);
-    mx_printchar(' ');
-    mx_printchar(' ');
-    if (files->entry_file->stat->permiss[0] == 'b' || files->entry_file->stat->permiss[0] == 'c') {
+    g_or_l(files, args);
+    if (files->entry_file->stat->permiss[0] == 'b' || files->entry_file->stat->permiss[0] == 'c')
         mx_printstr(files->entry_file->stat->rdev);
-    }
     else {
         print_space(files->max_size, files->entry_file->stat->file_size);
         mx_printstr(files->entry_file->stat->file_size);
@@ -64,11 +76,10 @@ static void print_info(t_files *files) {
 
 void mx_print_file_ls(t_args *args) {
     t_files *files = mx_get_files(args, args->files);
-    t_file_entry *temp = files->entry_file;
 
     mx_get_max_value_in_files(files);
-    while (temp) {
-        print_info(files);
+    while (files->entry_file) {
+        print_info(args, files);
         mx_printchar(' ');
         if (args->fl[10] == 1) {
             mx_printstr(temp->stat->time1);
@@ -79,12 +90,12 @@ void mx_print_file_ls(t_args *args) {
             mx_printstr(temp->stat->time2);
         }
         mx_printchar(' ');
-        mx_colored_name(args, temp->files, NULL);
-    	if (temp->stat->name_link[0]) {
+        mx_colored_name(args, files->entry_file->files, NULL);
+    	if (files->entry_file->stat->name_link[0]) {
     		mx_printstr(" -> ");
-    		mx_printstr(temp->stat->name_link);
+    		mx_printstr(files->entry_file->stat->name_link);
     	}
     	mx_printchar('\n');
-    	temp = temp->next;
+    	files->entry_file = files->entry_file->next;
 	}
 }
