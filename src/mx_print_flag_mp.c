@@ -16,7 +16,7 @@ void mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim) {
 	if (dirs) {
         if (dirs->next || args->not_valid[0] || args->files[0])
             while (dirs) {
-                if (!mx_check_on_access(1, dirs->dir)) {
+                if (!mx_check_on_access(1, dirs->dir, args)) {
 					if (args->fl[2] && !toggle)
 						toggle = 1;
 					else {
@@ -55,7 +55,7 @@ static void many_dir(t_args *args, t_dirs *dirs, char *delim) {
 
 static void file_a_dir(t_args *args, t_dirs *dirs, char *delim) {
 	int count = 0;
-	if (!mx_check_on_access(0, dirs->dir)) {
+	if (!mx_check_on_access(0, dirs->dir, args)) {
 		char **data = mx_get_data_from_struct(dirs);
 
 		for(int i = 0; data[i] != NULL; i++) {

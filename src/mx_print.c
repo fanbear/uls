@@ -11,7 +11,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, ch
 
         if (dirs->next || args->not_valid[0] || args->files[0]) {
             while (dirs) {
-                if (!mx_check_on_access(1, dirs->dir)) {
+                if (!mx_check_on_access(1, dirs->dir, args)) {
                     data = mx_get_data_from_struct(dirs);
                     if (args->fl[2] && args->dirs_num == 1)
                         args->dirs_num = 0;
@@ -30,7 +30,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, ch
             }
         }
         else
-            if (!mx_check_on_access(0, dirs->dir)) {
+            if (!mx_check_on_access(0, dirs->dir, args)) {
                 data = mx_get_data_from_struct(dirs);
                 if (data) {
                     (*print_ls)(data, args, dirs->dir);

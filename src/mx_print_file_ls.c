@@ -70,9 +70,14 @@ void mx_print_file_ls(t_args *args) {
     while (temp) {
         print_info(files);
         mx_printchar(' ');
-        mx_printstr(temp->stat->time1);
-    	print_space(files->max_time, temp->stat->time2);
-    	mx_printstr(temp->stat->time2);
+        if (args->fl[10] == 1) {
+            mx_printstr(temp->stat->time1);
+        } 
+        else {
+            mx_printstr(temp->stat->time1);
+            print_space(files->max_time, temp->stat->time2);
+            mx_printstr(temp->stat->time2);
+        }
         mx_printchar(' ');
         mx_colored_name(args, temp->files, NULL);
     	if (temp->stat->name_link[0]) {
