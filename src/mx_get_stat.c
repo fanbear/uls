@@ -21,7 +21,6 @@ t_file *mx_get_stat(char *data) {
 	get_time(stat);
 	stat->file_name = mx_strdup(data);
     stat->name_link = mx_strnew(stat->buf.st_size);
-    mx_color_output(stat);
     readlink(data, stat->name_link, 1024);
     return stat;
 }

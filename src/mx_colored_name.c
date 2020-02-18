@@ -6,7 +6,7 @@ void mx_colored_name(int flag_g, char *name, char *path) {
     if (isatty(1) && flag_g) {
         t_file *stat = get_stat(name, path);
 
-        mx_printstr(stat->color);
+        mx_color_output(stat);
         mx_printstr(name);
         mx_printstr(COLOR_RESET);
     }

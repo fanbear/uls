@@ -93,7 +93,6 @@ typedef struct file { //структура для файлов
 	char          *time2;
 	char          *name_link; //  если файл = линк для принта //пока не пользуюсь
 	char		   *rdev;
-	char 		   *color;
     time_t         a_time; //*временные данные, для реализации разных флагов*/
     time_t         m_time;
     time_t         c_time;

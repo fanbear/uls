@@ -52,7 +52,7 @@ void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
 		print_space(dirs->max_time, temp->stat->time2);
 		mx_printstr(temp->stat->time2);
         mx_printchar(' ');
-        mx_colored_name(args->fl[1], temp->stat->color, temp->d_name);
+        mx_colored_name(args->fl[1], temp->d_name, dirs->dir);
 		if (temp->stat->name_link[0]) {
 			mx_printstr(" -> ");
 			mx_printstr(temp->stat->name_link);
