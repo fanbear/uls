@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 	else
 		uls_print(args, dirs);
 	error = args->error;
-	mx_del_dirs_struct(dirs);
+	// mx_del_dirs_struct(dirs);
 	mx_del_args_struct(args, NOT_VALID);
 	system("leaks -q uls");
 
