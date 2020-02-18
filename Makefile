@@ -14,11 +14,13 @@ mx_get_max_value_in_dirs.c \
 mx_get_max_value_in_files.c \
 mx_get_flags.c \
 mx_args_to_struct.c \
+mx_add_dirs_entry.c \
 mx_print_not_valid.c \
 mx_arr_size.c \
 mx_del_str_arr.c \
 mx_del_args_struct.c \
 mx_print_ls_multy_colomn.c \
+mx_print_multy_colomn_g.c \
 mx_del_dirs_struct.c \
 mx_get_data_from_struct.c \
 mx_get_window_size.c \
@@ -28,23 +30,25 @@ mx_print.c \
 mx_check_on_access.c \
 mx_get_stat.c \
 mx_print_ls_l.c \
-mx_sort_content.c \
 \
 \
 mx_permission.c \
-mx_print_flag_m.c \
-mx_print_ls_g.c \
+mx_print_flag_mp.c \
+mx_recursive_open_dirs.c \
+mx_quicksort_r.c \
 mx_print_file_ls.c \
 mx_print_info.c \
 mx_print_dirs_ls.c \
-# libmx/src/mx_strjoin_no_leaks.c
+mx_color_output.c \
+mx_major_minor_size.c \
+mx_colored_name.c \
 
 
 SRCS = $(addprefix src/, $(SRC))
 
 OBJ = $(SRC:%.c=%.o)
 
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
 all: install clean
 

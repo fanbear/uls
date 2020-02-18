@@ -1,6 +1,5 @@
 #include "uls.h"
 
-
 static void type(char* str, t_file *file_st) {
  	if ((file_st->buf.st_mode & S_IFMT) == S_IFREG)
 		str[0] = '-';
@@ -27,7 +26,11 @@ static void perm_for_user(t_file *file_st, char* str) {
 		str[2] = 'w';
 	else
 		str[2] = '-';
-	if (file_st->buf.st_mode & S_IXUSR)
+	if ((file_st->buf.st_mode & S_ISUID) && (file_st->buf.st_mode & S_IXUSR))
+		str[3] = 's';
+	else if (file_st->buf.st_mode & S_ISUID)
+		str[3] = 'S';
+	else if (file_st->buf.st_mode & S_IXUSR)
 		str[3] = 'x';
 	else
 		str[3] = '-';
@@ -42,7 +45,11 @@ static void perm_for_group(t_file *file_st, char* str) {
 		str[5] = 'w';
 	else
 		str[5] = '-';
-	if (file_st->buf.st_mode & S_IXGRP)
+	if ((file_st->buf.st_mode & S_ISGID) && (file_st->buf.st_mode & S_IXGRP))
+		str[6] = 's';
+	else if (file_st->buf.st_mode & S_ISGID)
+		str[6] = 'S';
+	else if (file_st->buf.st_mode & S_IXGRP)
 		str[6] = 'x';
 	else
 		str[6] = '-';
@@ -57,25 +64,22 @@ static void perm_for_other(t_file *file_st, char* str) {
 		str[8] = 'w';
 	else
 		str[8] = '-';
-	if (file_st->buf.st_mode & S_IXOTH)
+	if ((file_st->buf.st_mode & S_ISTXT) && (file_st->buf.st_mode & S_IXOTH))
+		str[9] = 't';
+	else if (file_st->buf.st_mode & S_IXOTH)
 		str[9] = 'x';
+	else if (file_st->buf.st_mode & S_ISTXT)
+		str[9] = 'T';
 	else
 		str[9] = '-';
  }
 
-static void fill_spaces(char *str) {
-    for (int i = 0; i < 11; i++) {
-        str[i] = ' ';
-    }
-}
-
 char* mx_permission(char* file, t_file *file_st) {
-	char* str = mx_strnew(11);
-    fill_spaces(str);
+	char* str = mx_strdup("           ");
 	ssize_t value = 0;
-	value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
 	acl_t acl = NULL;
 
+    value = listxattr(file, NULL, 0, XATTR_NOFOLLOW);
 	type(str, file_st);
 	perm_for_user(file_st, str);
 	perm_for_group(file_st, str);
