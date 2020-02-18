@@ -2,10 +2,17 @@
 
 static void many_dir(t_args *args, t_dirs *dirs, char *delim);
 static void file_a_dir(t_args *args, t_dirs *dirs, char *delim);
+static void print_files(t_args *args, char **data, char *delim);
 
 void mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim) {
 	int toggle = 0;
 
+	if (args->files[0]) {
+		print_files(args, args->files, delim);
+		if (dirs) {
+			mx_printchar('\n');
+		}
+	}
 	if (dirs) {
         if (dirs->next || args->not_valid[0] || args->files[0])
             while (dirs) {
@@ -36,7 +43,7 @@ static void many_dir(t_args *args, t_dirs *dirs, char *delim) {
 			mx_printstr("\n");
 			count = 0;
 		}
-		mx_printstr(data[i]);
+		mx_colored_name(args->fl[1], data[i], dirs->dir);
 		if (data[i + 1])
 			mx_printstr(delim);
 		else
@@ -48,7 +55,7 @@ static void many_dir(t_args *args, t_dirs *dirs, char *delim) {
 
 static void file_a_dir(t_args *args, t_dirs *dirs, char *delim) {
 	int count = 0;
-	if (!mx_check_on_access(0, dirs->dir)) { 
+	if (!mx_check_on_access(0, dirs->dir)) {
 		char **data = mx_get_data_from_struct(dirs);
 
 		for(int i = 0; data[i] != NULL; i++) {
@@ -56,7 +63,7 @@ static void file_a_dir(t_args *args, t_dirs *dirs, char *delim) {
 				mx_printstr("\n");
 				count = 0;
 			}
-			mx_printstr(data[i]);
+			mx_colored_name(args->fl[1], data[i], dirs->dir);
 			if (data[i + 1])
 				mx_printstr(delim);
 			else
@@ -64,5 +71,22 @@ static void file_a_dir(t_args *args, t_dirs *dirs, char *delim) {
 			count += (mx_strlen(data[i]) + 2);
 		}
 		mx_del_str_arr(data);
+	}
+}
+
+static void print_files(t_args *args, char **data, char *delim) {
+	int count = 0;
+
+	for(int i = 0; data[i] != NULL; i++) {
+		if (mx_get_window_size(args) <= count + mx_strlen(data[i]) + 2) {
+			mx_printstr("\n");
+			count = 0;
+		}
+		mx_colored_name(args->fl[1], data[i], NULL);
+		if (data[i + 1])
+			mx_printstr(delim);
+		else
+			mx_printstr("\n");
+		count += (mx_strlen(data[i]) + 2);
 	}
 }
