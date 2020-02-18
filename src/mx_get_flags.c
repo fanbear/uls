@@ -64,7 +64,7 @@ static void sort_flags(t_args *args, char *flags) {
 
 	for (int i = 0; flags[i]; i++) {
 		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm' ||
-			flags[i] == 'l' || flags[i] == 'g')
+			flags[i] == 'l')
 			index = i;
 		else if (flags[i] == 'G')
 			args->fl[1] = 1;
@@ -74,6 +74,16 @@ static void sort_flags(t_args *args, char *flags) {
 			args->fl[3] = 1;
 		else if (flags[i] == 'r')
 			args->fl[7] = 1;
+		else if (flags[i] == 'f') {
+			args->fl[9] = 1;
+			args->fl[3] = 1;
+		}
+		else if (flags[i] == 'o')
+			args->fl[11] = 1;
+		else if (flags[i] == 'g')
+			args->fl[4] = 1;
+		else if (flags[i] == 'T')
+			args->fl[10] = 1;
 	}
 	if (index != -1)
 		args->fl[mx_get_char_index(LEGAL, flags[index])] = 1;

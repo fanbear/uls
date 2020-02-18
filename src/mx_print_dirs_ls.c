@@ -12,6 +12,16 @@ static void g_or_l(t_args * args, t_dirs *dirs, t_dirs_entry *temp) {
         mx_printchar(' ');
         mx_printchar(' ');
     }
+    if (args->fl[11] != 1) {
+        mx_printstr(temp->stat->group_name);
+        print_space(dirs->max_group, temp->stat->group_name);
+        mx_printchar(' ');
+        mx_printchar(' ');
+    }
+    if (args->fl[4] && args->fl[11]) {
+        mx_printchar(' ');
+        mx_printchar(' ');
+    }
 }
 
 static void print_total(int sum_total) {
@@ -27,13 +37,8 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
     mx_printstr(temp->stat->nlink);
     mx_printchar(' ');
     g_or_l(args, dirs, temp);
-    mx_printstr(temp->stat->group_name);
-    print_space(dirs->max_group, temp->stat->group_name);
-    mx_printchar(' ');
-    mx_printchar(' ');
-     if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c') {
+    if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c')
     	mx_printstr(temp->stat->rdev);
-    }
     else {
 		print_space(dirs->max_size, temp->stat->file_size);
 		mx_printstr(temp->stat->file_size);
@@ -52,7 +57,7 @@ void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
 		print_space(dirs->max_time, temp->stat->time2);
 		mx_printstr(temp->stat->time2);
         mx_printchar(' ');
-        mx_colored_name(args->fl[1], temp->d_name, dirs->dir);
+        mx_colored_name(args, temp->d_name, dirs->dir);
 		if (temp->stat->name_link[0]) {
 			mx_printstr(" -> ");
 			mx_printstr(temp->stat->name_link);

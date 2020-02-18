@@ -19,7 +19,7 @@ static t_dirs_entry *mx_pushing_data(t_args *args, char *data, char *dir) {
 
 	temp->d_name = mx_strdup(data);
 	dir = mx_strjoin(res, temp->d_name);
-	temp->stat = (args->fl[1] || args->fl[4] || args->fl[5]) ? mx_get_stat(dir) : NULL;
+	temp->stat = (args->fl[1] || args->fl[4] || args->fl[5] || args->fl[11]) ? mx_get_stat(args, dir) : NULL;
 	temp->next = NULL;
 	return temp;
 }
