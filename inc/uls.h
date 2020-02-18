@@ -137,5 +137,7 @@ void           mx_color_output(t_file *file_st);
 char*		   mx_major_minor_size(t_file *file_st);
 void           mx_colored_name(t_args *args, char *name, char *path);
 void           mx_del_stat_struct(t_file *stat);
+void           mx_print_info_file(t_args *args, t_files *files);
+void           mx_print_space_file(int max_elem, char* str);
 
 #endif
