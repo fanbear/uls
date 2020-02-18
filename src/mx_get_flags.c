@@ -78,6 +78,8 @@ static void sort_flags(t_args *args, char *flags) {
 			args->fl[9] = 1;
 			args->fl[3] = 1;
 		}
+		else if (flags[i] == 'o')
+			args->fl[11] = 1;
 		else if (flags[i] == 'T')
 			args->fl[10] = 1;
 	}
