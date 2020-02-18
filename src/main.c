@@ -13,12 +13,12 @@ int main(int argc, char **argv) {
 	else
 		uls_print(args, dirs);
 
-	// mx_del_args_struct(args, NOT_VALID);
-	// mx_del_dirs_struct(dirs);
+	mx_del_args_struct(args, NOT_VALID);
+	mx_del_dirs_struct(dirs);
 
-	// system("leaks -q uls");
+	//system("leaks -q uls");
 
-	exit(0);
+	exit(args->error);
 }
 
 

@@ -24,7 +24,8 @@ void mx_get_max_value_in_dirs(t_dirs *dir) {
         else
             max_value(&dir->max_size, temp->stat->file_size);
         max_value(&dir->max_link, temp->stat->nlink);
-        max_value(&dir->max_time, temp->stat->time2);
+        if (temp->stat->time2)
+            max_value(&dir->max_time, temp->stat->time2);
         dir->total += temp->stat->buf.st_blocks;
         temp = temp->next;
     }

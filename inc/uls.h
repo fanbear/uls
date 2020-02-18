@@ -36,6 +36,7 @@ typedef struct s_args {
 	char **dirs;
 	char **not_valid;
 	int    dirs_num; // amount of first excisting dirs
+	int    error;
 
 } t_args;
 
@@ -112,7 +113,7 @@ t_dirs_entry  *mx_add_dirs_entry(t_args *args, t_dirs_entry *dirs_entry, char *d
 void           mx_print_not_valid(char *data);
 void           mx_del_str_arr(char **arr);
 void           mx_del_args_struct(t_args *args, int item);
-int            mx_check_on_access(int mult, char *data);
+int 		   mx_check_on_access(int mult, char *data,t_args *args);
 void           mx_del_dirs_struct(t_dirs *dirs);
 int            mx_arr_size(char **arr);
 void           mx_print_multy_colomn_g(char **data, t_args *args, char *dir);
