@@ -42,8 +42,6 @@ mx_print_dirs_ls.c \
 mx_color_output.c \
 mx_major_minor_size.c \
 mx_colored_name.c \
-mx_print_G.c \
-# libmx/src/mx_strjoin_no_leaks.c
 
 
 SRCS = $(addprefix src/, $(SRC))

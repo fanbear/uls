@@ -4,10 +4,11 @@ static int max_d_namlen(char **data);
 static void add_tabs(int max_size, int size);
 static void multi_clm_print(char **data, int max_size, int max_d_len);
 
-void mx_print_ls_multy_colomn(char **data, t_args *args) {
+void mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir) {
     int max_size = mx_get_window_size(args);
     int max_d_len = max_d_namlen(data);
 
+    dir = NULL;
     multi_clm_print(data, max_size, max_d_len);
 }
 

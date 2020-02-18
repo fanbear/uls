@@ -3,7 +3,6 @@
 static int max_d_namlen(char **data);
 static void add_tabs(int max_size, int size);
 static void multi_clm_print(char **data, int max_size, int max_d_len, char *dir);
-static t_file *get_stat(char *data, char *dir);
 
 void mx_print_multy_colomn_g(char **data,  t_args *args, char *dir) {
     int max_size = mx_get_window_size(args);
@@ -19,9 +18,7 @@ static void multi_clm_print(char **data, int max_size, int max_d_len, char *dir)
 
     for (int i = 0; i < rows; i++) {
         for (int k = i; k < arr_size; k += rows) {
-                t_file *stat = get_stat(data[k], dir);
-
-                mx_colored_name(1, stat->color, data[k]);
+                mx_colored_name(1, data[k], dir);
                 if (!(--cols) || k + rows >= arr_size) {
                     mx_printstr("\n");
                     cols = max_size / (max_d_len);
@@ -52,12 +49,4 @@ static void add_tabs(int max_size, int size) {
         mx_printstr(" ");
         count--;
     }
-}
-
-static t_file *get_stat(char *data, char *dir) {
-    if (dir) {
-        dir = mx_strjoin(dir, "/");
-        data = mx_strjoin(dir, data);
-    }
-    return mx_get_stat(data);
 }

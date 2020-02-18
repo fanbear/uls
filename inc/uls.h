@@ -116,13 +116,13 @@ void           mx_del_args_struct(t_args *args, int item);
 int            mx_check_on_access(int mult, char *data);
 void           mx_del_dirs_struct(t_dirs *dirs);
 int            mx_arr_size(char **arr);
-void           mx_print_ls_multy_colomn(char **data, t_args *args);
 void           mx_print_multy_colomn_g(char **data, t_args *args, char *dir);
 char         **mx_get_data_from_struct(t_dirs *dirs);
 int            mx_get_window_size(t_args *args);
 char         **mx_sort_data(t_args *args, char **data);
-void           mx_print_ls_monocolomn(char **data, t_args *args);
-void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *));
+void           mx_print_ls_monocolomn(char **data, t_args *args, char *path);
+void           mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir);
+void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, char *dir));
 t_file        *mx_get_stat(char *data);
 void           mx_get_data_info(t_file *stat, char* file);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
@@ -135,7 +135,6 @@ void           mx_print_dirs_ls(t_dirs *dirs, t_args *args);
 void           mx_print_file_ls(t_args *args);
 void           mx_color_output(t_file *file_st);
 char*		   mx_major_minor_size(t_file *file_st);
-void           mx_colored_name(int toggle_g, char *color, char *name);
-void           mx_print_G(t_args *args, t_dirs *dirs);
+void           mx_colored_name(int flag_g, char *name, char *path);
 
 #endif

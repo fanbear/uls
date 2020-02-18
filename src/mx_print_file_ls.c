@@ -5,9 +5,11 @@ static void print_space(int max_elem, char* str) {
         mx_printchar(' ');
     }
 }
+
 static t_file_entry *pushing_data(char *file) {
     t_file_entry *entry_file = malloc(sizeof (t_file_entry));
 
+    entry_file->files = mx_strdup(file);
     entry_file->stat = mx_get_stat(file);
     entry_file->next = NULL;
     return entry_file;

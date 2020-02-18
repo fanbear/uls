@@ -1,8 +1,8 @@
 #include "uls.h"
 
-void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
+void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, char *dir)) {
     if (args->files[0]) {
-        (*print_ls)(args->files, args);
+        (*print_ls)(args->files, args, NULL);
         if (dirs)
             mx_printchar('\n');
     }
@@ -20,7 +20,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
                         mx_printstr(":\n");
                     }
                     if (data) {
-                        (*print_ls)(data, args);
+                        (*print_ls)(data, args, dirs->dir);
                         mx_del_str_arr(data);
                     }
                 }
@@ -33,7 +33,7 @@ void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *)) {
             if (!mx_check_on_access(0, dirs->dir)) {
                 data = mx_get_data_from_struct(dirs);
                 if (data) {
-                    (*print_ls)(data, args);
+                    (*print_ls)(data, args, dirs->dir);
                     mx_del_str_arr(data);
                 }
             }

@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 	mx_del_args_struct(args, NOT_VALID);
 	mx_del_dirs_struct(dirs);
 
-	// system("leaks -q uls");
+	// system("leaks -q uls"); 
 
 	exit(0);
 }
@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 static void uls_print(t_args *args, t_dirs *dirs) {
 	if ((isatty(1) || args->fl[0]) && !args->fl[8]) {
 		if (isatty(1) && args->fl[1])
-			mx_print_G(args, dirs);
+			mx_print(args, dirs, mx_print_multy_colomn_g);
 		else
 			mx_print(args, dirs, mx_print_ls_multy_colomn); // обычный принт
 	}
