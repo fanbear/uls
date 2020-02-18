@@ -9,8 +9,11 @@ void mx_del_stat_struct(t_file *stat) {
         mx_strdel(&stat->time1);
         mx_strdel(&stat->nlink);
         mx_strdel(&stat->file_size);
-        mx_strdel(&stat->time2);
-        mx_strdel(&stat->name_link);
+        if (stat->time2)
+            mx_strdel(&stat->time2);
+        if (stat->name_link)
+            mx_strdel(&stat->name_link);
+        if (stat->rdev)
         mx_strdel(&stat->rdev);
         free(stat->pw);
         free(stat);
