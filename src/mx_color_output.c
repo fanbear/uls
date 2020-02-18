@@ -33,13 +33,3 @@ static void dir_colors(t_file *file_st) {
     else
         mx_printstr("\x1B[34m");
 }
-
-
-static void dir_colors(t_file *file_st) {
-    if (file_st->permiss[8] == 'w' && (file_st->permiss[9] == 't' || file_st->permiss[9] == 'T'))
-        file_st->color = mx_strdup("\x1B[0;30;42m");
-    else if (file_st->permiss[8] == 'w' && file_st->permiss[9] == 'x')
-        file_st->color = mx_strdup("\033[30;43m");
-    else
-        file_st->color = mx_strdup("\x1B[34m");
-}
