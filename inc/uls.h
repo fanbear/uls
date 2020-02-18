@@ -93,7 +93,7 @@ typedef struct file { //структура для файлов
 	char          *file_size;
 	char          *time2;
 	char          *name_link; //  если файл = линк для принта //пока не пользуюсь
-	char		   *rdev;
+	char		  *rdev;
     time_t         a_time; //*временные данные, для реализации разных флагов*/
     time_t         m_time;
     time_t         c_time;
@@ -136,5 +136,6 @@ void           mx_print_file_ls(t_args *args);
 void           mx_color_output(t_file *file_st);
 char*		   mx_major_minor_size(t_file *file_st);
 void           mx_colored_name(t_args *args, char *name, char *path);
+void           mx_del_stat_struct(t_file *stat);
 
 #endif

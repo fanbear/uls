@@ -28,9 +28,9 @@ t_file *mx_get_stat(t_args *args, char *data) {
 static void get_time(t_args *args, t_file *file_st) {
 	char* str = ctime(&file_st->buf.st_mtime);
 	time_t current = time(NULL);
+
     if (args->fl[10] == 1) {
         file_st->time1 = mx_strndup(&str[4], mx_strlen(&str[4]) - 1);
-        //file_st->time2 = NULL;
     }
     else {
         str += 4;
@@ -42,6 +42,6 @@ static void get_time(t_args *args, t_file *file_st) {
 	        file_st->time1 = mx_strndup(str, 6);
             file_st->time2 = mx_strndup(str + 6, 6);
         }
+        str -= 4;
     }
 }
-

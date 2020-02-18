@@ -19,21 +19,7 @@ static void del_entry_dir(t_dirs_entry *entry_dir) {
         t_dirs_entry *temp_entry = entry_dir->next;
 
         mx_strdel(&entry_dir->d_name);
-        if (entry_dir->stat) {
-            mx_strdel(&entry_dir->stat->permiss);
-            mx_strdel(&entry_dir->stat->file_name);
-            mx_strdel(&entry_dir->stat->user_name);
-            mx_strdel(&entry_dir->stat->group_name);
-            mx_strdel(&entry_dir->stat->time1);
-            mx_strdel(&entry_dir->stat->nlink);
-            mx_strdel(&entry_dir->stat->file_size);
-            mx_strdel(&entry_dir->stat->time2);
-            mx_strdel(&entry_dir->stat->name_link);
-            mx_strdel(&entry_dir->stat->rdev);
-            free(entry_dir->stat);
-            entry_dir->stat = NULL;
-        }
-
+        mx_del_stat_struct(entry_dir->stat);
         free(entry_dir);
         entry_dir = temp_entry;
     }

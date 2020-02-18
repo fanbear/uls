@@ -31,23 +31,23 @@ static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name) {
 	char **data = data_to_arr(args, dir);
 	int i = 0;
 
-	errno = 0;
 	temp->entry_dir = NULL;
 	for (; data[i]; i++)
 		temp->entry_dir = mx_add_dirs_entry(args, temp->entry_dir, data[i], dir_name);
-	mx_del_str_arr(data);
 	if (dir)
 		closedir(dir);
 	if (args->fl[4] || args->fl[5] || args->fl[11])
 		mx_get_max_value_in_dirs(temp);
 	temp->dir = mx_strdup(dir_name);
 	temp->next = NULL;
+	mx_del_str_arr(data);
+	errno = 0;
 	return temp;
 }
 
 static char **data_to_arr(t_args *args, DIR *dir) {
 	struct dirent *entry = NULL;
-	char **data = (char **)malloc(sizeof (char *) * 30000);
+	char **data = (char **)malloc(sizeof (char *) * 300000);
 	int i = 0;
 
 	while (dir && ((entry = readdir(dir)) != NULL)) {
