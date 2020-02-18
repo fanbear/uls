@@ -23,7 +23,7 @@
 #include <grp.h>
 
 
-#define LEGAL "CGRaglmr1"
+#define LEGAL "CGRaglmr1f"
 
 #define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MINOR(x)        ((int32_t)((x) & 0xffffff))
@@ -31,7 +31,7 @@
 
 typedef struct s_args {
 	char  *flags;
-	int    fl[9];
+	int    fl[10];
 	char **files;
 	char **dirs;
 	char **not_valid;
