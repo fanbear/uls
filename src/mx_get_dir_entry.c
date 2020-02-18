@@ -38,7 +38,7 @@ static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name) {
 	mx_del_str_arr(data);
 	if (dir)
 		closedir(dir);
-	if (args->fl[4] || args->fl[5])
+	if (args->fl[4] || args->fl[5] || args->fl[11])
 		mx_get_max_value_in_dirs(temp);
 	temp->dir = mx_strdup(dir_name);
 	temp->next = NULL;
