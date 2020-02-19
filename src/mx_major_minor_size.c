@@ -2,6 +2,7 @@
 
 static char* minor_lol(t_file *file_st);
 static char* major_lol(t_file *file_st);
+static void minir_lol_else(char *minor, t_file *file_st, char *hex);
 
 char* mx_major_minor_size(t_file *file_st) {
 	char* minor_major = NULL;
@@ -39,18 +40,23 @@ static char* minor_lol(t_file *file_st) {
 		mx_str_reverse(minor);
 	}
 	else {
-		minor = mx_strnew(8);
-		int i = 2;
-		minor[0] = '0';
-		minor[1] = 'x';
-		hex = mx_nbr_to_hex(MINOR(file_st->buf.st_rdev));
-		for (int y = 0; y < 8 - mx_strlen(hex); y++) {
-			minor[i] = '0';
-			i++;
-		}
-		minor = mx_strcat(minor, hex);
-		mx_strdel(&hex);
+		minir_lol_else(minor, file_st, hex);
 	}
 	mx_strdel(&itoa);
 	return minor;
+}
+
+static void minir_lol_else(char *minor, t_file *file_st, char *hex) {
+	int i = 2;
+
+	minor = mx_strnew(8);
+	minor[0] = '0';
+	minor[1] = 'x';
+	hex = mx_nbr_to_hex(MINOR(file_st->buf.st_rdev));
+	for (int y = 0; y < 8 - mx_strlen(hex); y++) {
+		minor[i] = '0';
+		i++;
+	}
+	minor = mx_strcat(minor, hex);
+	mx_strdel(&hex);
 }

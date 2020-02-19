@@ -33,7 +33,8 @@ static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name) {
 
 	temp->entry_dir = NULL;
 	for (; data[i]; i++)
-		temp->entry_dir = mx_add_dirs_entry(args, temp->entry_dir, data[i], dir_name);
+		temp->entry_dir = mx_add_dirs_entry(args, temp->entry_dir,
+											data[i], dir_name);
 	if (dir)
 		closedir(dir);
 	if (args->fl[4] || args->fl[5] || args->fl[11])
