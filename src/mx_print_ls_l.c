@@ -5,6 +5,8 @@ void mx_print_ls_l(t_args *args, t_dirs *dirs) {
 
 	if (args->files[0]) {
 		mx_print_file_ls(args);
+		exit(1);
+
 		if (dirs) {
 			mx_printchar('\n');
 		}

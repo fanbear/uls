@@ -76,7 +76,6 @@ static void print_info(t_args *args, t_files *files) {
 
 void mx_print_file_ls(t_args *args) {
     t_files *files = mx_get_files(args, args->files);
-
     mx_get_max_value_in_files(files);
     while (files->entry_file) {
         print_info(args, files);
