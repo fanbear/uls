@@ -65,7 +65,7 @@ static void sort_flags(t_args *args, char *flags) {
 
 	for (int i = 0; flags[i]; i++) {
 		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm' ||
-			flags[i] == 'l')
+			flags[i] == 'l' || flags[i] == 'g' )
 			index = i;
 		else 
 			choice_flags(args, flags, i);
