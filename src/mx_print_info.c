@@ -20,7 +20,8 @@ void mx_print_info(t_files *files) {
     print_space(files->max_group, files->entry_file->stat->group_name);
     mx_printchar(' ');
     mx_printchar(' ');
-    if (files->entry_file->stat->permiss[0] == 'b' || files->entry_file->stat->permiss[0] == 'c') {
+    if (files->entry_file->stat->permiss[0] == 'b'
+        || files->entry_file->stat->permiss[0] == 'c') {
         mx_printstr(files->entry_file->stat->rdev);
     }
     else {

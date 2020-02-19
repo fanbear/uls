@@ -9,7 +9,8 @@ static t_file_entry *pushing_data(t_args *args, char *file) {
     return entry_file;
 }
 
-static t_file_entry *get_files_entry(t_args *args, t_file_entry *entry_file, char *file) {
+static t_file_entry *get_files_entry(t_args *args, t_file_entry *entry_file,
+                                    char *file) {
     t_file_entry *current  = entry_file;
 
     if (!entry_file)
@@ -26,7 +27,8 @@ static t_files *mx_get_files(t_args *args, char **files) {
 
  files_st->entry_file = NULL;
  while (files[i]) {
-     files_st->entry_file = get_files_entry(args, files_st->entry_file, files[i]);
+     files_st->entry_file = get_files_entry(args, files_st->entry_file,
+                                            files[i]);
      i++;
  }
  return files_st;
@@ -44,7 +46,8 @@ void mx_print_file_ls(t_args *args) {
             mx_printstr(files->entry_file->stat->time1);
         else {
             mx_printstr(files->entry_file->stat->time1);
-            mx_print_space_file(files->max_time, files->entry_file->stat->time2);
+            mx_print_space_file(files->max_time,
+                                files->entry_file->stat->time2);
             mx_printstr(files->entry_file->stat->time2);
         }
         mx_printchar(' ');
