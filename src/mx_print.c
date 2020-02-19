@@ -7,7 +7,8 @@ static void print_file(t_args *args, t_dirs *dirs,
 static void file_and_dir(char **data, t_args *args, t_dirs *dirs,
     void (*print)(char **, t_args *, char *dir));
 
-void mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, char *dir)) {
+void mx_print(t_args *args, t_dirs *dirs, 
+    void (*print_ls)(char **, t_args *, char *dir)) {
     print_file(args, dirs, print_ls);
     if (dirs) {
         char **data = NULL;
@@ -43,7 +44,8 @@ static void many_dirs(char **data, t_args *args, t_dirs *dirs,
 
 }
 
-static void print_file(t_args *args, t_dirs *dirs, void (*print)(char **, t_args *, char *dir)) {
+static void print_file(t_args *args, t_dirs *dirs, 
+    void (*print)(char **, t_args *, char *dir)) {
     if (args->files[0]) {
         (*print)(args->files, args, NULL);
         if (dirs)

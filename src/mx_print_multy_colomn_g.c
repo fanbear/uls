@@ -2,7 +2,8 @@
 
 static int max_d_namlen(char **data);
 static void add_tabs(int max_size, int size);
-static void multi_clm_print(t_args *args, char **data, int max_size, int max_d_len, char *dir);
+static void multi_clm_print(t_args *args, char **data, int max_size, 
+    int max_d_len, char *dir);
 
 void mx_print_multy_colomn_g(char **data,  t_args *args, char *dir) {
     int max_size = mx_get_window_size(args);
@@ -11,7 +12,8 @@ void mx_print_multy_colomn_g(char **data,  t_args *args, char *dir) {
     multi_clm_print(args, data, max_size, max_d_len, dir);
 }
 
-static void multi_clm_print(t_args *args, char **data, int max_size, int max_d_len, char *dir) {
+static void multi_clm_print(t_args *args, char **data, int max_size, 
+    int max_d_len, char *dir) {
     int arr_size = mx_arr_size(data);
     int cols = max_size / (max_d_len);
     int rows = (arr_size % cols) ? arr_size / cols + 1 : arr_size / cols;
