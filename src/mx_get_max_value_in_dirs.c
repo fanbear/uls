@@ -7,15 +7,19 @@ static void max_value(int *value, char *data) {
         *value = j;
 }
 
-void mx_get_max_value_in_dirs(t_dirs *dir) {
-    t_dirs_entry *temp = dir->entry_dir;
-
+static void init_value(t_dirs *dir) {
     dir->total = 0;
     dir->max_group = 0;
     dir->max_user = 0;
     dir->max_size = 0;
     dir->max_link = 0;
     dir->max_time = 0;
+}
+
+void mx_get_max_value_in_dirs(t_dirs *dir) {
+    t_dirs_entry *temp = dir->entry_dir;
+
+    init_value(dir);
     while (temp) {
         max_value(&dir->max_group, temp->stat->group_name);
         max_value(&dir->max_user, temp->stat->user_name);
