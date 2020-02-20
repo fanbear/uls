@@ -7,9 +7,9 @@ int main(int argc, char **argv) {
 	t_dirs *dirs = mx_get_dir_entry(args);
 	int error = 0;
 
-	if (args->fl[4] || args->fl[5] || args->fl[11])
+	if (args->fl[4] || args->fl[5] || args->fl[11]) // печать одного флага
 		mx_print_ls_l(args, dirs);
-	else if (args->fl[6])
+	else if (args->fl[6]) // печать одного флага
 		mx_print_flag_mp(args, dirs, ", ");
 	else
 		uls_print(args, dirs);
@@ -25,8 +25,8 @@ static void uls_print(t_args *args, t_dirs *dirs) {
 		if (isatty(1) && args->fl[1])
 			mx_print(args, dirs, mx_print_multy_colomn_g);
 		else
-			mx_print(args, dirs, mx_print_ls_multy_colomn);
+			mx_print(args, dirs, mx_print_ls_multy_colomn); // обычный принт
 	}
 	else
-		mx_print(args, dirs, mx_print_ls_monocolomn);
+		mx_print(args, dirs, mx_print_ls_monocolomn); // обычный принт | cat -e
 }

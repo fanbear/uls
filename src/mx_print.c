@@ -8,8 +8,8 @@ static void file_and_dir(char **data, t_args *args, t_dirs *dirs,
                         void (*print)(char **, t_args *, char *dir));
 
 void mx_print(t_args *args, t_dirs *dirs, 
-    void (*print_ls)(char **, t_args *, char *dir)) {
-    print_file(args, dirs, print_ls);
+                void (*print_ls)(char **, t_args *, char *dir)) {
+                print_file(args, dirs, print_ls);
     if (dirs) {
         char **data = NULL;
 
@@ -34,6 +34,7 @@ static void many_dirs(char **data, t_args *args, t_dirs *dirs,
     if (args->fl[2] && args->dirs_num == 1) {
         args->dirs_num = 0;
     } else {
+        mx_karetka_files(dirs->dir);
         mx_printstr(dirs->dir);
         mx_printstr(":\n");
     }

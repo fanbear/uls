@@ -28,6 +28,7 @@ static void print_ls(t_args *args, t_dirs *dirs, int *toggle) {
 	if (args->fl[2] && !*toggle)
 		*toggle = 1;
 	else {
+		mx_karetka_files(dirs->dir);
 		mx_printstr(dirs->dir);
 		mx_printstr(":\n");
 	}

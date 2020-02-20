@@ -121,7 +121,7 @@ char         **mx_get_data_from_struct(t_dirs *dirs);
 int            mx_get_window_size(t_args *args);
 char         **mx_sort_data(t_args *args, char **data);
 void           mx_print_ls_monocolomn(char **data, t_args *args, char *path);
-void           mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir);
+void 		   mx_print_ls_multy_colomn(char **data, t_args *args, char *dir);
 void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, char *dir));
 t_file        *mx_get_stat(t_args *args, char *data);
 void           mx_get_data_info(t_file *stat, char* file);
@@ -139,5 +139,5 @@ void           mx_colored_name(t_args *args, char *name, char *path);
 void           mx_del_stat_struct(t_file *stat);
 void           mx_print_info_file(t_args *args, t_files *files);
 void           mx_print_space_file(int max_elem, char* str);
-
+void		   mx_karetka_files(char* str);
 #endif

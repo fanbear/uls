@@ -45,6 +45,7 @@ mx_colored_name.c \
 mx_del_stat_struct.c \
 mx_print_info_file.c \
 mx_print_space_file.c \
+mx_karetka_files.c \
 
 SRCS = $(addprefix src/, $(SRC))
 
