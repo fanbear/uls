@@ -23,11 +23,11 @@
 #include <grp.h>
 
 
-#define LEGAL "CGRaglmr1fTo"
+#define MX_LEGAL "CGRaglmr1fTo"
 
-#define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
-#define MINOR(x)        ((int32_t)((x) & 0xffffff))
-#define COLOR_RESET   "\x1b[0m"
+#define MX_MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+#define MX_MINOR(x)        ((int32_t)((x) & 0xffffff))
+#define MX_COLOR_RESET   "\x1b[0m"
 
 typedef struct s_args {
 	char  *flags;

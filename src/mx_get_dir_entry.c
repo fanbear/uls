@@ -48,7 +48,7 @@ static t_dirs *data_to_dirs_struct(t_args *args, char *dir_name) {
 
 static char **data_to_arr(t_args *args, DIR *dir) {
 	struct dirent *entry = NULL;
-	char **data = (char **)malloc(sizeof (char *) * 300000);
+	char **data = (char **)malloc(sizeof (char *) * 3000000);
 	int i = 0;
 
 	while (dir && ((entry = readdir(dir)) != NULL)) {
