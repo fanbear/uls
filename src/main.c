@@ -4,9 +4,10 @@ static void uls_print(t_args *args, t_dirs *dirs);
 
 int main(int argc, char **argv) {
 	t_args *args = mx_sort_args(argc, argv);
+	mx_recursive_open_dirs(args);
+	exit(1);
 	t_dirs *dirs = mx_get_dir_entry(args);
 	int error = 0;
-
 	if (args->fl[4] || args->fl[5] || args->fl[11]) // печать одного флага
 		mx_print_ls_l(args, dirs);
 	else if (args->fl[6]) // печать одного флага

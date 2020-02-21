@@ -30,11 +30,11 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 
 static int amount_of_flags(t_args *args, int *amount, char *flag) {
     for (int i = 1; flag[i]; i++) {
-		if (mx_get_char_index(LEGAL, flag[i]) == -1) {
+		if (mx_get_char_index(MX_LEGAL, flag[i]) == -1) {
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
 			write(2, "\nusage: uls [-", 14);
-			write(2, LEGAL, mx_strlen(LEGAL));
+			write(2, MX_LEGAL, mx_strlen(MX_LEGAL));
 			write(2, "] [file ...]\n", 13);
 			mx_del_args_struct(args, NOTHING);
 			exit(1);
@@ -69,7 +69,7 @@ static void sort_flags(t_args *args, char *flags) {
 			index = i;
 	}
 	if (index != -1)
-		args->fl[mx_get_char_index(LEGAL, flags[index])] = 1;
+		args->fl[mx_get_char_index(MX_LEGAL, flags[index])] = 1;
 	choice_flags(args, flags, index);
 }
 

@@ -32,7 +32,7 @@ static char* minor_lol(t_file *file_st) {
 	char* itoa = mx_itoa(MX_MINOR(file_st->buf.st_rdev));
 	char* minor = NULL;
 
-	if (MINOR(file_st->buf.st_rdev) < 255) {
+	if (MX_MINOR(file_st->buf.st_rdev) < 255) {
 		minor =  mx_strdup("   ");
 		for (int i = 0; itoa[i]; i++)
 			minor[i] = itoa[i];
