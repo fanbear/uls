@@ -1,49 +1,43 @@
-libmx:
-total 136
--rwxr-xr-x   1 event   3699 Feb 21 11:58 Makefile
-drwxr-xr-x   3 event    102 Feb 21 11:58 inc
--rw-r--r--   1 event  64504 Feb 21 12:07 libmx.a
-drwxr-xr-x  66 event   2244 Feb 21 11:58 src
-
-src:
-total 320
--rwxr-xr-x  1 event   257 Feb 21 11:58 main.c
--rw-r--r--  1 event  1000 Feb 21 11:58 mx_add_dirs_entry.c
--rwxr-xr-x  1 event  2663 Feb 21 11:58 mx_args_to_struct.c
--rwxr-xr-x  1 event   141 Feb 21 11:58 mx_arr_size.c
--rwxr-xr-x  1 event  1061 Feb 21 11:58 mx_check_on_access.c
--rw-r--r--  1 event  1244 Feb 21 11:58 mx_color_output.c
--rw-r--r--  1 event   766 Feb 21 11:58 mx_colored_name.c
--rw-r--r--  1 event   193 Feb 21 11:58 mx_create_path.c
--rwxr-xr-x  1 event  1439 Feb 21 11:58 mx_data_to_dirs_struct.c
--rwxr-xr-x  1 event   408 Feb 21 11:58 mx_del_args_struct.c
--rwxr-xr-x  1 event   595 Feb 21 11:58 mx_del_dirs_struct.c
--rw-r--r--  1 event   561 Feb 21 11:58 mx_del_stat_struct.c
--rwxr-xr-x  1 event   136 Feb 21 11:58 mx_del_str_arr.c
--rw-r--r--  1 event   793 Feb 21 11:58 mx_filter_print.c
--rwxr-xr-x  1 event   496 Feb 21 11:58 mx_get_data_from_struct.c
--rwxr-xr-x  1 event  2418 Feb 21 11:58 mx_get_flags.c
--rwxr-xr-x  1 event  1005 Feb 21 11:58 mx_get_max_value_in_dirs.c
--rwxr-xr-x  1 event   967 Feb 21 11:58 mx_get_max_value_in_files.c
--rwxr-xr-x  1 event  1438 Feb 21 11:58 mx_get_stat.c
--rwxr-xr-x  1 event   221 Feb 21 11:58 mx_get_window_size.c
--rw-r--r--  1 event   210 Feb 21 11:58 mx_karetka_files.c
--rw-r--r--  1 event  1489 Feb 21 11:58 mx_major_minor_size.c
--rwxr-xr-x  1 event  2624 Feb 21 11:58 mx_open_dirs.c
--rwxr-xr-x  1 event  2346 Feb 21 11:58 mx_permission.c
--rwxr-xr-x  1 event   416 Feb 21 11:58 mx_print.c
--rw-r--r--  1 event  2051 Feb 21 11:58 mx_print_dirs_ls.c
--rwxr-xr-x  1 event   540 Feb 21 11:58 mx_print_dirs_m.c
--rw-r--r--  1 event  1869 Feb 21 11:58 mx_print_file_ls.c
--rw-r--r--  1 event  1123 Feb 21 11:58 mx_print_files.c
--rw-r--r--  1 event  1068 Feb 21 11:58 mx_print_info.c
--rw-r--r--  1 event  1331 Feb 21 11:58 mx_print_info_file.c
--rwxr-xr-x  1 event   147 Feb 21 11:58 mx_print_ls_l.c
--rwxr-xr-x  1 event   348 Feb 21 11:58 mx_print_ls_monocolomn.c
--rwxr-xr-x  1 event  2107 Feb 21 11:58 mx_print_ls_multy_colomn.c
--rw-r--r--  1 event  1564 Feb 21 11:58 mx_print_multy_colomn_g.c
--rwxr-xr-x  1 event   186 Feb 21 11:58 mx_print_not_valid.c
--rw-r--r--  1 event   162 Feb 21 11:58 mx_print_space_file.c
--rw-r--r--  1 event   786 Feb 21 11:58 mx_quicksort_r.c
--rwxr-xr-x  1 event   553 Feb 21 11:58 mx_sort_args.c
--rwxr-xr-x  1 event   299 Feb 21 11:58 mx_sort_data.c
+total 336
+-rwxr-xr-x@ 1 ybelyaev  4242   257B Feb 21 14:40 main.c
+-rw-r--r--  1 ybelyaev  4242   1.0K Feb 21 14:40 mx_add_dirs_entry.c
+-rwxr-xr-x  1 ybelyaev  4242   3.0K Feb 21 14:40 mx_args_to_struct.c
+-rwxr-xr-x  1 ybelyaev  4242   141B Feb 21 14:40 mx_arr_size.c
+-rwxr-xr-x  1 ybelyaev  4242   1.4K Feb 21 14:40 mx_check_on_access.c
+-rw-r--r--  1 ybelyaev  4242   1.2K Feb 21 14:40 mx_color_output.c
+-rw-r--r--  1 ybelyaev  4242   766B Feb 21 14:40 mx_colored_name.c
+-rw-r--r--  1 ybelyaev  4242   193B Feb 21 14:40 mx_create_path.c
+-rwxr-xr-x  1 ybelyaev  4242   1.4K Feb 21 14:40 mx_data_to_dirs_struct.c
+-rwxr-xr-x  1 ybelyaev  4242   408B Feb 21 14:40 mx_del_args_struct.c
+-rwxr-xr-x  1 ybelyaev  4242   595B Feb 21 14:40 mx_del_dirs_struct.c
+-rw-r--r--  1 ybelyaev  4242   561B Feb 21 14:40 mx_del_stat_struct.c
+-rwxr-xr-x  1 ybelyaev  4242   136B Feb 21 14:40 mx_del_str_arr.c
+-rw-r--r--  1 ybelyaev  4242   793B Feb 21 14:40 mx_filter_print.c
+-rwxr-xr-x  1 ybelyaev  4242   496B Feb 21 14:40 mx_get_data_from_struct.c
+-rwxr-xr-x  1 ybelyaev  4242   2.4K Feb 21 14:40 mx_get_flags.c
+-rwxr-xr-x  1 ybelyaev  4242   1.0K Feb 21 14:40 mx_get_max_value_in_dirs.c
+-rwxr-xr-x  1 ybelyaev  4242   967B Feb 21 14:40 mx_get_max_value_in_files.c
+-rwxr-xr-x  1 ybelyaev  4242   1.4K Feb 21 14:40 mx_get_stat.c
+-rwxr-xr-x  1 ybelyaev  4242   221B Feb 21 14:40 mx_get_window_size.c
+-rw-r--r--  1 ybelyaev  4242   210B Feb 21 14:40 mx_karetka_files.c
+-rw-r--r--  1 ybelyaev  4242   1.5K Feb 21 14:40 mx_major_minor_size.c
+-rwxr-xr-x  1 ybelyaev  4242   3.0K Feb 21 14:40 mx_open_dirs.c
+-rw-r--r--@ 1 ybelyaev  4242   276B Feb 21 16:37 mx_pb_flag_h.c
+-rwxr-xr-x  1 ybelyaev  4242   2.3K Feb 21 14:40 mx_permission.c
+-rwxr-xr-x  1 ybelyaev  4242   416B Feb 21 14:40 mx_print.c
+-rw-r--r--  1 ybelyaev  4242   2.1K Feb 21 15:27 mx_print_dirs_ls.c
+-rwxr-xr-x  1 ybelyaev  4242   540B Feb 21 14:40 mx_print_dirs_m.c
+-rw-r--r--  1 ybelyaev  4242   2.0K Feb 21 14:40 mx_print_file_ls.c
+-rw-r--r--  1 ybelyaev  4242   2.0K Feb 21 14:40 mx_print_files.c
+-rw-r--r--  1 ybelyaev  4242   1.4K Feb 21 14:40 mx_print_info.c
+-rw-r--r--  1 ybelyaev  4242   1.3K Feb 21 14:40 mx_print_info_file.c
+-rwxr-xr-x  1 ybelyaev  4242   147B Feb 21 14:40 mx_print_ls_l.c
+-rwxr-xr-x  1 ybelyaev  4242   348B Feb 21 14:40 mx_print_ls_monocolomn.c
+-rwxr-xr-x  1 ybelyaev  4242   3.0K Feb 21 14:40 mx_print_ls_multy_colomn.c
+-rw-r--r--  1 ybelyaev  4242   1.5K Feb 21 14:40 mx_print_multy_colomn_g.c
+-rwxr-xr-x  1 ybelyaev  4242   186B Feb 21 14:40 mx_print_not_valid.c
+-rw-r--r--  1 ybelyaev  4242   162B Feb 21 14:40 mx_print_space_file.c
+-rw-r--r--  1 ybelyaev  4242   786B Feb 21 14:40 mx_quicksort_r.c
+-rw-r--r--  1 ybelyaev  4242   1.3K Feb 21 16:32 mx_size_h.c
+-rwxr-xr-x  1 ybelyaev  4242   553B Feb 21 14:40 mx_sort_args.c
+-rwxr-xr-x  1 ybelyaev  4242   299B Feb 21 14:40 mx_sort_data.c

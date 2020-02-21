@@ -1,31 +1,46 @@
 #include "uls.h"
 
-static int ostatok(int n);
-static void print_byte(int ost);
+static int ostatok(int kb);
 static void print_mb(int summ);
-static int kb_o(int kb);
+static void print_kb(int summ, int ost, char *str);
 
 void mx_size_h(char *file_size) {
 	float summ = atoi(file_size) / 1024;
 	int ost = atoi(file_size) % 1024;
+	char *str;
 
+	mx_printchar(' ');
 	if (atoi(file_size) > 100240)
 		print_mb(summ);
-	else if (atoi(file_size) > 1024){
-		mx_printint(summ);
-		if (ostatok(ost) < 600 && ostatok(ost) != 0 && summ < 10) {
-			mx_printchar('.');
-			mx_printint(ostatok(summ));
-		}
-		mx_printchar('K');
+	else if (atoi(file_size) >= 1024){
+		str = mx_itoa(summ);
+		print_kb(summ, ost, str);
 	}
 	else
-		print_byte(ost);
+		mx_pb_flag_h(ost);
 }
 
-static void print_byte(int ost) {
-	mx_printint(ost);
-	mx_printchar('B');
+static void print_kb(int summ, int ost, char *str) {
+	if (ostatok(ost) < 9 && summ < 10) {
+		mx_printstr(str);
+		mx_printchar('.');
+		mx_printint(ostatok(ost));
+		mx_printchar('K');
+	}
+	else {
+		if (summ < 10) {
+			mx_printstr(str);
+			mx_printchar('.');
+			mx_printchar('0');
+			mx_printchar('K');
+		}
+		else {
+			for (int i = mx_strlen(str) + 1; i < 4; i++)
+			mx_printchar(' ');
+			mx_printstr(str);
+			mx_printchar('K');
+		}
+	}
 }
 
 static void print_mb(int summ) {
@@ -34,7 +49,7 @@ static void print_mb(int summ) {
 
 	mx_printint(delim);
 	mx_printchar('.');
-	if (kb < 100)
+	if (delim < 10)
 		mx_printint(0);
 	else {
 		kb = 1024 / kb;
@@ -43,25 +58,19 @@ static void print_mb(int summ) {
 	mx_printchar('M');
 }
 
-
-static int ostatok(int n) {
-	int delim = n / 1024;
-	int kb = n - (delim * 1024);
-	
-	return kb_o(kb);
-}
-
-static int kb_o(int kb) {
+static int ostatok(int kb) {
 	int r = 0;
-	// printf("%i\n", kb);
-	if (kb > 9) {
-		if ((kb % 10) > 5 && kb > 10)
+	if (kb < 100){
+		return 0;
+	}
+	while (kb > 9) {
+		if ((kb % 10) > 5)
 			r = 1;
+		else
+			r = 0;
 		kb /= 10;
 		kb += r;
-		kb_o(kb);
 	}
-	else
-		return kb;
+
 	return kb;
 }
