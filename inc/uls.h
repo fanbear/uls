@@ -103,8 +103,9 @@ typedef struct file { //структура для файлов
 	struct passwd *pw;
 } t_file;
 
+
 t_args        *mx_sort_args(int argc, char **argv);
-t_dirs        *mx_get_dir_entry(t_args *args);
+t_dirs        *mx_data_to_dirs_struct(t_args *args, char *dir_name);
 void           mx_get_max_value_in_dirs(t_dirs *dir);
 void           mx_get_max_value_in_files(t_files *files);
 void           mx_get_flags(t_args *args, int *index, int argc, char **argv);
@@ -127,8 +128,8 @@ t_file        *mx_get_stat(t_args *args, char *data);
 void           mx_get_data_info(t_file *stat, char* file);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 char          *mx_permission(char* file, t_file *file_st);
-void           mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim);
-void           mx_recursive_open_dirs(t_args *args);
+void           mx_print_dirs_m(t_args *args, t_dirs *dirs, char *delim);
+void           mx_open_dirs(t_args *args);
 void           mx_quicksort_r(char **arr, int left, int right);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 void           mx_print_dirs_ls(t_dirs *dirs, t_args *args);
@@ -140,4 +141,8 @@ void           mx_del_stat_struct(t_file *stat);
 void           mx_print_info_file(t_args *args, t_files *files);
 void           mx_print_space_file(int max_elem, char* str);
 void		   mx_karetka_files(char* str);
+void           mx_filter_print(t_args *args, t_dirs *dirs);
+void           mx_print_files(t_args *args);
+char 		  *mx_create_path(char *part_a, char *part_b);
+
 #endif

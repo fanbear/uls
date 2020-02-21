@@ -7,9 +7,9 @@ static void mem_alloc_struct(t_args *args, char **files,
     char **dirs, char **n_valid);
 
 void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
-    char **files = (char **)malloc(sizeof(char *) * (argc));
-    char **dirs = (char **)malloc(sizeof(char *) * (argc + 1));
-    char **not_valid = (char **)malloc(sizeof(char *) * (argc));
+    char **files = (char **)malloc(sizeof (char *) * (argc));
+    char **dirs = (char **)malloc(sizeof (char *) * (argc + 1));
+    char **not_valid = (char **)malloc(sizeof (char *) * (argc));
 
     files[0] = NULL;
     dirs[0] = (argc == index) ? mx_strdup(".") : NULL;
@@ -46,7 +46,7 @@ static int get_arg_info(char **argv, int index) {
     if (errno == 2)
         i = -1;
     else if (errno == 20) {
-        struct stat *buf = malloc(sizeof(struct stat));
+        struct stat *buf = malloc(sizeof (struct stat));
         int lstat_h = lstat(argv[index], buf);
 
         free(buf);
@@ -86,9 +86,9 @@ static void parsing(char **files, char **dirs, char **n_valid, t_args *args) {
 
 static void mem_alloc_struct(t_args *args, char **files,
     char **dirs, char **n_valid) {
-    args->files = malloc(sizeof(char *) * (mx_arr_size(files) + 1));
-    args->dirs = malloc(sizeof(char *) * (mx_arr_size(dirs) + 1));
-    args->not_valid = malloc(sizeof(char *) * (mx_arr_size(n_valid) + 1));
+    args->files = malloc(sizeof (char *) * (mx_arr_size(files) + 1));
+    args->dirs = malloc(sizeof (char *) * (mx_arr_size(dirs) + 1));
+    args->not_valid = malloc(sizeof (char *) * (mx_arr_size(n_valid) + 1));
     args->files[0] = NULL;
     args->dirs[0] = NULL;
     args->not_valid[0] = NULL;

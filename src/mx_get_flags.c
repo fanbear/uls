@@ -31,6 +31,8 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 static int amount_of_flags(t_args *args, int *amount, char *flag) {
     for (int i = 1; flag[i]; i++) {
 		if (mx_get_char_index(MX_LEGAL, flag[i]) == -1) {
+			if (i == 1 && flag[i] == '-' && !flag[i + 1])
+				return 0;
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
 			write(2, "\nusage: uls [-", 14);
