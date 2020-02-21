@@ -9,7 +9,7 @@ INCLIB = libmx/libmx.a
 SRC = \
 main.c \
 mx_sort_args.c \
-mx_get_dir_entry.c \
+mx_data_to_dirs_struct.c \
 mx_get_max_value_in_dirs.c \
 mx_get_max_value_in_files.c \
 mx_get_flags.c \
@@ -33,8 +33,8 @@ mx_print_ls_l.c \
 \
 \
 mx_permission.c \
-mx_print_flag_mp.c \
-mx_recursive_open_dirs.c \
+mx_print_dirs_m.c \
+mx_open_dirs.c \
 mx_quicksort_r.c \
 mx_print_file_ls.c \
 mx_print_info.c \
@@ -43,6 +43,12 @@ mx_color_output.c \
 mx_major_minor_size.c \
 mx_colored_name.c \
 mx_del_stat_struct.c \
+mx_print_info_file.c \
+mx_print_space_file.c \
+mx_karetka_files.c \
+mx_filter_print.c \
+mx_print_files.c \
+mx_create_path.c \
 
 SRCS = $(addprefix src/, $(SRC))
 

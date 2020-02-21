@@ -6,7 +6,7 @@ char **mx_get_data_from_struct(t_dirs *dirs) {
     char **res = NULL;
 
     while (temp) {
-        char *space = mx_strdup(" ");
+        char *space = mx_strdup("/");
         char *d_name = mx_strdup(temp->d_name);
 
         data = mx_strjoin_no_leaks(data, space);
@@ -14,7 +14,7 @@ char **mx_get_data_from_struct(t_dirs *dirs) {
         temp = temp->next;
     }
     if (data) {
-        res = mx_strsplit(data, ' ');
+        res = mx_strsplit(data, '/');
         mx_strdel(&data);
     }
     return res;

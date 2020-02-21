@@ -3,6 +3,7 @@
 static int max_d_namlen(char **data);
 static void add_tabs(int max_size, int size);
 static void multi_clm_print(char **data, int max_size, int max_d_len);
+static void true_multy(int max_size, int max_d_len, char **data, int arr_size);
 
 void mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir) {
     int max_size = mx_get_window_size(args);
@@ -14,11 +15,26 @@ void mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir) {
 
 static void multi_clm_print(char **data, int max_size, int max_d_len) {
     int arr_size = mx_arr_size(data);
+
+    if (max_d_len > max_size) {
+        for (int i = 0; i < arr_size; i++) {
+            mx_karetka_files(data[i]);
+            mx_printstr(data[i]);
+            mx_printchar('\n');
+        }
+    }
+    else {
+        true_multy(max_size, max_d_len, data, arr_size);
+    }
+}
+
+static void true_multy(int max_size, int max_d_len, char **data, int arr_size) {
     int cols = max_size / (max_d_len);
     int rows = (arr_size % cols) ? arr_size / cols + 1 : arr_size / cols;
 
     for (int i = 0; i < rows; i++) {
         for (int k = i; k < arr_size; k += rows) {
+                mx_karetka_files(data[i]);
                 mx_printstr(data[k]);
                 if (!(--cols) || k + rows >= arr_size) {
                     mx_printstr("\n");

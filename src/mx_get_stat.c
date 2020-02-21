@@ -3,7 +3,7 @@
 static void get_time(t_args *args, t_file *file_st);
 
 t_file *mx_get_stat(t_args *args, char *data) {
-    t_file *stat = malloc(sizeof(t_file));
+    t_file *stat = malloc(sizeof (t_file));
     struct group *group;
 
     lstat(data, &stat->buf);
@@ -31,10 +31,11 @@ static void get_time(t_args *args, t_file *file_st) {
 
     if (args->fl[10] == 1) {
         file_st->time1 = mx_strndup(&str[4], mx_strlen(&str[4]) - 1);
+        file_st->time2 = NULL;
     }
     else {
         str += 4;
-        if (current - file_st->buf.st_mtime >= 31536000 / 2) {
+        if (current - file_st->buf.st_mtime >= 31536000 / 2 ) {
             file_st->time1 = mx_strndup(str, 6);
 		    file_st->time2 = mx_strndup(str + 15, 5);
         }
@@ -42,6 +43,5 @@ static void get_time(t_args *args, t_file *file_st) {
 	        file_st->time1 = mx_strndup(str, 6);
             file_st->time2 = mx_strndup(str + 6, 6);
         }
-        str -= 4;
     }
 }
