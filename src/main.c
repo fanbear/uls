@@ -7,6 +7,7 @@ int main(int argc, char **argv) {
         mx_print_files(args);
 	mx_open_dirs(args);
 	mx_del_args_struct(args, NOT_VALID);
+	system("leaks -q uls");
 	error = args->error;
 	exit(error);
 }
