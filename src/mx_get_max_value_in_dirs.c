@@ -22,7 +22,8 @@ void mx_get_max_value_in_dirs(t_dirs *dir) {
     init_value(dir);
     while (temp) {
         max_value(&dir->max_group, temp->stat->group_name);
-        max_value(&dir->max_user, temp->stat->user_name);
+        if (temp->stat->user_name)
+            max_value(&dir->max_user, temp->stat->user_name);
         if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c')
             dir->max_size = 8;
         else

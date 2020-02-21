@@ -20,6 +20,7 @@ void mx_get_max_value_in_files(t_files *files) {
     init_value(files);
     while (temp) {
         max_value(&files->max_group, temp->stat->group_name);
+        if (temp->stat->user_name)
         max_value(&files->max_user, temp->stat->user_name);
         if (temp->stat->permiss[0] == 'b' ||  temp->stat->permiss[0] == 'c')
             files->max_size = 8;

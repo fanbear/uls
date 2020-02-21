@@ -5,8 +5,6 @@ double mx_pow(double n, unsigned int pow) {
 
     if (pow == 0)
         return sum;
-    if (pow < 0)
-        return sum;
     while (pow > 0) {
         sum = sum * n;
         pow--;

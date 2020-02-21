@@ -40,14 +40,19 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
     if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c')
     	mx_printstr(temp->stat->rdev);
     else {
-		print_space(dirs->max_size, temp->stat->file_size);
-		mx_printstr(temp->stat->file_size);
+        if (args->fl[12] == 1)
+            mx_size_h(temp->stat->file_size);
+        else {
+            print_space(dirs->max_size, temp->stat->file_size);
+            mx_printstr(temp->stat->file_size);
+        }
     }
 }
 
 void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
     t_dirs_entry *temp = dirs->entry_dir;
 
+    mx_get_max_value_in_dirs(dirs);
 	if (temp)
 		print_total(dirs->total);
     while (temp) {

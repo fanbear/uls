@@ -7,12 +7,15 @@ void mx_colored_name(t_args *args, char *name, char *path) {
         t_file *stat = get_stat(args, name, path);
 
         mx_color_output(stat);
+        mx_karetka_files(name);
         mx_printstr(name);
-        mx_printstr(COLOR_RESET);
+        mx_printstr(MX_COLOR_RESET);
         mx_del_stat_struct(stat);
     }
-    else
+    else {
+        mx_karetka_files(name);
         mx_printstr(name);
+    }
 }
 
 

@@ -2,7 +2,7 @@
 
 static char* minor_lol(t_file *file_st);
 static char* major_lol(t_file *file_st);
-static void minir_lol_else(char *minor, t_file *file_st, char *hex);
+static void minor_lol_else(char **minor, t_file *file_st);
 
 char* mx_major_minor_size(t_file *file_st) {
 	char* minor_major = NULL;
@@ -14,7 +14,7 @@ char* mx_major_minor_size(t_file *file_st) {
 }
 
 static char* major_lol(t_file *file_st) {
-	char* itoa = mx_itoa(MAJOR(file_st->buf.st_rdev));
+	char* itoa = mx_itoa(MX_MAJOR(file_st->buf.st_rdev));
 	char* lol = mx_strdup(", ");
 	char* major = mx_strdup("   ");
 	mx_str_reverse(itoa);
@@ -29,34 +29,35 @@ static char* major_lol(t_file *file_st) {
 }
 
 static char* minor_lol(t_file *file_st) {
-	char* itoa = mx_itoa(MINOR(file_st->buf.st_rdev));
+	char* itoa = mx_itoa(MX_MINOR(file_st->buf.st_rdev));
 	char* minor = NULL;
-	char* hex = NULL;
 
-	if (MINOR(file_st->buf.st_rdev) < 255) {
+	if (MX_MINOR(file_st->buf.st_rdev) < 255) {
 		minor =  mx_strdup("   ");
 		for (int i = 0; itoa[i]; i++)
 			minor[i] = itoa[i];
 		mx_str_reverse(minor);
 	}
 	else {
-		minir_lol_else(minor, file_st, hex);
+		minor = mx_strnew(8);
+		minor_lol_else(&minor, file_st);
 	}
 	mx_strdel(&itoa);
 	return minor;
 }
 
-static void minir_lol_else(char *minor, t_file *file_st, char *hex) {
-	int i = 2;
+static void minor_lol_else(char **minor, t_file *file_st) {
+	char* hex = NULL;
+	char* tmp = NULL;
 
-	minor = mx_strnew(8);
-	minor[0] = '0';
-	minor[1] = 'x';
-	hex = mx_nbr_to_hex(MINOR(file_st->buf.st_rdev));
+	mx_strcpy(*minor,"0x");
+	hex = mx_nbr_to_hex(MX_MINOR(file_st->buf.st_rdev));
 	for (int y = 0; y < 8 - mx_strlen(hex); y++) {
-		minor[i] = '0';
-		i++;
+		tmp = mx_strjoin(*minor, "0");
+		free (*minor);
+		*minor = mx_strdup(tmp);
+		free (tmp);
 	}
-	minor = mx_strcat(minor, hex);
+	*minor = mx_strjoin(*minor, hex);
 	mx_strdel(&hex);
 }

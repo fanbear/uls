@@ -23,15 +23,15 @@
 #include <grp.h>
 
 
-#define LEGAL "CGRaglmr1fTo"
+#define MX_LEGAL "CGRaglmr1fToh"
 
-#define MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
-#define MINOR(x)        ((int32_t)((x) & 0xffffff))
-#define COLOR_RESET   "\x1b[0m"
+#define MX_MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+#define MX_MINOR(x)        ((int32_t)((x) & 0xffffff))
+#define MX_COLOR_RESET   "\x1b[0m"
 
 typedef struct s_args {
 	char  *flags;
-	int    fl[12];
+	int    fl[13];
 	char **files;
 	char **dirs;
 	char **not_valid;
@@ -103,8 +103,9 @@ typedef struct file { //структура для файлов
 	struct passwd *pw;
 } t_file;
 
+
 t_args        *mx_sort_args(int argc, char **argv);
-t_dirs        *mx_get_dir_entry(t_args *args);
+t_dirs        *mx_data_to_dirs_struct(t_args *args, char *dir_name);
 void           mx_get_max_value_in_dirs(t_dirs *dir);
 void           mx_get_max_value_in_files(t_files *files);
 void           mx_get_flags(t_args *args, int *index, int argc, char **argv);
@@ -121,14 +122,14 @@ char         **mx_get_data_from_struct(t_dirs *dirs);
 int            mx_get_window_size(t_args *args);
 char         **mx_sort_data(t_args *args, char **data);
 void           mx_print_ls_monocolomn(char **data, t_args *args, char *path);
-void           mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir);
+void 		   mx_print_ls_multy_colomn(char **data, t_args *args, char *dir);
 void           mx_print(t_args *args, t_dirs *dirs, void (*print_ls)(char **, t_args *, char *dir));
 t_file        *mx_get_stat(t_args *args, char *data);
 void           mx_get_data_info(t_file *stat, char* file);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 char          *mx_permission(char* file, t_file *file_st);
-void           mx_print_flag_mp(t_args *args, t_dirs *dirs, char *delim);
-void           mx_recursive_open_dirs(t_args *args);
+void           mx_print_dirs_m(t_args *args, t_dirs *dirs, char *delim);
+void           mx_open_dirs(t_args *args);
 void           mx_quicksort_r(char **arr, int left, int right);
 void           mx_print_ls_l(t_args *args, t_dirs *dirs);
 void           mx_print_dirs_ls(t_dirs *dirs, t_args *args);
@@ -139,5 +140,10 @@ void           mx_colored_name(t_args *args, char *name, char *path);
 void           mx_del_stat_struct(t_file *stat);
 void           mx_print_info_file(t_args *args, t_files *files);
 void           mx_print_space_file(int max_elem, char* str);
+void		   mx_karetka_files(char* str);
+void           mx_filter_print(t_args *args, t_dirs *dirs);
+void           mx_print_files(t_args *args);
+char 		  *mx_create_path(char *part_a, char *part_b);
+void           mx_size_h(char *file_size);
 
 #endif
