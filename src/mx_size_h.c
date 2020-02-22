@@ -1,6 +1,6 @@
 #include "uls.h"
 
-static int ostatok(int kb);
+static int ostatok(char *kb);
 static void print_mb(int summ);
 static void print_kb(int summ, int ost, char *str);
 
@@ -10,7 +10,7 @@ void mx_size_h(char *file_size) {
 	char *str;
 
 	mx_printchar(' ');
-	if (atoi(file_size) > 100240)
+	if (atoi(file_size) > 1048576)
 		print_mb(summ);
 	else if (atoi(file_size) >= 1024){
 		str = mx_itoa(summ);
@@ -21,10 +21,10 @@ void mx_size_h(char *file_size) {
 }
 
 static void print_kb(int summ, int ost, char *str) {
-	if (ostatok(ost) < 9 && summ < 10) {
+	if (summ < 10) {
 		mx_printstr(str);
 		mx_printchar('.');
-		mx_printint(ostatok(ost));
+		mx_printint(ostatok(mx_itoa(ost)));
 		mx_printchar('K');
 	}
 	else {
@@ -49,7 +49,7 @@ static void print_mb(int summ) {
 
 	mx_printint(delim);
 	mx_printchar('.');
-	if (delim < 10)
+	if (delim > 10)
 		mx_printint(0);
 	else {
 		kb = 1024 / kb;
@@ -58,19 +58,18 @@ static void print_mb(int summ) {
 	mx_printchar('M');
 }
 
-static int ostatok(int kb) {
-	int r = 0;
-	if (kb < 100){
-		return 0;
-	}
-	while (kb > 9) {
-		if ((kb % 10) > 5)
-			r = 1;
+static int ostatok(char *kb) {
+	int tr = 0;
+	for (int i = 0; i < mx_strlen(kb); i--) {
+		if (mx_strcmp(&kb[i], "5") > 0){
+			tr = 1;
+			if (kb[i - 1] && kb[i - 1] != '9')
+				kb[i - 1] = ((kb[i - 1] - '0') + tr) + '0';
+			else
+				return (kb[0] - '0');
+		}
 		else
-			r = 0;
-		kb /= 10;
-		kb += r;
+			return (kb[0] - '0') + 1;
 	}
-
-	return kb;
+	return kb[0] - '0';
 }
