@@ -7,7 +7,6 @@ static char **data_in_dir(DIR *dir, t_args *args, char *dir_n);
 void mx_open_dirs(t_args *args) {
     for (int i = 0; args->dirs[i]; i++) {
         t_dirs *dirs = mx_data_to_dirs_struct(args, args->dirs[i]);
-
         if (mx_arr_size(args->dirs) > 1
             || args->not_valid[0] || args->files[0]) {
             mx_karetka_files(dirs->dir);
