@@ -7,16 +7,24 @@ int mx_check_on_access(int mult, char *data,t_args *args) {
 	DIR *dir = opendir(data);
 	struct stat *buf = malloc(sizeof (struct stat));
 
-	if (errno == 13) {
+	// if (errno == 13) {
+	// 	stat_checking(mult, data, buf);
+	// 	args->error = 1;
+	// 	if (dir)
+	// 		closedir(dir);
+	// 	return -1;
+	// }
+	// else if (errno == 20) {
+	// 	stat_checking(mult, data, buf);
+	// 	args->error = 1;
+	// 	return -1;
+	// }
+
+	if (errno) {
 		stat_checking(mult, data, buf);
 		args->error = 1;
 		if (dir)
 			closedir(dir);
-		return -1;
-	}
-	else if (errno == 20) {
-		stat_checking(mult, data, buf);
-		args->error = 1;
 		return -1;
 	}
 	free(buf);

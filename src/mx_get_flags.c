@@ -66,8 +66,9 @@ static void sort_flags(t_args *args, char *flags) {
 	int index = -1;
 
 	for (int i = 0; flags[i]; i++) {
-		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm' ||
-			flags[i] == 'l' || flags[i] == 'o' || flags[i] == 'g')
+		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm')
+			index = i;
+		if (flags[i] == 'l' || flags[i] == 'o' || flags[i] == 'g')
 			index = i;
 	}
 	if (index != -1)

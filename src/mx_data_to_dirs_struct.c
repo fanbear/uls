@@ -12,7 +12,7 @@ t_dirs *mx_data_to_dirs_struct(t_args *args, char *dir_name) {
 	if (data) {
 		for (; data[i]; i++)
 			temp->entry_dir = mx_add_dirs_entry(args, temp->entry_dir,
-				data[i], dir_name);
+												data[i], dir_name);
 		if (args->fl[4] || args->fl[5] || args->fl[11])
 			mx_get_max_value_in_dirs(temp);
 		mx_del_str_arr(data);

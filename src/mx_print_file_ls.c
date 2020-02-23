@@ -34,6 +34,17 @@ static t_files *mx_get_files(t_args *args, char **files) {
  return files_st;
 }
 
+static  void time_file(t_args *args, t_files *files) {
+    if (args->fl[10] == 1)
+            mx_printstr(files->entry_file->stat->time1);
+    else {
+        mx_printstr(files->entry_file->stat->time1);
+        mx_print_space_file(files->max_time,
+                            files->entry_file->stat->time2);
+        mx_printstr(files->entry_file->stat->time2);
+        }
+}
+
 
 void mx_print_file_ls(t_args *args) {
     t_files *files = mx_get_files(args, args->files);
@@ -42,14 +53,7 @@ void mx_print_file_ls(t_args *args) {
     while (files->entry_file) {
         mx_print_info_file(args, files);
         mx_printchar(' ');
-        if (args->fl[10] == 1)
-            mx_printstr(files->entry_file->stat->time1);
-        else {
-            mx_printstr(files->entry_file->stat->time1);
-            mx_print_space_file(files->max_time,
-                                files->entry_file->stat->time2);
-            mx_printstr(files->entry_file->stat->time2);
-        }
+        time_file(args, files);
         mx_printchar(' ');
         mx_colored_name(args, files->entry_file->files, NULL);
     	if (files->entry_file->stat->name_link[0]) {

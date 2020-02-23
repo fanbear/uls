@@ -144,5 +144,6 @@ void		   mx_karetka_files(char* str);
 void           mx_filter_print(t_args *args, t_dirs *dirs);
 void           mx_print_files(t_args *args);
 char 		  *mx_create_path(char *part_a, char *part_b);
+void		   mx_time_dir(t_dirs *dirs, t_args *args, t_dirs_entry *temp);
 
 #endif
