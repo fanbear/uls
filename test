@@ -3,6 +3,6 @@ total 96
 drwxr-xr-x   3 mac  staff    96B Feb 22 13:37 inc
 drwxr-xr-x   6 mac  staff   192B Feb 24 16:16 libmx
 drwxr-xr-x  44 mac  staff   1.4K Feb 22 13:37 src
--rw-r--r--   1 mac  staff   369B Feb 24 16:18 test
--rw-r--r--   1 mac  staff     0B Feb 24 16:18 test2
+-rw-r--r--   1 mac  staff     0B Feb 24 16:18 test
+-rw-r--r--   1 mac  staff   369B Feb 24 16:17 test2
 -rwxr-xr-x   1 mac  staff    38K Feb 24 16:16 uls
