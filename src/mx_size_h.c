@@ -5,7 +5,7 @@ static void print_mb(int summ);
 static void print_kb(int summ, int ost, char *str);
 static void print_byte(int ost);
 static int ostatok_mb(int kb);
-
+ // убрать  atoi
 
 void mx_size_h(char *file_size) {
 	float summ = atoi(file_size) / 1024;
@@ -51,14 +51,18 @@ static void print_mb(int summ) {
 	int delim = summ / 1024;
 	int kb = summ - (delim * 1024);
 
-	mx_printint(delim);
-	mx_printchar('.');
-	if (delim > 10)
-		mx_printint(0);
-	else {
-		mx_printint(ostatok_mb(kb));
+	if (delim > 10) {
+		mx_printstr(" ");
+		mx_printint(delim);
+		mx_printchar('M');
 	}
-	mx_printchar('M');
+	else {
+		mx_printint(delim);
+		mx_printchar('.');
+		mx_printint(ostatok_mb(kb));
+		mx_printchar('M');
+	}
+	
 }
 
 static int ostatok_mb(int kb) {
@@ -82,17 +86,12 @@ static int ostatok_mb(int kb) {
 static int ostatok(int kb, int summ) {
 	if (kb < 50)
 		return 0;
-	if (kb >= 945 && summ > 10) {
+	if (kb > 500 && summ > 10) {
 		return 1000;
 	}
-	if (kb % 100 < 5)
-		return kb / 100;
-	else {
-		if (kb % 100 > 55 && kb / 100 != 9)
-			return kb / 100 + 1;
-		else
-			return kb / 100;
-	}
+	kb = (kb * 1000) / 1024;
+	if (kb % 100 >= 50)
+		return kb / 100 + 1;
 	return kb / 100;
 }
 

@@ -97,5 +97,7 @@ static void choice_flags(t_args *args, char *flags) {
 			args->fl[10] = 1;
 		if (flags[i] == 'h')
 			args->fl[12] = 1;
+		if (flags[i] == 'S')
+			args->fl[13] = 1;
 	}
 }

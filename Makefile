@@ -50,6 +50,8 @@ mx_filter_print.c \
 mx_print_files.c \
 mx_create_path.c \
 mx_size_h.c \
+mx_sort_data_s.c \
+mx_quicksort_s.c \
 
 SRCS = $(addprefix src/, $(SRC))
 

@@ -1,60 +1,19 @@
-total 0
-drwxr-xr-x   11 root  admin   352B Feb 17 23:11 Application Support
-drwxr-xr-x    8 root  wheel   256B Oct 24  2018 Audio
-drwxrwxrwt    6 root  admin   192B Feb  9 13:24 Caches
-drwxr-xr-x    2 root  wheel    64B Aug 18  2018 ColorPickers
-drwxr-xr-x    4 root  wheel   128B Aug 21  2019 ColorSync
-drwxr-xr-x    2 root  wheel    64B Aug 21  2018 Components
-drwxr-xr-x    3 root  wheel    96B Aug 18  2018 Compositions
-drwxr-xr-x    2 root  wheel    64B Aug 21  2018 Contextual Menu Items
-drwxr-xr-x@   3 root  wheel    96B Feb 17 01:41 CoreAnalytics
-drwxr-xr-x    3 root  wheel    96B Oct  6  2018 CoreMediaIO
-drwxr-xr-x   51 root  wheel   1.6K Feb 16 19:27 Desktop Pictures
-drwxr-xr-x    3 root  admin    96B Jul 13  2019 Developer
-drwxr-xr-x    3 root  wheel    96B Aug 21  2018 DirectoryServices
-drwxr-xr-x    5 root  wheel   160B Feb 16 19:27 Documentation
-drwxr-xr-x   12 root  wheel   384B Feb 16 19:29 Extensions
-drwxr-xr-x    3 root  wheel    96B Oct 24  2018 Filesystems
-drwxrwxr-t  182 root  admin   5.7K Oct 24  2018 Fonts
-drwxr-xr-x    8 root  wheel   256B Aug 21  2019 Frameworks
-drwxr-xr-x@   2 root  wheel    64B Aug 18  2018 GPUBundles
-drwxr-xr-x    3 root  wheel    96B Aug 18  2018 Graphics
-drwxr-xr-x    8 root  wheel   256B Oct 24  2018 Image Capture
-drwxr-xr-x    2 root  wheel    64B Aug 29  2018 Input Methods
-drwxr-xr-x    3 root  wheel    96B Oct 24  2018 Internet Plug-Ins
-drwxr-xr-x    4 root  wheel   128B Oct 24  2018 Java
-drwxr-xr-x    2 root  wheel    64B Aug 18  2018 Keyboard Layouts
-drwxr-xr-x    9 root  wheel   288B Feb 19 21:07 Keychains
-drwxr-xr-x    4 root  wheel   128B Feb 20 15:57 LaunchAgents
-drwxr-xr-x    7 root  wheel   224B Feb 20 15:57 LaunchDaemons
-drwxr-xr-x    7 root  wheel   224B Feb 17 23:11 Logs
-drwxr-xr-x@   3 root  wheel    96B Feb 16 19:27 MessageTracer
-drwxr-xr-x    3 root  wheel    96B Oct 16  2018 Messages
-drwxr-xr-x   37 root  wheel   1.2K Oct 24  2018 Modem Scripts
-drwxr-xr-x    5 root  wheel   160B Sep 30  2018 OpenDirectory
-drwxr-xr-x    7 root  wheel   224B Aug 21  2019 PDF Services
-drwxr-xr-x    3 root  wheel    96B Aug 18  2018 Perl
-drwxr-xr-x    2 root  wheel    64B Aug 18  2018 PreferencePanes
-drwxr-xr-x   46 root  wheel   1.4K Feb 24 18:38 Preferences
-drwxr-xr-x    7 root  admin   224B Feb 24 18:37 Printers
-drwxr-xr-x    4 root  wheel   128B Feb 20 15:57 PrivilegedHelperTools
-drwxr-xr-x    3 root  wheel    96B Aug 18  2018 Python
-drwxr-xr-x    4 root  wheel   128B Oct 24  2018 QuickLook
-drwxr-xr-x    4 root  wheel   128B Oct 24  2018 QuickTime
-drwxrwxr-x    4 root  admin   128B Aug 21  2019 Receipts
-drwxr-xr-x    4 root  wheel   128B Aug 18  2018 Ruby
-drwxr-xr-x    3 root  wheel    96B Oct 24  2018 Sandbox
-drwxr-xr-x    3 root  wheel    96B Oct 12  2018 Screen Savers
-drwxr-xr-x    2 root  wheel    64B Aug 18  2018 ScriptingAdditions
-drwxr-xr-x   10 root  wheel   320B Oct 24  2018 Scripts
-drwxr-xr-x    3 root  wheel    96B Aug 18  2018 Security
-drwxr-xr-x    3 root  wheel    96B Aug 18  2018 Speech
-drwxr-xr-x    4 root  wheel   128B Oct 24  2018 Spotlight
-drwxr-xr-x@   3 root  wheel    96B Aug 21  2019 StagedExtensions
-drwxr-xr-x    2 root  wheel    64B Aug 18  2018 StartupItems
-drwxr-xr-x    2 root  wheel    64B Aug 18  2018 SystemProfiler
-drwxr-xr-x@   6 root  wheel   192B Feb 21 00:59 Updates
-drwxr-xr-x    8 root  wheel   256B Oct 12  2018 User Pictures
-drwxr-xr-x    4 root  wheel   128B Oct 14  2018 Video
-drwxr-xr-x    5 root  wheel   160B Aug 18  2018 WebServer
-drwxr-xr-x   14 root  wheel   448B Feb 16 19:27 Widgets
+total 13
+drwxrwxr-x+ 55 root  admin   1.7K Feb 24 09:40 Applications
+drwxr-xr-x+ 62 root  wheel   1.9K Feb 17 23:11 Library
+drwxr-xr-x   2 root  wheel    64B Aug 18  2018 Network
+drwxr-xr-x@  5 root  wheel   160B Oct 24  2018 System
+drwxr-xr-x   5 root  admin   160B Feb  9 13:24 Users
+drwxr-xr-x+  3 root  wheel    96B Feb 24 18:37 Volumes
+drwxr-xr-x@ 37 root  wheel   1.2K Feb 16 19:27 bin
+drwxrwxr-t   2 root  admin    64B Aug 18  2018 cores
+dr-xr-xr-x   3 root  wheel   4.2K Feb 24 09:37 dev
+lrwxr-xr-x@  1 root  wheel    11B Aug 21  2019 etc -> private/etc
+dr-xr-xr-x   2 root  wheel     1B Feb 24 21:03 home
+-rw-r--r--   1 root  wheel   313B Aug 18  2018 installer.failurerequests
+dr-xr-xr-x   2 root  wheel     1B Feb 24 21:03 net
+drwxr-xr-x   6 root  wheel   192B Oct 24  2018 private
+drwxr-xr-x@ 64 root  wheel   2.0K Feb 16 19:27 sbin
+lrwxr-xr-x@  1 root  wheel    11B Aug 21  2019 tmp -> private/tmp
+drwxr-xr-x@  9 root  wheel   288B Oct 24  2018 usr
+lrwxr-xr-x@  1 root  wheel    11B Aug 21  2019 var -> private/var
