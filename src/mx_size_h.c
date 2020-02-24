@@ -62,7 +62,7 @@ static void print_mb(int summ) {
 }
 
 static int ostatok_mb(int kb) {
-	if (kb < 100)
+	if (kb < 50)
 		return 0;
 	if (kb >= 500) {
 		if (kb % 10 > 5 && kb % 100 > 45 && kb / 100 != 9)
@@ -80,11 +80,13 @@ static int ostatok_mb(int kb) {
 }
 
 static int ostatok(int kb, int summ) {
-	if (kb < 100)
+	if (kb < 50)
 		return 0;
 	if (kb >= 945 && summ > 10) {
 		return 1000;
 	}
+	if (kb % 100 < 5)
+		return kb / 100;
 	else {
 		if (kb % 100 > 55 && kb / 100 != 9)
 			return kb / 100 + 1;
