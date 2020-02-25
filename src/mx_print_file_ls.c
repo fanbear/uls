@@ -22,15 +22,15 @@ static t_file_entry *get_files_entry(t_args *args, t_file_entry *entry_file,
 }
 
 static t_files *mx_get_files(t_args *args, char **files) {
- int i = 0;
- t_files *files_st = malloc(sizeof (t_files));
+    int i = 0;
+    t_files *files_st = malloc(sizeof (t_files));
 
- files_st->entry_file = NULL;
- while (files[i]) {
-     files_st->entry_file = get_files_entry(args, files_st->entry_file,
-                                            files[i]);
-     i++;
- }
+    files_st->entry_file = NULL;
+    while (files[i]) {
+        files_st->entry_file = get_files_entry(args, files_st->entry_file,
+                                               files[i]);
+        i++;
+    }
  return files_st;
 }
 

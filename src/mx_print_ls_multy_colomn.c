@@ -9,7 +9,7 @@ static void add_tabs(int max_size, int size) {
     }
 }
 
-static void true_multy(int max_size, int max_d_len, char **data, int arr_size) {
+static void true_mul(int max_size, int max_d_len, char **data, int arr_size) {
     int cols = max_size / (max_d_len);
     int rows = (arr_size % cols) ? arr_size / cols + 1 : arr_size / cols;
 
@@ -41,7 +41,7 @@ static void multi_clm_print(char **data, int max_size, int max_d_len) {
         }
     }
     else {
-        true_multy(max_size, max_d_len, data, arr_size);
+        true_mul(max_size, max_d_len, data, arr_size);
     }
 }
 

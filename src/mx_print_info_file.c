@@ -29,7 +29,7 @@ void mx_print_info_file(t_args *args, t_files *files) {
     mx_printchar(' ');
     g_or_l(files, args);
     if (files->entry_file->stat->permiss[0] == 'b' 
-        || files->entry_file->stat->permiss[0] == 'c')
+       || files->entry_file->stat->permiss[0] == 'c')
         mx_printstr(files->entry_file->stat->rdev);
     else {
         mx_print_space_file(files->max_size,
