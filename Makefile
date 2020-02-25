@@ -52,6 +52,8 @@ mx_time_dir.c \
 mx_size_h.c \
 mx_sort_data_s.c \
 mx_quicksort_s.c \
+mx_ostatok.c \
+mx_print_kb.c \
 
 SRCS = $(addprefix src/, $(SRC))
 

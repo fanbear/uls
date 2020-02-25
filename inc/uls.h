@@ -148,5 +148,8 @@ void		   mx_time_dir(t_dirs *dirs, t_args *args, t_dirs_entry *temp);
 void           mx_size_h(char *file_size);
 char         **mx_sort_data_s(char **data, t_dirs_entry *temp);
 int            mx_quicksort_s(char **arr, int left, int right, t_dirs_entry *temp);
+int            mx_ostatok(int kb, int summ);
+void           mx_print_kb(int summ, int ost);
+
 
 #endif
