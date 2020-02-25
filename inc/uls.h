@@ -22,7 +22,6 @@
 #include <pwd.h>
 #include <grp.h>
 
-
 #define MX_LEGAL "CGRaglmr1fTo"
 
 #define MX_MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))

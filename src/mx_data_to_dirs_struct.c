@@ -19,7 +19,6 @@ t_dirs *mx_data_to_dirs_struct(t_args *args, char *dir_name) {
 	}
 	temp->dir = mx_strdup(dir_name);
 	temp->next = NULL;
-	errno = 0;
 	return temp;
 }
 
