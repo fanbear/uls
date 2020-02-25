@@ -30,8 +30,6 @@ mx_print.c \
 mx_check_on_access.c \
 mx_get_stat.c \
 mx_print_ls_l.c \
-\
-\
 mx_permission.c \
 mx_print_dirs_m.c \
 mx_open_dirs.c \
@@ -49,6 +47,8 @@ mx_karetka_files.c \
 mx_filter_print.c \
 mx_print_files.c \
 mx_create_path.c \
+mx_time_dir.c \
+\
 mx_size_h.c \
 mx_sort_data_s.c \
 mx_quicksort_s.c \

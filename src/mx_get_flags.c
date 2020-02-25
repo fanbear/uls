@@ -10,6 +10,10 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 	char *flags = NULL;
 
 	while (*index < argc && argv[*index][0] == '-' ) {
+		if (!mx_strcmp(argv[1], "--")) {
+			(*index)++;
+			break;
+		}
 		if (amount_of_flags(args, &amount, argv[*index]))
 			break;
 		(*index)++;
@@ -36,7 +40,7 @@ static int amount_of_flags(t_args *args, int *amount, char *flag) {
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
 			write(2, "\nusage: uls [-", 14);
-			write(2, MX_LEGAL, mx_strlen(MX_LEGAL));
+			write(2, "CGRTafglmopr1", 13);
 			write(2, "] [file ...]\n", 13);
 			mx_del_args_struct(args, NOTHING);
 			exit(1);

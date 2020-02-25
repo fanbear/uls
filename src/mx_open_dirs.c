@@ -29,6 +29,7 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
 
     mx_sort_data(args, res_data);
     for (int j = 0; res_data[j]; j++) {
+        dir = opendir(dir_n);
         t_dirs *dirs = mx_data_to_dirs_struct(args, res_data[j]);
 
         mx_printstr("\n");
@@ -40,6 +41,7 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
         if (dirs->entry_dir)
             get_rec_entry_dirs(args, res_data[j]);
         mx_strdel(&res_data[j]);
+        closedir(dir);
     }
     free(res_data);
     res_data = NULL;
@@ -48,20 +50,22 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
 static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
     struct dirent *entry;
     char **res = (char **)malloc(sizeof (char *) * (count_el(args, dir_n) + 1));
+    struct stat buf;
 
     if (!(dir = opendir(dir_n)))
         return NULL;
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
+        char *path = mx_create_path(dir_n, entry->d_name);
+
+        lstat(path, &buf);
+        if (S_ISDIR(buf.st_mode)) {
             if ((!args->fl[3] && entry->d_name[0] == '.')
                 || !mx_strcmp(entry->d_name, ".")
                 || !mx_strcmp(entry->d_name, ".."))
                 continue ;
-            char *path = mx_create_path(dir_n, entry->d_name);
-
             *res++ = mx_strdup(path);
-            mx_strdel(&path);
         }
+        mx_strdel(&path);
     }
     *res = NULL;
     closedir(dir);
@@ -72,17 +76,22 @@ static int count_el(t_args *args, char *dir_n) {
     int count = 0;
     DIR *dir;
     struct dirent *entry;
+    struct stat buf;
 
     if (!(dir = opendir(dir_n)))
         return -1;
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
+        char *path = mx_create_path(dir_n, entry->d_name);
+        lstat(path, &buf);
+
+        if (S_ISDIR(buf.st_mode)) {
             if ((!args->fl[3] && entry->d_name[0] == '.')
             || !mx_strcmp(entry->d_name, ".")
             || !mx_strcmp(entry->d_name, ".."))
             continue ;
             count++;
         }
+        mx_strdel(&path);
     }
     closedir(dir);
     return count;

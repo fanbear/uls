@@ -22,7 +22,6 @@
 #include <pwd.h>
 #include <grp.h>
 
-
 #define MX_LEGAL "CGRaglmr1fTohS"
 
 #define MX_MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
@@ -144,8 +143,10 @@ void		   mx_karetka_files(char* str);
 void           mx_filter_print(t_args *args, t_dirs *dirs);
 void           mx_print_files(t_args *args);
 char 		  *mx_create_path(char *part_a, char *part_b);
+void		   mx_time_dir(t_dirs *dirs, t_args *args, t_dirs_entry *temp);
+
 void           mx_size_h(char *file_size);
-char **mx_sort_data_s(char **data, t_dirs_entry *temp);
-int mx_quicksort_s(char **arr, int left, int right, t_dirs_entry *temp);
+char         **mx_sort_data_s(char **data, t_dirs_entry *temp);
+int            mx_quicksort_s(char **arr, int left, int right, t_dirs_entry *temp);
 
 #endif
