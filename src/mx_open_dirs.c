@@ -57,14 +57,17 @@ static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
         char *path = mx_create_path(dir_n, entry->d_name);
 
         lstat(path, &buf);
+        mx_strdel(&path);
         if (S_ISDIR(buf.st_mode)) {
             if ((!args->fl[3] && entry->d_name[0] == '.')
                 || !mx_strcmp(entry->d_name, ".")
                 || !mx_strcmp(entry->d_name, ".."))
                 continue ;
-            *res++ = mx_strdup(path);
+            char *path1 = mx_create_path(dir_n, entry->d_name);
+
+            *res++ = mx_strdup(path1);
+            mx_strdel(&path1);
         }
-        mx_strdel(&path);
     }
     *res = NULL;
     closedir(dir);
@@ -81,8 +84,9 @@ static int count_el(t_args *args, char *dir_n) {
         return -1;
     while ((entry = readdir(dir)) != NULL) {
         char *path = mx_create_path(dir_n, entry->d_name);
-        lstat(path, &buf);
 
+        lstat(path, &buf);
+        mx_strdel(&path);
         if (S_ISDIR(buf.st_mode)) {
             if ((!args->fl[3] && entry->d_name[0] == '.')
             || !mx_strcmp(entry->d_name, ".")
@@ -90,7 +94,6 @@ static int count_el(t_args *args, char *dir_n) {
             continue ;
             count++;
         }
-        mx_strdel(&path);
     }
     closedir(dir);
     return count;
