@@ -26,7 +26,7 @@ static char **data_to_arr(t_args *args, char *dir_name) {
 	DIR *dir = opendir(dir_name);
 	struct dirent *entry = NULL;
 	char **data = NULL;
-
+	
 	if (dir) {
 		int size = count_el(args, dir_name) + 1;
 
