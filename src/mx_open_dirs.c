@@ -2,7 +2,7 @@
 
 static void get_rec_entry_dirs(t_args *args, char *dir_n);
 static int count_el(t_args *args, char *dir_n);
-static char **data_in_dir(DIR *dir, t_args *args, char *dir_n);
+static char **data_in_dir(t_args *args, char *dir_n);
 
 void mx_open_dirs(t_args *args) {
     for (int i = 0; args->dirs[i]; i++) {
@@ -23,36 +23,39 @@ void mx_open_dirs(t_args *args) {
 }
 
 static void get_rec_entry_dirs(t_args *args, char *dir_n) {
-    DIR *dir = NULL;
-    char **res_data = data_in_dir(dir, args, dir_n);
+    DIR *dir = opendir(dir_n);
 
-    mx_sort_data(args, res_data);
-    for (int j = 0; res_data[j]; j++) {
-        dir = opendir(dir_n);
-        t_dirs *dirs = mx_data_to_dirs_struct(args, res_data[j]);
+    if (dir) {
+        char **res_data = data_in_dir(args, dir_n);
 
-        mx_printstr("\n");
-        mx_karetka_files(dirs->dir);
-        mx_printstr(dirs->dir);
-        mx_printstr(":\n");
-        mx_filter_print(args, dirs);
-        mx_del_dirs_struct(dirs);
-        if (dirs->entry_dir)
-            get_rec_entry_dirs(args, res_data[j]);
-        mx_strdel(&res_data[j]);
+        mx_sort_data(args, res_data);
+        for (int j = 0; res_data[j]; j++) {
+            dir = opendir(dir_n);
+            t_dirs *dirs = mx_data_to_dirs_struct(args, res_data[j]);
+
+            mx_printstr("\n");
+            mx_karetka_files(dirs->dir);
+            mx_printstr(dirs->dir);
+            mx_printstr(":\n");
+            mx_filter_print(args, dirs);
+            mx_del_dirs_struct(dirs);
+            if (dirs->entry_dir)
+                get_rec_entry_dirs(args, res_data[j]);
+            mx_strdel(&res_data[j]);
+        }
         closedir(dir);
+        free(res_data);
+        res_data = NULL;
+
     }
-    free(res_data);
-    res_data = NULL;
 }
 
-static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
+static char **data_in_dir(t_args *args, char *dir_n) {
+    DIR *dir = opendir(dir_n);
     struct dirent *entry;
     char **res = (char **)malloc(sizeof (char *) * (count_el(args, dir_n) + 1));
     struct stat buf;
 
-    if (!(dir = opendir(dir_n)))
-        return NULL;
     while ((entry = readdir(dir)) != NULL) {
         char *path = mx_create_path(dir_n, entry->d_name);
 
@@ -76,12 +79,10 @@ static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
 
 static int count_el(t_args *args, char *dir_n) {
     int count = 0;
-    DIR *dir;
+    DIR *dir = opendir(dir_n);
     struct dirent *entry;
     struct stat buf;
 
-    if (!(dir = opendir(dir_n)))
-        return -1;
     while ((entry = readdir(dir)) != NULL) {
         char *path = mx_create_path(dir_n, entry->d_name);
 
