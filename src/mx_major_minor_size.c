@@ -1,18 +1,5 @@
 #include "uls.h"
 
-static char* minor_lol(t_file *file_st);
-static char* major_lol(t_file *file_st);
-static void minor_lol_else(char **minor, t_file *file_st);
-
-char* mx_major_minor_size(t_file *file_st) {
-	char* minor_major = NULL;
-    char* minor = minor_lol(file_st);
-    char* major = major_lol(file_st);
-
-    minor_major = mx_strjoin_no_leaks(major, minor);
-	return minor_major;
-}
-
 static char* major_lol(t_file *file_st) {
 	char* itoa = mx_itoa(MX_MAJOR(file_st->buf.st_rdev));
 	char* lol = mx_strdup(", ");
@@ -26,6 +13,22 @@ static char* major_lol(t_file *file_st) {
 	major = mx_strjoin_no_leaks(major, lol);
 	mx_strdel(&itoa);
 	return major;
+}
+
+static void minor_lol_else(char **minor, t_file *file_st) {
+	char* hex = NULL;
+	char* tmp = NULL;
+
+	mx_strcpy(*minor,"0x");
+	hex = mx_nbr_to_hex(MX_MINOR(file_st->buf.st_rdev));
+	for (int y = 0; y < 8 - mx_strlen(hex); y++) {
+		tmp = mx_strjoin(*minor, "0");
+		free (*minor);
+		*minor = mx_strdup(tmp);
+		free (tmp);
+	}
+	*minor = mx_strjoin(*minor, hex);
+	mx_strdel(&hex);
 }
 
 static char* minor_lol(t_file *file_st) {
@@ -46,18 +49,11 @@ static char* minor_lol(t_file *file_st) {
 	return minor;
 }
 
-static void minor_lol_else(char **minor, t_file *file_st) {
-	char* hex = NULL;
-	char* tmp = NULL;
+char* mx_major_minor_size(t_file *file_st) {
+	char* minor_major = NULL;
+    char* minor = minor_lol(file_st);
+    char* major = major_lol(file_st);
 
-	mx_strcpy(*minor,"0x");
-	hex = mx_nbr_to_hex(MX_MINOR(file_st->buf.st_rdev));
-	for (int y = 0; y < 8 - mx_strlen(hex); y++) {
-		tmp = mx_strjoin(*minor, "0");
-		free (*minor);
-		*minor = mx_strdup(tmp);
-		free (tmp);
-	}
-	*minor = mx_strjoin(*minor, hex);
-	mx_strdel(&hex);
+    minor_major = mx_strjoin_no_leaks(major, minor);
+	return minor_major;
 }

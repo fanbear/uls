@@ -1,30 +1,11 @@
 #include "uls.h"
 
-static int max_d_namlen(char **data);
-static void add_tabs(int max_size, int size);
-static void multi_clm_print(char **data, int max_size, int max_d_len);
-static void true_multy(int max_size, int max_d_len, char **data, int arr_size);
-
-void mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir) {
-    int max_size = mx_get_window_size(args);
-    int max_d_len = max_d_namlen(data);
-
-    dir = NULL;
-    multi_clm_print(data, max_size, max_d_len);
-}
-
-static void multi_clm_print(char **data, int max_size, int max_d_len) {
-    int arr_size = mx_arr_size(data);
-
-    if (max_d_len > max_size) {
-        for (int i = 0; i < arr_size; i++) {
-            mx_karetka_files(data[i]);
-            mx_printstr(data[i]);
-            mx_printchar('\n');
-        }
-    }
-    else {
-        true_multy(max_size, max_d_len, data, arr_size);
+static void add_tabs(int max_size, int size) {
+    if ((max_size - size) % 8 == 0)
+        mx_printstr("\t");
+    while ((max_size - size) > 8) {
+        mx_printstr("\t");
+        size += 8 - (size % 8);
     }
 }
 
@@ -49,6 +30,21 @@ static void true_multy(int max_size, int max_d_len, char **data, int arr_size) {
     }
 }
 
+static void multi_clm_print(char **data, int max_size, int max_d_len) {
+    int arr_size = mx_arr_size(data);
+
+    if (max_d_len > max_size) {
+        for (int i = 0; i < arr_size; i++) {
+            mx_karetka_files(data[i]);
+            mx_printstr(data[i]);
+            mx_printchar('\n');
+        }
+    }
+    else {
+        true_multy(max_size, max_d_len, data, arr_size);
+    }
+}
+
 static int max_d_namlen(char **data) {
     int max_len = 0;
 
@@ -63,11 +59,10 @@ static int max_d_namlen(char **data) {
     return max_len;
 }
 
-static void add_tabs(int max_size, int size) {
-    if ((max_size - size) % 8 == 0)
-        mx_printstr("\t");
-    while ((max_size - size) > 8) {
-        mx_printstr("\t");
-        size += 8 - (size % 8);
-    }
+void mx_print_ls_multy_colomn(char **data,  t_args *args, char *dir) {
+    int max_size = mx_get_window_size(args);
+    int max_d_len = max_d_namlen(data);
+
+    dir = NULL;
+    multi_clm_print(data, max_size, max_d_len);
 }

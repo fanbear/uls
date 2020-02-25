@@ -1,6 +1,10 @@
 #include "uls.h"
 
-static void swap_str(char **str1, char** str2);
+static void swap_str(char **str1, char** str2) {
+    char *temp = *str1; 
+    *str1 = *str2; 
+    *str2 = temp; 
+}
 
 void mx_quicksort_r(char **arr, int left, int right) {
     if (left < right) {
@@ -22,10 +26,4 @@ void mx_quicksort_r(char **arr, int left, int right) {
         mx_quicksort_r(arr, left, high);
         mx_quicksort_r(arr, low, right);
     }    
-}
-
-static void swap_str(char **str1, char** str2) {
-    char *temp = *str1; 
-    *str1 = *str2; 
-    *str2 = temp; 
 }

@@ -1,7 +1,7 @@
 #include "uls.h"
 
 void mx_print(t_args *args, t_dirs *dirs,
-                void (*print)(char **, t_args *, char *dir)) {
+              void (*print)(char **, t_args *, char *dir)) {
     if (dirs) {
         char **data = NULL;
 
