@@ -2,7 +2,8 @@
 
 char *mx_strdup(const char *str) {
 	char *buf = NULL;
-
+	int len = 0;
+	
 	if (str == NULL)
 		return NULL;
 	if (*str == '\0') {
@@ -12,7 +13,7 @@ char *mx_strdup(const char *str) {
 	    buf[0] = '\0';
 	    return buf;
 	}
-    int len = mx_strlen(str);
+    len = mx_strlen(str);
     buf = mx_strnew(len);
     if (buf == NULL)
 		return NULL;
