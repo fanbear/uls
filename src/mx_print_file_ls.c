@@ -1,7 +1,7 @@
 #include "uls.h"
 
 static t_file_entry *pushing_data(t_args *args, char *file) {
-    t_file_entry *entry_file = malloc(sizeof (t_file_entry));
+    t_file_entry *entry_file = malloc(sizeof(t_file_entry));
 
     entry_file->files = mx_strdup(file);
     entry_file->stat = mx_get_stat(args, file);
@@ -10,7 +10,7 @@ static t_file_entry *pushing_data(t_args *args, char *file) {
 }
 
 static t_file_entry *get_files_entry(t_args *args, t_file_entry *entry_file,
-                                    char *file) {
+                                     char *file) {
     t_file_entry *current  = entry_file;
 
     if (!entry_file)

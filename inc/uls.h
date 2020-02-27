@@ -22,7 +22,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define MX_LEGAL "CGRaglmr1fTo"
+#define MX_LEGAL "CGRaglmr1fToh"
 
 #define MX_MAJOR(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 #define MX_MINOR(x)        ((int32_t)((x) & 0xffffff))
@@ -30,7 +30,7 @@
 
 typedef struct s_args {
 	char  *flags;
-	int    fl[12];
+	int    fl[13];
 	char **files;
 	char **dirs;
 	char **not_valid;
@@ -144,5 +144,9 @@ void           mx_filter_print(t_args *args, t_dirs *dirs);
 void           mx_print_files(t_args *args);
 char 		  *mx_create_path(char *part_a, char *part_b);
 void		   mx_time_dir(t_dirs *dirs, t_args *args, t_dirs_entry *temp);
-
+char          *mx_strdup_del(char *str);
+void           mx_print_kb(int summ, int ost);
+void           mx_size_h(char *file_size);
+int            mx_atoi(const char *str);
+int mx_ostatok(int kb, int summ);
 #endif

@@ -48,6 +48,11 @@ mx_filter_print.c \
 mx_print_files.c \
 mx_create_path.c \
 mx_time_dir.c \
+mx_strdup_del.c \
+mx_print_kb.c \
+mx_size_h.c \
+mx_atoi.c \
+mx_ostatok.c \
 
 SRCS = $(addprefix src/, $(SRC))
 

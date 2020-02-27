@@ -8,7 +8,7 @@ static int amount_of_flags(t_args *args, int *amount, char *flag) {
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
 			write(2, "\nusage: uls [-", 14);
-			write(2, "CGRTafglmopr1", 13);
+			write(2, "CGRTafghlmopr1", 14);
 			write(2, "] [file ...]\n", 13);
 			mx_del_args_struct(args, NOTHING);
 			exit(1);
@@ -42,6 +42,8 @@ static void choice_flags(t_args *args, char *flags) {
 			args->fl[2] = 1;
 		if (flags[i] == 'a')
 			args->fl[3] = 1;
+        if (flags[i] == 'h')
+			args->fl[12] = 1;
 		if (flags[i] == 'r')
 			args->fl[7] = 1;
 		if (flags[i] == 'f') {
@@ -85,7 +87,7 @@ void mx_get_flags(t_args *args, int *index, int argc, char **argv) {
 			break;
 		(*index)++;
 	}
-	for (int i = 0; i < 12; i++) 
+	for (int i = 0; i < 13; i++)
 		args->fl[i] = 0;
 	if (*index > 1) {
 		mx_strdel(&args->flags);

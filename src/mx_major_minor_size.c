@@ -37,9 +37,8 @@ static char* minor_lol(t_file *file_st) {
 
 	if (MX_MINOR(file_st->buf.st_rdev) < 255) {
 		minor =  mx_strdup("   ");
-		for (int i = 0; itoa[i]; i++)
-			minor[i] = itoa[i];
-		mx_str_reverse(minor);
+		for (int i = mx_strlen(minor), j = mx_strlen(itoa); j > -1; i--, j--)
+			minor[i] = itoa[j];
 	}
 	else {
 		minor = mx_strnew(8);

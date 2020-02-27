@@ -1,15 +1,26 @@
 #include "uls.h"
 
+static bool rec_condition(t_args *args, struct dirent *entry) {
+    if ((!args->fl[3] && entry->d_name[0] == '.')
+        || !mx_strcmp(entry->d_name, ".")
+        || !mx_strcmp(entry->d_name, ".."))
+        return true;
+    return false;
+}
+
 static int count_el(t_args *args, char *dir_n) {
     int count = 0;
     DIR *dir = opendir(dir_n);
-    struct dirent *entry;
+    struct dirent *entry = NULL;
+    struct stat buf;
 
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-            if ((!args->fl[3] && entry->d_name[0] == '.')
-            || !mx_strcmp(entry->d_name, ".")
-            || !mx_strcmp(entry->d_name, ".."))
+        char *path = mx_create_path(dir_n, entry->d_name);
+
+        lstat(path, &buf);
+        mx_strdel(&path);
+        if (S_ISDIR(buf.st_mode)) {
+            if (rec_condition(args, entry))
             continue;
             count++;
         }
@@ -19,20 +30,20 @@ static int count_el(t_args *args, char *dir_n) {
 }
 
 static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
-    struct dirent *entry;
+    struct dirent *entry = NULL;
     char **res = (char**)malloc(sizeof(char*) * (count_el(args, dir_n) + 1));
 
     dir = opendir(dir_n);
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-            if ((!args->fl[3] && entry->d_name[0] == '.')
-                || !mx_strcmp(entry->d_name, ".")
-                || !mx_strcmp(entry->d_name, ".."))
-                continue;
-            char *path1 = mx_create_path(dir_n, entry->d_name);
+        struct stat buf;
+        char *path = mx_create_path(dir_n, entry->d_name);
 
-            *res++ = mx_strdup(path1);
-            mx_strdel(&path1);
+        lstat(path, &buf);
+        mx_strdel(&path);
+        if (S_ISDIR(buf.st_mode)) {
+            if (rec_condition(args, entry))
+                continue;
+                *res++ = mx_strdup_del(mx_create_path(dir_n, entry->d_name));
         }
     }
     *res = NULL;
@@ -52,7 +63,8 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
         mx_karetka_files(dirs->dir);
         mx_printstr(dirs->dir);
         mx_printstr(":\n");
-        mx_filter_print(args, dirs);
+        if (dirs->entry_dir)
+            mx_filter_print(args, dirs);
         mx_del_dirs_struct(dirs);
         if (dirs->entry_dir)
             get_rec_entry_dirs(args, res_data[j]);
@@ -83,4 +95,3 @@ void mx_open_dirs(t_args *args) {
             closedir(dir);
     }
 }
-

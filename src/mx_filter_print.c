@@ -22,4 +22,3 @@ void mx_filter_print(t_args *args, t_dirs *dirs) {
         uls_print(args, dirs);
     }
 }
-
