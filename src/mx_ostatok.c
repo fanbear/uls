@@ -2,7 +2,6 @@
 
 int mx_ostatok(int kb, int summ) {
 	kb = (kb * 1000) / 1024;
-
 	if (kb > 499 && summ > 9)
 		return 1000;
 	if (kb < 50)

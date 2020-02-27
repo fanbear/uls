@@ -17,15 +17,15 @@ static void multi_clm_print(t_args *args, char **data, int max_size,
 
     for (int i = 0; i < rows; i++) {
         for (int k = i; k < arr_size; k += rows) {
-                mx_colored_name(args, data[k], dir);
-                if (!(--cols) || k + rows >= arr_size) {
-                    mx_printstr("\n");
-                    cols = max_size / (max_d_len);
-                    break;
-                }
-                add_tabs(max_d_len, mx_strlen(data[k]));
-                if (data[k + 1])
-                    mx_printstr(" ");
+            mx_colored_name(args, data[k], dir);
+            if (!(--cols) || k + rows >= arr_size) {
+                mx_printstr("\n");
+                cols = max_size / (max_d_len);
+                break;
+            }
+            add_tabs(max_d_len, mx_strlen(data[k]));
+            if (data[k + 1])
+                mx_printstr(" ");
         }
     }
 }

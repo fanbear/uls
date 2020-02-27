@@ -30,9 +30,11 @@ static void stat_checking(int mult, char *data, struct stat *buf) {
 }
 
 int mx_check_on_access(int mult, char *data,t_args *args) {
-	errno = 0;
-	DIR *dir = opendir(data);
+	DIR *dir = NULL;
 	struct stat buf;
+
+	errno = 0;
+	dir = opendir(data);
 	if (errno) {
 		stat_checking(mult, data, &buf);
 		args->error = 1;
@@ -44,4 +46,3 @@ int mx_check_on_access(int mult, char *data,t_args *args) {
 		closedir(dir);
 	return 0;
 }
-

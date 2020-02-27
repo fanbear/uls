@@ -15,17 +15,17 @@ static void true_mul(int max_size, int max_d_len, char **data, int arr_size) {
 
     for (int i = 0; i < rows; i++) {
         for (int k = i; k < arr_size; k += rows) {
-                mx_karetka_files(data[i]);
-                mx_printstr(data[k]);
-                if (!(--cols) || k + rows >= arr_size) {
-                    mx_printstr("\n");
-                    cols = max_size / (max_d_len);
-                    break;
-                }
-                if (mx_strlen(data[k]) % 8) {
-                    mx_printstr("\t");
-                }
-                add_tabs(max_d_len, mx_strlen(data[k]));
+            mx_karetka_files(data[i]);
+            mx_printstr(data[k]);
+            if (!(--cols) || k + rows >= arr_size) {
+                mx_printstr("\n");
+                cols = max_size / (max_d_len);
+                break;
+            }
+            if (mx_strlen(data[k]) % 8) {
+                mx_printstr("\t");
+            }
+            add_tabs(max_d_len, mx_strlen(data[k]));
         }
     }
 }

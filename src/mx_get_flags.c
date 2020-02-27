@@ -42,8 +42,6 @@ static void choice_flags(t_args *args, char *flags) {
 			args->fl[2] = 1;
 		if (flags[i] == 'a')
 			args->fl[3] = 1;
-        if (flags[i] == 'h')
-			args->fl[12] = 1;
 		if (flags[i] == 'r')
 			args->fl[7] = 1;
 		if (flags[i] == 'f') {
@@ -54,8 +52,6 @@ static void choice_flags(t_args *args, char *flags) {
 			args->fl[11] = 1;
 		if ((args->fl[11] || args->fl[5]) && flags[i] == 'g')
 			args->fl[4] = 1;
-		if (flags[i] == 'T')
-			args->fl[10] = 1;
 	}
 }
 
@@ -63,10 +59,13 @@ static void sort_flags(t_args *args, char *flags) {
 	int index = -1;
 
 	for (int i = 0; flags[i]; i++) {
-		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm')
+		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm'
+            || flags[i] == 'l' || flags[i] == 'o' || flags[i] == 'g')
 			index = i;
-		if (flags[i] == 'l' || flags[i] == 'o' || flags[i] == 'g')
-			index = i;
+        if (flags[i] == 'T')
+            args->fl[10] = 1;
+        if (flags[i] == 'h')
+            args->fl[12] = 1;
 	}
 	if (index != -1)
 		args->fl[mx_get_char_index(MX_LEGAL, flags[index])] = 1;
