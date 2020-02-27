@@ -21,9 +21,9 @@ static t_file_entry *get_files_entry(t_args *args, t_file_entry *entry_file,
     return entry_file;
 }
 
-static t_files *mx_get_files(t_args *args, char **files) {
+static t_files *get_files(t_args *args, char **files) {
     int i = 0;
-    t_files *files_st = malloc(sizeof (t_files));
+    t_files *files_st = malloc(sizeof(t_files));
 
     files_st->entry_file = NULL;
     while (files[i]) {
@@ -34,9 +34,9 @@ static t_files *mx_get_files(t_args *args, char **files) {
  return files_st;
 }
 
-static  void time_file(t_args *args, t_files *files) {
+static void time_file(t_args *args, t_files *files) {
     if (args->fl[10] == 1)
-            mx_printstr(files->entry_file->stat->time1);
+        mx_printstr(files->entry_file->stat->time1);
     else {
         mx_printstr(files->entry_file->stat->time1);
         mx_print_space_file(files->max_time,
@@ -47,20 +47,23 @@ static  void time_file(t_args *args, t_files *files) {
 
 
 void mx_print_file_ls(t_args *args) {
-    t_files *files = mx_get_files(args, args->files);
+    t_files *files = get_files(args, args->files);
+    t_file_entry *temp_entry = files->entry_file;
 
     mx_get_max_value_in_files(files);
-    while (files->entry_file) {
+    while (temp_entry) {
         mx_print_info_file(args, files);
         mx_printchar(' ');
         time_file(args, files);
         mx_printchar(' ');
-        mx_colored_name(args, files->entry_file->files, NULL);
-    	if (files->entry_file->stat->name_link[0]) {
+        mx_colored_name(args, temp_entry->files, NULL);
+    	if (temp_entry->stat->name_link[0]) {
     		mx_printstr(" -> ");
-    		mx_printstr(files->entry_file->stat->name_link);
+    		mx_printstr(temp_entry->stat->name_link);
     	}
     	mx_printchar('\n');
-    	files->entry_file = files->entry_file->next;
+    	temp_entry = temp_entry->next;
 	}
+    mx_del_files_struct(files);
+
 }

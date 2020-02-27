@@ -50,7 +50,6 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
     }
 }
 
-
 void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
     t_dirs_entry *temp = dirs->entry_dir;
 

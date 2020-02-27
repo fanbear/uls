@@ -67,8 +67,8 @@ typedef struct	s_files {
 }				t_files;
 
 typedef struct	s_file_entry {
-	char                *files;
-	struct s_file         *stat;
+	char *files;
+	struct s_file *stat;
 	struct s_file_entry *next;
 } 				t_file_entry;
 
@@ -150,5 +150,6 @@ void mx_print_kb(int summ, int ost);
 void mx_size_h(char *file_size);
 int mx_atoi(const char *str);
 int mx_ostatok(int kb, int summ);
+void mx_del_files_struct(t_files *files);
 
 #endif

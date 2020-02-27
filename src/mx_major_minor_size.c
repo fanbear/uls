@@ -39,7 +39,7 @@ static char* minor_lol(t_file *file_st) {
 		minor =  mx_strdup("   ");
 		int i = mx_strlen(minor);
 		int j = mx_strlen(itoa);
-		
+
 		for (; j > -1;)
 			minor[i--] = itoa[j--];
 	}

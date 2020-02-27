@@ -8,8 +8,8 @@ char **mx_sort_data(t_args *args, char **data) {
             return data;
         }
         if (args->fl[7] == 0)
-        mx_quicksort(data, 0, size - 1);
-        else{
+            mx_quicksort(data, 0, size - 1);
+        else {
             mx_quicksort_r(data, 0, size - 1);
         }
     }

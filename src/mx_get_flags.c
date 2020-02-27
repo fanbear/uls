@@ -36,10 +36,6 @@ static char *parse_to_arr(int index, char **argv, int amount) {
 
 static void choice_flags(t_args *args, char *flags) {
 	for (int i = 0; flags[i]; i++) {
-		if (flags[i] == 'G')
-			args->fl[1] = 1;
-		if (flags[i] == 'R')
-			args->fl[2] = 1;
 		if (flags[i] == 'a')
 			args->fl[3] = 1;
 		if (flags[i] == 'r')
@@ -52,6 +48,10 @@ static void choice_flags(t_args *args, char *flags) {
 			args->fl[11] = 1;
 		if ((args->fl[11] || args->fl[5]) && flags[i] == 'g')
 			args->fl[4] = 1;
+        if (args->fl[0] && flags[i] == 'm') {
+            args->fl[0] = 0;
+            args->fl[6] = 1;
+        }
 	}
 }
 
@@ -62,6 +62,10 @@ static void sort_flags(t_args *args, char *flags) {
 		if (flags[i] == '1' || flags[i] == 'C' || flags[i] == 'm'
             || flags[i] == 'l' || flags[i] == 'o' || flags[i] == 'g')
 			index = i;
+        if (flags[i] == 'G')
+			args->fl[1] = 1;
+		if (flags[i] == 'R')
+			args->fl[2] = 1;
         if (flags[i] == 'T')
             args->fl[10] = 1;
         if (flags[i] == 'h')

@@ -55,6 +55,7 @@ mx_print_kb.c \
 mx_size_h.c \
 mx_atoi.c \
 mx_ostatok.c \
+mx_del_files_struct.c \
 
 SRCS = $(addprefix src/, $(SRC))
 
@@ -81,5 +82,5 @@ clean:
 	@make clean -C $(LIBMXF)
 	@rm -rf $(SRC) $(OBJ) $(INC)
 	@rm -rf ./obj
-	
+
 reinstall: uninstall install
