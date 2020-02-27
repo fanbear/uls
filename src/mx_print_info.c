@@ -6,7 +6,7 @@ static void print_space(int max_elem, char* str) {
     }
 }
 
-void mx_print_info(t_files *files) {
+static void print_lol(t_files *files) {
     mx_printstr(files->entry_file->stat->permiss);
     mx_printchar(' ');
     print_space(files->max_link, files->entry_file->stat->nlink);
@@ -16,6 +16,10 @@ void mx_print_info(t_files *files) {
     print_space(files->max_user, files->entry_file->stat->user_name);
     mx_printchar(' ');
     mx_printchar(' ');
+}
+
+void mx_print_info(t_files *files) {
+    print_lol(files);
     mx_printstr(files->entry_file->stat->group_name);
     print_space(files->max_group, files->entry_file->stat->group_name);
     mx_printchar(' ');

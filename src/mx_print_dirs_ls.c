@@ -40,10 +40,16 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
     if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c')
     	mx_printstr(temp->stat->rdev);
     else {
-		print_space(dirs->max_size, temp->stat->file_size);
-		mx_printstr(temp->stat->file_size);
+        if (args->fl[12]) {
+            mx_size_h(temp->stat->file_size);
+        }
+        else {
+            print_space(dirs->max_size, temp->stat->file_size);
+            mx_printstr(temp->stat->file_size);
+        }
     }
 }
+
 
 void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
     t_dirs_entry *temp = dirs->entry_dir;
@@ -54,13 +60,7 @@ void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
     while (temp) {
         print_info(temp, dirs, args);
         mx_printchar(' ');
-        if (args->fl[10] == 1)
-            mx_printstr(temp->stat->time1);
-        else {
-            mx_printstr(temp->stat->time1);
-		    print_space(dirs->max_time, temp->stat->time2);
-		    mx_printstr(temp->stat->time2);
-        }
+        mx_time_dir(dirs, args, temp);
         mx_printchar(' ');
         mx_colored_name(args, temp->d_name, dirs->dir);
 		if (temp->stat->name_link[0]) {

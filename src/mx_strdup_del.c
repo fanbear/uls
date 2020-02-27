@@ -1,9 +1,9 @@
-#include "libmx.h"
+#include "uls.h"
 
-char *mx_strdup(const char *str) {
+char *mx_strdup_del(char *str) {
 	char *buf = NULL;
 	int len = 0;
-	
+
 	if (str == NULL)
 		return NULL;
 	if (*str == '\0') {
@@ -11,12 +11,12 @@ char *mx_strdup(const char *str) {
 		if (buf == NULL)
 			return NULL;
 	    buf[0] = '\0';
-	    return buf;
 	}
-    len = mx_strlen(str);
-    buf = mx_strnew(len);
-    if (buf == NULL)
-		return NULL;
-    mx_strcpy(buf, str);
+	else {
+		len = mx_strlen(str);
+		buf = mx_strnew(len);
+		mx_strcpy(buf, str);
+	}
+	mx_strdel(&str);
     return buf;
 }

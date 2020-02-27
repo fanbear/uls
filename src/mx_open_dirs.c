@@ -1,26 +1,54 @@
 #include "uls.h"
 
-static void get_rec_entry_dirs(t_args *args, char *dir_n);
-static int count_el(t_args *args, char *dir_n);
-static char **data_in_dir(DIR *dir, t_args *args, char *dir_n);
+static bool rec_condition(t_args *args, struct dirent *entry) {
+    if ((!args->fl[3] && entry->d_name[0] == '.')
+        || !mx_strcmp(entry->d_name, ".")
+        || !mx_strcmp(entry->d_name, ".."))
+        return true;
+    return false;
+}
 
-void mx_open_dirs(t_args *args) {
-    for (int i = 0; args->dirs[i]; i++) {
-        t_dirs *dirs = mx_data_to_dirs_struct(args, args->dirs[i]);
+static int count_el(t_args *args, char *dir_n) {
+    int count = 0;
+    DIR *dir = opendir(dir_n);
+    struct dirent *entry = NULL;
+    struct stat buf;
 
-        if (mx_arr_size(args->dirs) > 1
-            || args->not_valid[0] || args->files[0]) {
-            mx_karetka_files(dirs->dir);
-            mx_printstr(dirs->dir);
-            mx_printstr(":\n");
+    while ((entry = readdir(dir)) != NULL) {
+        char *path = mx_create_path(dir_n, entry->d_name);
+
+        lstat(path, &buf);
+        mx_strdel(&path);
+        if (S_ISDIR(buf.st_mode)) {
+            if (rec_condition(args, entry))
+            continue;
+            count++;
         }
-        mx_filter_print(args, dirs);
-        if (args->fl[2])
-            get_rec_entry_dirs(args, args->dirs[i]);
-        if (args->dirs[i + 1])
-            mx_printstr("\n");
-        mx_del_dirs_struct(dirs);
     }
+    closedir(dir);
+    return count;
+}
+
+static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
+    struct dirent *entry = NULL;
+    char **res = (char**)malloc(sizeof(char*) * (count_el(args, dir_n) + 1));
+
+    dir = opendir(dir_n);
+    while ((entry = readdir(dir)) != NULL) {
+        struct stat buf;
+        char *path = mx_create_path(dir_n, entry->d_name);
+
+        lstat(path, &buf);
+        mx_strdel(&path);
+        if (S_ISDIR(buf.st_mode)) {
+            if (rec_condition(args, entry))
+                continue;
+                *res++ = mx_strdup_del(mx_create_path(dir_n, entry->d_name));
+        }
+    }
+    *res = NULL;
+    closedir(dir);
+    return res - count_el(args, dir_n);
 }
 
 static void get_rec_entry_dirs(t_args *args, char *dir_n) {
@@ -35,7 +63,8 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
         mx_karetka_files(dirs->dir);
         mx_printstr(dirs->dir);
         mx_printstr(":\n");
-        mx_filter_print(args, dirs);
+        if (dirs->entry_dir)
+            mx_filter_print(args, dirs);
         mx_del_dirs_struct(dirs);
         if (dirs->entry_dir)
             get_rec_entry_dirs(args, res_data[j]);
@@ -45,45 +74,24 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
     res_data = NULL;
 }
 
-static char **data_in_dir(DIR *dir, t_args *args, char *dir_n) {
-    struct dirent *entry;
-    char **res = (char **)malloc(sizeof (char *) * (count_el(args, dir_n) + 1));
+void mx_open_dirs(t_args *args) {
+    for (int i = 0; args->dirs[i]; i++) {
+        DIR *dir = opendir(args->dirs[i]);
+        t_dirs *dirs = mx_data_to_dirs_struct(args, args->dirs[i]);
 
-    if (!(dir = opendir(dir_n)))
-        return NULL;
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-            if ((!args->fl[3] && entry->d_name[0] == '.')
-                || !mx_strcmp(entry->d_name, ".")
-                || !mx_strcmp(entry->d_name, ".."))
-                continue ;
-            char *path = mx_create_path(dir_n, entry->d_name);
-
-            *res++ = mx_strdup(path);
-            mx_strdel(&path);
+        if (mx_arr_size(args->dirs) > 1
+            || args->not_valid[0] || args->files[0]) {
+            mx_karetka_files(dirs->dir);
+            mx_printstr(dirs->dir);
+            mx_printstr(":\n");
         }
+        mx_filter_print(args, dirs);
+        if (args->fl[2] && dir)
+            get_rec_entry_dirs(args, args->dirs[i]);
+        if (args->dirs[i + 1])
+            mx_printstr("\n");
+        mx_del_dirs_struct(dirs);
+        if (dir)
+            closedir(dir);
     }
-    *res = NULL;
-    closedir(dir);
-    return res - count_el(args, dir_n);
-}
-
-static int count_el(t_args *args, char *dir_n) {
-    int count = 0;
-    DIR *dir;
-    struct dirent *entry;
-
-    if (!(dir = opendir(dir_n)))
-        return -1;
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-            if ((!args->fl[3] && entry->d_name[0] == '.')
-            || !mx_strcmp(entry->d_name, ".")
-            || !mx_strcmp(entry->d_name, ".."))
-            continue ;
-            count++;
-        }
-    }
-    closedir(dir);
-    return count;
 }

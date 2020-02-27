@@ -1,6 +1,25 @@
 #include "uls.h"
 
-static void get_time(t_args *args, t_file *file_st);
+static void get_time(t_args *args, t_file *file_st) {
+    char* str = ctime(&file_st->buf.st_mtime);
+    time_t current = time(NULL);
+
+    if (args->fl[10] == 1) {
+        file_st->time1 = mx_strndup(&str[4], mx_strlen(&str[4]) - 1);
+        file_st->time2 = NULL;
+    }
+    else {
+        str += 4;
+        if (current - file_st->buf.st_mtime >= 31536000 / 2 ) {
+            file_st->time1 = mx_strndup(str, 6);
+            file_st->time2 = mx_strndup(str + 15, 5);
+        }
+        else {
+            file_st->time1 = mx_strndup(str, 6);
+            file_st->time2 = mx_strndup(str + 6, 6);
+        }
+    }
+}
 
 t_file *mx_get_stat(t_args *args, char *data) {
     t_file *stat = malloc(sizeof (t_file));
@@ -23,25 +42,4 @@ t_file *mx_get_stat(t_args *args, char *data) {
     stat->name_link = mx_strnew(stat->buf.st_size);
     readlink(data, stat->name_link, 1024);
     return stat;
-}
-
-static void get_time(t_args *args, t_file *file_st) {
-	char* str = ctime(&file_st->buf.st_mtime);
-	time_t current = time(NULL);
-
-    if (args->fl[10] == 1) {
-        file_st->time1 = mx_strndup(&str[4], mx_strlen(&str[4]) - 1);
-        file_st->time2 = NULL;
-    }
-    else {
-        str += 4;
-        if (current - file_st->buf.st_mtime >= 31536000 / 2 ) {
-            file_st->time1 = mx_strndup(str, 6);
-		    file_st->time2 = mx_strndup(str + 15, 5);
-        }
-        else {
-	        file_st->time1 = mx_strndup(str, 6);
-            file_st->time2 = mx_strndup(str + 6, 6);
-        }
-    }
 }

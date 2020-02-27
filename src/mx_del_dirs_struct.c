@@ -1,6 +1,15 @@
 #include "uls.h"
 
-static void del_entry_dir(t_dirs_entry *entry_dir);
+static void del_entry_dir(t_dirs_entry *entry_dir) {
+    while (entry_dir) {
+        t_dirs_entry *temp_entry = entry_dir->next;
+
+        mx_strdel(&entry_dir->d_name);
+        mx_del_stat_struct(entry_dir->stat);
+        free(entry_dir);
+        entry_dir = temp_entry;
+    }
+}
 
 void mx_del_dirs_struct(t_dirs *dirs) {
     while (dirs) {
@@ -14,13 +23,3 @@ void mx_del_dirs_struct(t_dirs *dirs) {
     }
 }
 
-static void del_entry_dir(t_dirs_entry *entry_dir) {
-    while (entry_dir) {
-        t_dirs_entry *temp_entry = entry_dir->next;
-
-        mx_strdel(&entry_dir->d_name);
-        mx_del_stat_struct(entry_dir->stat);
-        free(entry_dir);
-        entry_dir = temp_entry;
-    }
-}

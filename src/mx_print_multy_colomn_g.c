@@ -1,15 +1,12 @@
 #include "uls.h"
 
-static int max_d_namlen(char **data);
-static void add_tabs(int max_size, int size);
-static void multi_clm_print(t_args *args, char **data, int max_size,
-                            int max_d_len, char *dir);
+static void add_tabs(int max_size, int size) {
+    int count = max_size - size;
 
-void mx_print_multy_colomn_g(char **data,  t_args *args, char *dir) {
-    int max_size = mx_get_window_size(args);
-    int max_d_len = max_d_namlen(data);
-
-    multi_clm_print(args, data, max_size, max_d_len, dir);
+    while (count != 0) {
+        mx_printstr(" ");
+        count--;
+    }
 }
 
 static void multi_clm_print(t_args *args, char **data, int max_size,
@@ -43,11 +40,9 @@ static int max_d_namlen(char **data) {
     return max_len;
 }
 
-static void add_tabs(int max_size, int size) {
-    int count = max_size - size;
+void mx_print_multy_colomn_g(char **data,  t_args *args, char *dir) {
+    int max_size = mx_get_window_size(args);
+    int max_d_len = max_d_namlen(data);
 
-    while (count != 0) {
-        mx_printstr(" ");
-        count--;
-    }
+    multi_clm_print(args, data, max_size, max_d_len, dir);
 }
