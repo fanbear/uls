@@ -1,22 +1,21 @@
 #include "uls.h"
 
-static int get_arg_info(char **argv, int index) {
+static int get_arg_info(t_args *args, char **argv, int index) {
     DIR *dir = opendir(argv[index]);
     int i = 1;
+    struct stat buf;
+    int lstat_h = lstat(argv[index], &buf);
 
     if (errno == 2)
         i = -1;
     else if (errno == 20) {
-        struct stat *buf = malloc(sizeof(struct stat));
-        int lstat_h = lstat(argv[index], buf);
-
-        free(buf);
-    	buf = NULL;
         if (lstat_h)
             i = -1;
         else
             i = 0;
     }
+    if (i != -1 && args->fl[5] && (buf.st_mode & S_IFMT) == S_IFLNK)
+        i = argv[index][mx_strlen(argv[index]) - 1] == '/' ? 1 : 0;
     if (dir)
         closedir(dir);
     errno = 0;
@@ -76,9 +75,9 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
     dirs[1] = NULL;
     not_valid[0] = NULL;
     for (; index < argc; index++) {
-        if (get_arg_info(argv, index) == -1)
+        if (get_arg_info(args, argv, index) == -1)
             push_arg_to_arr(not_valid, argv[index]);
-        else if (get_arg_info(argv, index) == 0)
+        else if (get_arg_info(args, argv, index) == 0)
             push_arg_to_arr(files, argv[index]);
         else
             push_arg_to_arr(dirs, argv[index]);
@@ -88,4 +87,3 @@ void mx_args_to_struct(int index, int argc, char **argv, t_args *args) {
     mx_del_str_arr(dirs);
     mx_del_str_arr(not_valid);
 }
-

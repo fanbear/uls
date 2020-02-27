@@ -6,6 +6,8 @@ INCI = inc/uls.h
 
 INCLIB = libmx/libmx.a
 
+LIBMXF = libmx
+
 SRC = \
 main.c \
 mx_sort_args.c \
@@ -60,7 +62,7 @@ OBJ = $(SRC:%.c=%.o)
 
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
-all: install clean
+all: install
 
 install:
 	@make -C libmx
@@ -72,10 +74,12 @@ install:
 	@mv $(OBJ) ./obj
 
 uninstall: clean
-	@rm -rf $(NAME) $(INCLIB)
+	@make uninstall -C $(LIBMXF)
+	@rm -rf $(NAME)
 
 clean:
+	@make clean -C $(LIBMXF)
 	@rm -rf $(SRC) $(OBJ) $(INC)
 	@rm -rf ./obj
-
+	
 reinstall: uninstall install
