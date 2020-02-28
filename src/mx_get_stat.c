@@ -22,7 +22,7 @@ static void get_time(t_args *args, t_file *file_st) {
 }
 
 t_file *mx_get_stat(t_args *args, char *data) {
-    t_file *stat = malloc(sizeof (t_file));
+    t_file *stat = malloc(sizeof(t_file));
     struct group *group;
 
     lstat(data, &stat->buf);

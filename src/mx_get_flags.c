@@ -8,7 +8,7 @@ static int amount_of_flags(t_args *args, int *amount, char *flag) {
 			write(2, "uls: illegal option -- ", 23);
 			write(2, &flag[i], 1);
 			write(2, "\nusage: uls [-", 14);
-			write(2, "CGRTafghlmopr1", 14);
+			write(2, "CGRTafghlmor1", 13);
 			write(2, "] [file ...]\n", 13);
 			mx_del_args_struct(args, NOTHING);
 			exit(1);

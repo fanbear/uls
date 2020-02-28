@@ -63,8 +63,7 @@ static void get_rec_entry_dirs(t_args *args, char *dir_n) {
         mx_karetka_files(dirs->dir);
         mx_printstr(dirs->dir);
         mx_printstr(":\n");
-        if (dirs->entry_dir)
-            mx_filter_print(args, dirs);
+        mx_filter_print(args, dirs);
         mx_del_dirs_struct(dirs);
         if (dirs->entry_dir)
             get_rec_entry_dirs(args, res_data[j]);

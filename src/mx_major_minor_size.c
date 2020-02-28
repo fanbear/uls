@@ -4,8 +4,8 @@ static char* major_lol(t_file *file_st) {
 	char* itoa = mx_itoa(MX_MAJOR(file_st->buf.st_rdev));
 	char* lol = mx_strdup(", ");
 	char* major = mx_strdup("   ");
-	mx_str_reverse(itoa);
 
+	mx_str_reverse(itoa);
 	for (int i = 0; itoa[i]; i++) {
 		major[i] = itoa[i];
 	}
@@ -19,16 +19,15 @@ static void minor_lol_else(char **minor, t_file *file_st) {
 	char* hex = NULL;
 	char* tmp = NULL;
 
-	mx_strcpy(*minor,"0x");
+	mx_strcpy(*minor, "0x");
 	hex = mx_nbr_to_hex(MX_MINOR(file_st->buf.st_rdev));
 	for (int y = 0; y < 8 - mx_strlen(hex); y++) {
 		tmp = mx_strjoin(*minor, "0");
-		free (*minor);
+		free(*minor);
 		*minor = mx_strdup(tmp);
-		free (tmp);
+		free(tmp);
 	}
-	*minor = mx_strjoin(*minor, hex);
-	mx_strdel(&hex);
+	*minor = mx_strjoin_no_leaks(*minor, hex);
 }
 
 static char* minor_lol(t_file *file_st) {

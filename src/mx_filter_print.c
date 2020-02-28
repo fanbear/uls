@@ -12,13 +12,17 @@ static void uls_print(t_args *args, t_dirs *dirs) {
 }
 
 void mx_filter_print(t_args *args, t_dirs *dirs) {
-    if (args->fl[4] || args->fl[5] || args->fl[11]) {
-        mx_print_ls_l(args, dirs);
-    }
-    else if (args->fl[6]) {
-        mx_print_dirs_m(args, dirs, ", ");
-    }
-    else {
-        uls_print(args, dirs);
+    if (!mx_check_on_access(0, dirs->dir, args)) {
+        if (dirs->entry_dir) {
+            if (args->fl[4] || args->fl[5] || args->fl[11]) {
+                mx_print_ls_l(args, dirs);
+            }
+            else if (args->fl[6]) {
+                mx_print_dirs_m(args, dirs, ", ");
+            }
+            else {
+                uls_print(args, dirs);
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@ static char **data_to_arr(t_args *args, char *dir_name) {
 }
 
 t_dirs *mx_data_to_dirs_struct(t_args *args, char *dir_name) {
-	t_dirs *temp = malloc(sizeof (t_dirs));
+	t_dirs *temp = malloc(sizeof(t_dirs));
 	char **data = data_to_arr(args, dir_name);
 	int i = 0;
 
@@ -47,8 +47,9 @@ t_dirs *mx_data_to_dirs_struct(t_args *args, char *dir_name) {
 		for (; data[i]; i++)
 			temp->entry_dir = mx_add_dirs_entry(args, temp->entry_dir,
 												data[i], dir_name);
-		if (args->fl[4] || args->fl[5] || args->fl[11])
+		if (args->fl[4] || args->fl[5] || args->fl[11]) {
 			mx_get_max_value_in_dirs(temp);
+		}
 		mx_del_str_arr(data);
 	}
 	temp->dir = mx_strdup(dir_name);

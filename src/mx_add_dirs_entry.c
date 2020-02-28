@@ -10,6 +10,10 @@ static t_dirs_entry *mx_pushing_data(t_args *args, char *data, char *dir) {
     tmp = mx_strjoin(res, temp->d_name);
     temp->stat = (args->fl[1] || args->fl[4] || args->fl[5]
                   || args->fl[11]) ? mx_get_stat(args, tmp) : NULL;
+    if (temp->stat)
+        if (temp->stat->permiss[0] == 'b'
+            || temp->stat->permiss[0] == 'c')
+            args->h = 0;            
     mx_strdel(&res);
     mx_strdel(&tmp);
     temp->next = NULL;

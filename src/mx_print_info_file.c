@@ -21,23 +21,23 @@ static void g_or_l(t_files *files, t_args *args) {
     }
 }
 
-void mx_print_info_file(t_args *args, t_files *files) {
-    mx_printstr(files->entry_file->stat->permiss);
+void mx_print_info_file(t_args *args, t_files *files, t_file_entry *entry_file) {
+    mx_printstr(entry_file->stat->permiss);
     mx_printchar(' ');
-    mx_print_space_file(files->max_link, files->entry_file->stat->nlink);
-    mx_printstr(files->entry_file->stat->nlink);
+    mx_print_space_file(files->max_link, entry_file->stat->nlink);
+    mx_printstr(entry_file->stat->nlink);
     mx_printchar(' ');
     g_or_l(files, args);
-    if (files->entry_file->stat->permiss[0] == 'b'
-       || files->entry_file->stat->permiss[0] == 'c')
-        mx_printstr(files->entry_file->stat->rdev);
+    if (entry_file->stat->permiss[0] == 'b'
+       || entry_file->stat->permiss[0] == 'c')
+        mx_printstr(entry_file->stat->rdev);
     else {
-        if (args->fl[12])
-            mx_size_h(files->entry_file->stat->file_size);
+        if (args->h)
+            mx_size_h(entry_file->stat->file_size);
         else {
             mx_print_space_file(files->max_size,
-                files->entry_file->stat->file_size);
-            mx_printstr(files->entry_file->stat->file_size);
+                entry_file->stat->file_size);
+            mx_printstr(entry_file->stat->file_size);
         }
     }
 }

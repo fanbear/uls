@@ -40,7 +40,7 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
     if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c')
     	mx_printstr(temp->stat->rdev);
     else {
-        if (args->fl[12]) {
+        if (args->h) {
             mx_size_h(temp->stat->file_size);
         }
         else {

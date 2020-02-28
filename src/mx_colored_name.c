@@ -2,14 +2,10 @@
 
 static t_file *get_stat(t_args *args, char *data, char *path) {
     t_file *stat = NULL;
+    char *temp_path = (path) ? mx_create_path(path, data) : mx_strdup(data);
 
-    if (path) {
-        path = mx_strjoin(path, "/");
-        data = mx_strjoin(path, data);
-    }
-    stat = mx_get_stat(args, data);
-    mx_strdel(&path);
-    mx_strdel(&data);
+    stat = mx_get_stat(args, temp_path);
+    mx_strdel(&temp_path);
     return stat;
 }
 
