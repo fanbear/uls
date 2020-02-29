@@ -40,9 +40,8 @@ static void print_info(t_dirs_entry *temp, t_dirs *dirs, t_args *args) {
     if (temp->stat->permiss[0] == 'b' || temp->stat->permiss[0] == 'c')
     	mx_printstr(temp->stat->rdev);
     else {
-        if (args->h) {
+        if (args->h)
             mx_size_h(temp->stat->file_size);
-        }
         else {
             print_space(dirs->max_size, temp->stat->file_size);
             mx_printstr(temp->stat->file_size);
@@ -68,5 +67,8 @@ void mx_print_dirs_ls(t_dirs *dirs, t_args *args) {
 		}
 		mx_printchar('\n');
         temp = temp->next;
+    }
+    if (args->fl[12]){
+        args->h = 1;
     }
 }

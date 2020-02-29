@@ -66,5 +66,8 @@ void mx_print_file_ls(t_args *args) {
     	mx_printchar('\n');
     	temp_entry = temp_entry->next;
 	}
+    if (args->fl[12]){
+        args->h = 1;
+    }
     mx_del_files_struct(files);
 }

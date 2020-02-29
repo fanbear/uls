@@ -68,8 +68,10 @@ static void sort_flags(t_args *args, char *flags) {
 			args->fl[2] = 1;
         if (flags[i] == 'T')
             args->fl[10] = 1;
-        if (flags[i] == 'h')
+        if (flags[i] == 'h') {
             args->fl[12] = 1;
+            args->h = 1;
+        }
 	}
 	if (index != -1)
 		args->fl[mx_get_char_index(MX_LEGAL, flags[index])] = 1;

@@ -9,6 +9,5 @@ int main(int argc, char **argv) {
 	mx_open_dirs(args);
 	error = args->error;
 	mx_del_args_struct(args, NOT_VALID);
-	// system("leaks uls");
 	exit(error);
 }
