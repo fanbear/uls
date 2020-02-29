@@ -21,7 +21,7 @@ static void g_or_l(t_files *files, t_args *args) {
     }
 }
 
-void mx_print_info_file(t_args *args, t_files *files, t_file_entry *entry_file) {
+void mx_print_info_f(t_args *args, t_files *files, t_file_entry *entry_file) {
     mx_printstr(entry_file->stat->permiss);
     mx_printchar(' ');
     mx_print_space_file(files->max_link, entry_file->stat->nlink);
